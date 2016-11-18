@@ -49,6 +49,10 @@
                     mostrarMensaje("Datos erroneos favor verifique.", "alert-danger");
                 }
             });
+        }
+        
+        function irMenu() {
+            window.location.href = "<?php echo base_url("index.php/menu_principal"); ?>";
         }        
     </script>
     

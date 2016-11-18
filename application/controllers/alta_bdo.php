@@ -38,7 +38,7 @@ class alta_bdo extends CI_Controller {
         //cargo el post en variables
         $data = array(
             "numero"               => $this->input->post('numero'),
-            "id_aerolinea"            => $this->input->post('aerolinea'),
+            "id_aerolinea"         => $this->input->post('aerolinea'),
             "fecha_llegada"        => $this->input->post('fecha_llegada'),
             "nombre_pasajero"      => $this->input->post('nombre_pasajero'),
             "cantidad_maletas"     => $this->input->post('cantidad_maletas'),

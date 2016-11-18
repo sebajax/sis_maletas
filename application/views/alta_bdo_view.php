@@ -218,7 +218,11 @@
             }).done(function(data) {
                 $("#valor").val(data);
             });            
-        }         
+        } 
+        
+        function irMenu() {
+            window.location.href = "<?php echo base_url("index.php/menu_principal"); ?>";
+        }        
     </script>
     
 </head>
@@ -397,6 +401,7 @@
             <div class="col-sm-offset-4 col-lg-8 col-sm-8 text-left">
                 <input id="btn_insertar" name="btn_insertar" type="button" class="btn btn-primary" value="Alta B.D.O" onclick="altaBDO();" />
                 <input id="btn_cancelar" name="btn_cancelar" type="reset" class="btn btn-danger" value="Cancelar" />
+                <input id="btn_volver" name="btn_volver" type="button" class="btn btn-primary" value="Volver" onclick="irMenu();" />
             </div>
             </div>
         </fieldset>

@@ -54,4 +54,4 @@ function isValidDate(s) {
 
 function isNumber(n) {
     return !isNaN(parseFloat(n)) && isFinite(n);
-}  
+}
