@@ -221,7 +221,7 @@
         } 
         
         function irMenu() {
-            window.location.href = "<?php echo base_url("index.php/menu_principal"); ?>";
+            window.location.href = "<?php echo base_url("index.php/menu_bdo"); ?>";
         }        
     </script>
     

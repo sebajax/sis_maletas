@@ -21,21 +21,18 @@
     </style>
     
     <script type="text/javascript">
-        function irAltaBdo() {
-            window.location.href = "<?php echo base_url("index.php/alta_bdo"); ?>";
+        function irMenuBdo() {
+            window.location.href = "<?php echo base_url("index.php/menu_bdo"); ?>";
         }
-        function irAltaAerolinea() {
-            window.location.href = "<?php echo base_url("index.php/alta_aerolinea"); ?>";
+        function irMenuAerolinea() {
+            window.location.href = "<?php echo base_url("index.php/menu_aerolinea"); ?>";
         }
-        function irAltaSector() {
-            window.location.href = "<?php echo base_url("index.php/alta_sector"); ?>";
+        function irMenuSector() {
+            window.location.href = "<?php echo base_url("index.php/menu_sector"); ?>";
         }
-        function irAltaValor() {
-            window.location.href = "<?php echo base_url("index.php/alta_valores"); ?>";
+        function irMenuValor() {
+            window.location.href = "<?php echo base_url("index.php/menu_valor"); ?>";
         }      
-        function irCierreCaso() {
-            window.location.href = "<?php echo base_url("index.php/cierre_caso"); ?>";
-        }        
     </script>    
     
 </head>
@@ -51,15 +48,13 @@
         
         <fieldset>
             <div class="form-group">
-                <button type="button" class="btn btn-primary btn-lg btn-block" onclick="irAltaBdo();">INGRESAR B.D.O</button>
+                <button type="button" class="btn btn-primary btn-lg btn-block" onclick="irMenuBdo();">MENU B.D.O</button>
                 <div class="row top-buffer"></div>
-                <button type="button" class="btn btn-primary btn-lg btn-block" onclick="irAltaSector();">INGRESAR SECTORES</button>
+                <button type="button" class="btn btn-primary btn-lg btn-block" onclick="irMenuSector();">MENU SECTOR</button>
                 <div class="row top-buffer"></div>
-                <button type="button" class="btn btn-primary btn-lg btn-block" onclick="irAltaAerolinea();">INGRESAR AEROLINEAS</button>
+                <button type="button" class="btn btn-primary btn-lg btn-block" onclick="irMenuAerolinea();">MENU AEROLINEA</button>
                 <div class="row top-buffer"></div>
-                <button type="button" class="btn btn-primary btn-lg btn-block" onclick="irAltaValor();">INGRESAR VALORES</button>
-                <div class="row top-buffer"></div>
-                <button type="button" class="btn btn-primary btn-lg btn-block" onclick="irCierreCaso();">CIERRE CASO</button>
+                <button type="button" class="btn btn-primary btn-lg btn-block" onclick="irMenuValor();">MENU VALOR</button>
                 <div class="row top-buffer"></div>
                 <button type="button" class="btn btn-danger btn-lg btn-block" onclick="">CERRAR SESION</button>
             </div>
