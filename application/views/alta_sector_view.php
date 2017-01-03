@@ -99,7 +99,7 @@
                         <label for="lugar" class="control-label">Lugar</label>
                     </div>
                     <div class="col-lg-8 col-sm-8">
-                        <input id="lugar" name="nombre_pasajero" placeholder="nombre del lugar" type="text" class="form-control" />
+                        <input id="lugar" name="lugar" placeholder="nombre del lugar" type="text" class="form-control" />
                         <span id='lugar_error' class="text-danger"></span>
                     </div>
                 </div>

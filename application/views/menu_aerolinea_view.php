@@ -25,7 +25,7 @@
             window.location.href = "<?php echo base_url("index.php/alta_aerolinea"); ?>";
         }
         function irConsultarEliminarAerolineas() {
-            window.location.href = "<?php echo base_url("index.php/consultar_eliminar_aerolineas"); ?>";
+            window.location.href = "<?php echo base_url("index.php/eliminar_modificar_aerolinea"); ?>";
         }
         function irMenuPrincipal() {
             window.location.href = "<?php echo base_url("index.php/menu_principal"); ?>";

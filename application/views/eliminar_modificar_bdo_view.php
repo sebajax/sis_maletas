@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Consulta B.D.O</title>
+    <title>Eliminar Modificar B.D.O</title>
     <!-- link jquery ui css-->
     <link href="<?php echo base_url('assets/jquery-ui/jquery-ui.min.css'); ?>" rel="stylesheet" type="text/css" />
     <!--link the bootstrap css file-->
@@ -86,7 +86,7 @@
             
             $.ajax({
                 method: "POST",
-                url: "<?php echo base_url("index.php/consulta_bdo/buscarBdo"); ?>",
+                url: "<?php echo base_url("index.php/eliminar_modificar_bdo/buscarBdo"); ?>",
                 data: { aerolinea: aerolinea, numero: numero, pasajero: pasajero, fecha_desde: fecha_desde, fecha_hasta: fecha_hasta, grupo_sector: grupo_sector }
             }).done(function(data) {
                 $("#cuerpo").html(data);
@@ -97,13 +97,37 @@
             $("#informacion_extra_bdo").html("");
             $.ajax({
                 method: "POST",
-                url: "<?php echo base_url("index.php/consulta_bdo/cargoInformacionExtra"); ?>",
+                url: "<?php echo base_url("index.php/eliminar_modificar_bdo/cargoInformacionExtra"); ?>",
                 data: { numero: numero, id_aerolinea: id_aerolinea }
             }).done(function(data) {
                 $("#informacion_extra_bdo").html(data);
-                $('#informacion_bdo').modal('show');
+                $('#informacion_bdo').modal('show')
             });
         }
+        
+        function modificarBdo(numero, id_aerolinea) {
+            $("#modificar_bdo_form").html("");
+            $.ajax({
+                method: "POST",
+                url: "<?php echo base_url("index.php/eliminar_modificar_bdo/modificarBdo"); ?>",
+                data: { numero: numero, id_aerolinea: id_aerolinea }
+            }).done(function(data) {
+                $("#modificar_bdo_form").html(data);
+                $('#modificar_bdo_form').modal('show')
+            });
+        }
+        
+        function eliminarBdo(numero, id_aerolinea) {
+            $("#modifica").html("");
+            $.ajax({
+                method: "POST",
+                url: "<?php echo base_url("index.php/eliminar_modificar_bdo/cargoInformacionExtra"); ?>",
+                data: { numero: numero, id_aerolinea: id_aerolinea }
+            }).done(function(data) {
+                $("#informacion_extra_bdo").html(data);
+                $('#informacion_bdo').modal('show')
+            });
+        }        
         
         function irMenu() {
             window.location.href = "<?php echo base_url("index.php/menu_bdo"); ?>";
@@ -114,7 +138,7 @@
 <body>
 <div class="container">
     <div class="row">
-        <legend>Consulta B.D.O</legend>
+        <legend>Eliminar Modificar B.D.O</legend>
         <form class="form-inline">
           <div class="form-group">
             <label for="aerolinea">Aerolinea</label>
@@ -171,6 +195,8 @@
               <th>Estado</th>
               <th>Fecha</th>
               <th>Info</th>
+              <th>Modif</th>
+              <th>Eliminar</th>
             </tr>
           </thead>
           <tbody id="cuerpo">
@@ -182,19 +208,41 @@
 
 <!-- Modal informacion b.d.o -->
 <div id="informacion_bdo" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">INFORMACION EXTRA B.D.O</h4>
-            </div>
-            <div class="modal-body" id="informacion_extra_bdo"></div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-            </div>
-        </div>
-    </div>
+ <div class="modal-dialog">
+
+   <!-- Modal content-->
+   <div class="modal-content">
+     <div class="modal-header">
+       <button type="button" class="close" data-dismiss="modal">&times;</button>
+       <h4 class="modal-title">INFORMACION EXTRA B.D.O</h4>
+     </div>
+     <div class="modal-body" id="informacion_extra_bdo">
+     </div>
+     <div class="modal-footer">
+       <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+     </div>
+   </div>
+ </div>
 </div>
+
+<!-- Modal modificar b.d.o -->
+<div id="modificar_bdo" class="modal fade" role="dialog">
+ <div class="modal-dialog">
+
+   <!-- Modal content-->
+   <div class="modal-content">
+     <div class="modal-header">
+       <button type="button" class="close" data-dismiss="modal">&times;</button>
+       <h4 class="modal-title">Modificar B.D.O</h4>
+     </div>
+     <div class="modal-body" id="modificar_bdo_form">
+     </div>
+     <div class="modal-footer">
+       <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+     </div>
+   </div>
+ </div>
+</div>
+
 </body>
 </html>

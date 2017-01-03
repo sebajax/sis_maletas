@@ -31,7 +31,7 @@
             window.location.href = "<?php echo base_url("index.php/consulta_bdo"); ?>";
         }        
         function irEliminarBdo() {
-            window.location.href = "<?php echo base_url("index.php/eliminar_bdo"); ?>";
+            window.location.href = "<?php echo base_url("index.php/eliminar_modificar_bdo"); ?>";
         }        
         function irMenuPrincipal() {
             window.location.href = "<?php echo base_url("index.php/menu_principal"); ?>";
@@ -55,7 +55,7 @@
                 <div class="row top-buffer"></div>
                 <button type="button" class="btn btn-primary btn-lg btn-block" onclick="irCierreCaso();">CIERRE CASO</button>
                 <div class="row top-buffer"></div>
-                <button type="button" class="btn btn-primary btn-lg btn-block" onclick="irConsultaBdo();">CONSULTAS B.D.O (pendiente)</button>
+                <button type="button" class="btn btn-primary btn-lg btn-block" onclick="irConsultaBdo();">CONSULTAS B.D.O</button>
                 <div class="row top-buffer"></div>
                 <button type="button" class="btn btn-primary btn-lg btn-block" onclick="irEliminarBdo();">ELIMINAR B.D.O (pendiente)</button>
                 <div class="row top-buffer"></div>

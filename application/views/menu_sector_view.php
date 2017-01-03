@@ -25,7 +25,7 @@
             window.location.href = "<?php echo base_url("index.php/alta_sector"); ?>";
         }
         function irConsultarEliminarSectores() {
-            window.location.href = "<?php echo base_url("index.php/consultar_eliminar_sectores"); ?>";
+            window.location.href = "<?php echo base_url("index.php/eliminar_modificar_sector"); ?>";
         }
         function irMenuPrincipal() {
             window.location.href = "<?php echo base_url("index.php/menu_principal"); ?>";

@@ -1,14 +1,14 @@
 <?php
 /**
- * Description of consulta_bdo
+ * Description of eliminar_modificar_bdo
  *
  * @author Sebas
  */
-class consulta_bdo extends CI_Controller {
+class eliminar_modificar_bdo extends CI_Controller {
     
     function __construct() {
         parent::__construct();
-        $this->load->model(array('consulta_bdo_model', 'alta_valores_model'));
+        $this->load->model(array('eliminar_modificar_bdo_model', 'alta_valores_model'));
         $this->load->library('validation');
     }
     
@@ -16,7 +16,7 @@ class consulta_bdo extends CI_Controller {
         $data = array();
         $data['aerolinea'] = $this->cargoAerolinea();
         $data['grupo_sector'] = $this->cargoSector();
-        $this->load->view('consulta_bdo_view', $data);
+        $this->load->view('eliminar_modificar_bdo_view', $data);
     }  
     
     private function cargoAerolinea() {
@@ -39,7 +39,7 @@ class consulta_bdo extends CI_Controller {
         $fecha_hasta = $this->input->post('fecha_hasta');
         $id_sector = $this->input->post('grupo_sector');
         
-        $result = $this->consulta_bdo_model->buscarBdo($numero, $id_aerolinea, $nombre_pasajero, $fecha_desde, $fecha_hasta, $id_sector);
+        $result = $this->eliminar_modificar_bdo_model->buscarBdo($numero, $id_aerolinea, $nombre_pasajero, $fecha_desde, $fecha_hasta, $id_sector);
         $tbody = '';
         foreach ($result as $key => $row) {
             if($row->estado == 1) {
@@ -66,6 +66,16 @@ class consulta_bdo extends CI_Controller {
                         <span class='glyphicon glyphicon-search' aria-hidden='true' onclick='cargoInformacionExtra(".$aux_numero.", ".$aux_id_aerolinea.")'></span>
                     </button>   
                   </td>
+                  <td>
+                    <button type='button' class='btn btn-default btn-md'>
+                        <span class='glyphicon glyphicon-pencil' aria-hidden='true' onclick='modificarBdo(".$aux_numero.", ".$aux_id_aerolinea.")'></span>
+                    </button>   
+                  </td>
+                  <td>
+                    <button type='button' class='btn btn-default btn-md'>
+                        <span class='glyphicon glyphicon-trash' aria-hidden='true' onclick='eliminarBdo(".$aux_numero.", ".$aux_id_aerolinea.")'></span>
+                    </button>   
+                  </td>                    
                 </tr>";
         }
         echo $tbody;
@@ -75,7 +85,7 @@ class consulta_bdo extends CI_Controller {
         $numero       = $this->input->post('numero');
         $id_aerolinea = $this->input->post('aerolinea');
 
-        $result = $this->consulta_bdo_model->cargoInformacionExtra($numero, $id_aerolinea);
+        $result = $this->eliminar_modificar_bdo_model->cargoInformacionExtra($numero, $id_aerolinea);
         
         $table = '<table class="table table-hover">
                     <tbody>
@@ -120,5 +130,14 @@ class consulta_bdo extends CI_Controller {
         
         echo $table;
     } 
+    
+    public function modificarBdo() {
+        $numero       = $this->input->post('numero');
+        $id_aerolinea = $this->input->post('aerolinea');
+
+        $result = $this->eliminar_modificar_bdo_model->cargoInformacionExtra($numero, $id_aerolinea);
+
+        
+    }
     
 }

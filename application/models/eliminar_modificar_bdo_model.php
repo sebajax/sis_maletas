@@ -1,10 +1,10 @@
 <?php
 /**
- * Description of consulta_bdo_model
+ * Description of eliminar_modificar_bdo_model
  *
  * @author Sebas
  */
-class consulta_bdo_model extends CI_Model {
+class eliminar_modificar_bdo_model extends CI_Model {
     
     function __construct() {
         parent::__construct();
@@ -13,6 +13,8 @@ class consulta_bdo_model extends CI_Model {
 
     public function buscarBdo($numero, $id_aerolinea, $nombre_pasajero, $fecha_desde, $fecha_hasta, $id_sector) {
         $where = array();
+        
+        $where['estado'] = 0;
         
         if(!empty($numero)) {
             $where['bdo.numero'] = $numero;
