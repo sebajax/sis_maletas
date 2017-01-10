@@ -8,12 +8,12 @@
     <link href="<?php echo base_url('assets/jquery-ui/jquery-ui.min.css'); ?>" rel="stylesheet" type="text/css" />
     <!--link the bootstrap css file-->
     <link href="<?php echo base_url("assets/bootstrap/css/bootstrap.css"); ?>" rel="stylesheet" type="text/css" />
+    <!--load functions js file-->
+    <script src="<?php echo base_url('assets/js/functions.js'); ?>"></script>   
     <!--include jquery library-->
     <script src="<?php echo base_url('assets/js/jquery.min.js'); ?>"></script>
     <!--include bootstrap library-->
     <script src="<?php echo base_url("assets/bootstrap/js/bootstrap.min.js"); ?>"</script>
-    <!--load functions js file-->
-    <script src="<?php echo base_url('assets/js/functions.js'); ?>"></script>     
     <!--load jquery ui js file-->
     <script src="<?php echo base_url('assets/jquery-ui/jquery-ui.min.js'); ?>"></script>    
     
@@ -29,29 +29,7 @@
     </style>
     
     <script type="text/javascript">
-        //Tipos de alertas -- "alert-error","alert-success","alert-info","alert-warning"
-        function mostrarMensaje(message, alerttype) {
-            var type = "";
-            switch(alerttype) {
-                case "alert-danger":
-                    type = "Error:";
-                    break;
-                case "alert-success":
-                    type = "Satisfactorio:";
-                    break;
-                case "alert-info":
-                    type = "Info:";
-                    break;
-                case "alert-warning":
-                    type = "Cuidado:";
-                    break; 
-            }
-            $('#alert_placeholder').html('<div id="alertdiv" class="alert ' + alerttype + '" role="alert"><a class="close" data-dismiss="alert">×</a><span><strong>'+type+'</strong> '+message+'</span></div>');
-            setTimeout(function() { // se cierra automaticamente en 5 segundos
-                $("#alertdiv").remove();
-            }, 5000);
-        }
-        
+
         function buscarSector() {
             var lugar        = $("#lugar").val();
             var grupo_sector = $("#grupo_sector").val();

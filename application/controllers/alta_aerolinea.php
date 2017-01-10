@@ -33,4 +33,10 @@ class alta_aerolinea extends CI_Controller {
             return false;
         }
     }
+    
+    function modificarAerolinea($id_aerolinea) {
+        log_message("debug", $id_aerolinea);
+        $data["nombre_aerolinea"] = "MOMIA VUELA";
+        print $this->load->view('alta_aerolinea_view', $data, true);
+    } 
 }
