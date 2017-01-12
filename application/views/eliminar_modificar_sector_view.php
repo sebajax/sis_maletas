@@ -43,29 +43,56 @@
             });
         }
         
-        function modificarSector(numero, id_aerolinea) {
-            $("#modificar_bdo_form").html("");
+        function modificarSectorForm(id_sector) {
+            $("#modificar_sector_form").html("");
             $.ajax({
                 method: "POST",
-                url: "<?php echo base_url("index.php/eliminar_modificar_bdo/modificarBdo"); ?>",
-                data: { numero: numero, id_aerolinea: id_aerolinea }
+                url: "<?php echo base_url("index.php/eliminar_modificar_sector/modificarSectorForm"); ?>",
+                data: { id_sector: id_sector }
             }).done(function(data) {
-                $("#modificar_bdo_form").html(data);
-                $('#modificar_bdo_form').modal('show')
+                $("#modificar_sector_form").html(data);
+                $('#modificar_sector').modal('show');
             });
         }
         
-        function eliminarSector(numero, id_aerolinea) {
-            $("#modifica").html("");
+        function modificarSector(id_sector) {
+        
+            var grupo_sector_new = $("#grupo_sector_new").val();
+            var lugar_new        = $("#lugar_new").val();
+            
             $.ajax({
                 method: "POST",
-                url: "<?php echo base_url("index.php/eliminar_modificar_bdo/cargoInformacionExtra"); ?>",
-                data: { numero: numero, id_aerolinea: id_aerolinea }
+                url: "<?php echo base_url("index.php/eliminar_modificar_sector/modificarSector"); ?>",
+                data: { id_sector: id_sector, grupo_sector_new: grupo_sector_new, lugar_new: lugar_new }
             }).done(function(data) {
-                $("#informacion_extra_bdo").html(data);
-                $('#informacion_bdo').modal('show')
-            });
-        }        
+                if(data == "OK") {
+                    mostrarMensaje("CORRECTO: el sector fue modificado correctamente", "alert-success");
+                    buscarSector();
+                }else {
+                    mostrarMensaje("ERROR: no se pudo modificar el sector.", "alert-danger");
+                }
+            });            
+        }
+        
+        function cancelarModificarSector() {
+            $('#modificar_sector').modal('toggle');
+        }
+        
+        function eliminarSector(id_sector) {
+            $.ajax({
+                method: "POST",
+                dataType: "json",
+                url: "<?php echo base_url("index.php/eliminar_modificar_sector/eliminarSector"); ?>",
+                data: { id_sector: id_sector }
+            }).done(function(data) {
+                if(data['estado'] == "1") {
+                    mostrarMensaje(data['mensaje'], "alert-success");
+                    buscarSector();
+                }else {
+                    mostrarMensaje(data['mensaje'], "alert-danger");
+                }
+            });            
+        }            
         
         function irMenu() {
             window.location.href = "<?php echo base_url("index.php/menu_sector"); ?>";
@@ -117,23 +144,21 @@
     </div>
 </div>
 
-<!-- Modal modificar sector -->
-<div id="modificar_bdo" class="modal fade" role="dialog">
- <div class="modal-dialog">
-
-   <!-- Modal content-->
-   <div class="modal-content">
-     <div class="modal-header">
-       <button type="button" class="close" data-dismiss="modal">&times;</button>
-       <h4 class="modal-title">Modificar Sector</h4>
-     </div>
-     <div class="modal-body" id="modificar_bdo_form">
-     </div>
-     <div class="modal-footer">
-       <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-     </div>
-   </div>
- </div>
+<!-- Modal modificar aerolinea -->
+<div id="modificar_sector" class="modal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">MODIFICAR SECTOR</h4>
+            </div>
+            <div class="modal-body" id="modificar_sector_form"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 </body>

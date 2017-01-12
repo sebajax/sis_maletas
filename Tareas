@@ -1,0 +1,18 @@
+##########
+PENDIENTES
+##########
+
+-Login de usuario.
+-Control de modulos con login de usuario.
+-Eliminar y modificar BDO.
+-Generar logs en base de datos para BDO.
+-Implentar navegacion de aplicacion. 
+-Al apretar para borrar registros, preguntar si realmente desea eliminar el registro. 
+-Corregir config para no usar index.php
+
+###########
+FINALIZADAS
+###########
+ 
+-Modificar Valores.
+-Modificar Sectores.

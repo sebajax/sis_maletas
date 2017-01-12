@@ -44,29 +44,54 @@
             });
         }
         
-        function modificarValor(numero, id_aerolinea) {
-            $("#modificar_bdo_form").html("");
+        function modificarValorForm(id_aerolinea, id_sector) {
+            $("#modificar_valor_form").html("");
             $.ajax({
                 method: "POST",
-                url: "<?php echo base_url("index.php/eliminar_modificar_valor/modificarBdo"); ?>",
-                data: { numero: numero, id_aerolinea: id_aerolinea }
+                url: "<?php echo base_url("index.php/eliminar_modificar_valor/modificarValorForm"); ?>",
+                data: { id_aerolinea: id_aerolinea, id_sector: id_sector }
             }).done(function(data) {
-                $("#modificar_bdo_form").html(data);
-                $('#modificar_bdo_form').modal('show')
+                $("#modificar_valor_form").html(data);
+                $('#modificar_valor').modal('show');
             });
         }
         
-        function eliminarValor(numero, id_aerolinea) {
-            $("#modifica").html("");
+        function modificarValor(id_aerolinea, id_sector) {
+            var valor_new = $("#valor_new").val();
+            
             $.ajax({
                 method: "POST",
-                url: "<?php echo base_url("index.php/eliminar_modificar_valor/cargoInformacionExtra"); ?>",
-                data: { numero: numero, id_aerolinea: id_aerolinea }
+                url: "<?php echo base_url("index.php/eliminar_modificar_valor/modificarValor"); ?>",
+                data: { id_aerolinea: id_aerolinea, id_sector: id_sector, valor_new: valor_new }
             }).done(function(data) {
-                $("#informacion_extra_bdo").html(data);
-                $('#informacion_bdo').modal('show')
-            });
-        }        
+                if(data == "OK") {
+                    mostrarMensaje("CORRECTO: el valor fue modificado correctamente.", "alert-success");
+                    buscarValor();
+                }else {
+                    mostrarMensaje("ERROR: no se pudo modificar el valor.", "alert-danger");
+                }
+            });            
+        }
+        
+        function cancelarModificarValor() {
+            $('#modificar_valor').modal('toggle');
+        }
+        
+        function eliminarValor(id_aerolinea, id_sector) {
+            $.ajax({
+                method: "POST",
+                dataType: "json",
+                url: "<?php echo base_url("index.php/eliminar_modificar_valor/eliminarValor"); ?>",
+                data: { id_aerolinea: id_aerolinea, id_sector: id_sector }
+            }).done(function(data) {
+                if(data['estado'] == "1") {
+                    mostrarMensaje(data['mensaje'], "alert-success");
+                    buscarValor();
+                }else {
+                    mostrarMensaje(data['mensaje'], "alert-danger");
+                }
+            });            
+        }       
         
         function irMenu() {
             window.location.href = "<?php echo base_url("index.php/menu_valor"); ?>";
@@ -125,24 +150,23 @@
     </div>
 </div>
 
-<!-- Modal modificar valores -->
-<div id="modificar_bdo" class="modal fade" role="dialog">
- <div class="modal-dialog">
-
-   <!-- Modal content-->
-   <div class="modal-content">
-     <div class="modal-header">
-       <button type="button" class="close" data-dismiss="modal">&times;</button>
-       <h4 class="modal-title">Modificar Valores</h4>
-     </div>
-     <div class="modal-body" id="modificar_bdo_form">
-     </div>
-     <div class="modal-footer">
-       <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-     </div>
-   </div>
- </div>
+<!-- Modal modificar aerolinea -->
+<div id="modificar_valor" class="modal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">MODIFICAR VALOR</h4>
+            </div>
+            <div class="modal-body" id="modificar_valor_form"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
 </div>
+
 
 </body>
 </html>

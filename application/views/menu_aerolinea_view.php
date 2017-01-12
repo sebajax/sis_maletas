@@ -47,7 +47,7 @@
             <div class="form-group">
                 <button type="button" class="btn btn-primary btn-lg btn-block" onclick="irAltaAerolineas();">INGRESAR AEROLINEAS</button>
                 <div class="row top-buffer"></div>
-                <button type="button" class="btn btn-primary btn-lg btn-block" onclick="irConsultarEliminarAerolineas();">CONSULTAR Y ELIMINAR AEROLINEAS (pendiente)</button>
+                <button type="button" class="btn btn-primary btn-lg btn-block" onclick="irConsultarEliminarAerolineas();">CONSULTAR Y ELIMINAR AEROLINEAS</button>
                 <div class="row top-buffer"></div>
                 <button type="button" class="btn btn-danger btn-lg btn-block" onclick="irMenuPrincipal();">VOLVER A MENU PRINCIPAL</button>
             </div>

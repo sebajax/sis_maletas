@@ -47,7 +47,7 @@
             <div class="form-group">
                 <button type="button" class="btn btn-primary btn-lg btn-block" onclick="irAltaSectores();">INGRESAR SECTORES</button>
                 <div class="row top-buffer"></div>
-                <button type="button" class="btn btn-primary btn-lg btn-block" onclick="irConsultarEliminarSectores();">CONSULTAR Y ELIMINAR SECTORES (pendiente)</button>
+                <button type="button" class="btn btn-primary btn-lg btn-block" onclick="irConsultarEliminarSectores();">CONSULTAR Y ELIMINAR SECTORES</button>
                 <div class="row top-buffer"></div>
                 <button type="button" class="btn btn-danger btn-lg btn-block" onclick="irMenuPrincipal();">VOLVER A MENU PRINCIPAL</button>
             </div>

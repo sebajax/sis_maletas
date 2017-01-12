@@ -47,7 +47,7 @@
             <div class="form-group">
                 <button type="button" class="btn btn-primary btn-lg btn-block" onclick="irAltaValores();">INGRESAR VALORES</button>
                 <div class="row top-buffer"></div>
-                <button type="button" class="btn btn-primary btn-lg btn-block" onclick="irConsultarEliminarValores();">CONSULTAR Y ELIMINAR VALORES (pendiente)</button>
+                <button type="button" class="btn btn-primary btn-lg btn-block" onclick="irConsultarEliminarValores();">CONSULTAR Y ELIMINAR VALORES</button>
                 <div class="row top-buffer"></div>
                 <button type="button" class="btn btn-danger btn-lg btn-block" onclick="irMenuPrincipal();">VOLVER A MENU PRINCIPAL</button>
             </div>
