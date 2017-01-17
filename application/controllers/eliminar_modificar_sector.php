@@ -10,22 +10,15 @@ class eliminar_modificar_sector extends CI_Controller {
         parent::__construct();
         $this->load->model('eliminar_modificar_sector_model');
         $this->load->library('validation');
+        $this->load->helper(array('sectores_helper'));
     }
     
     function index() {
         $data = array();
-        $data['grupo_sector'] = $this->cargoSector();
+        $data['grupo_sector'] = cargoSector();
         $this->load->view('eliminar_modificar_sector_view', $data);
     }  
-    
-    private function cargoSector() {
-        $sector = array('-SELECCIONE-');
-        for($i=0; $i < 12; $i++) {
-            array_push($sector, ($i+1));
-        }
-        return $sector;
-    }    
-    
+   
     public function buscarSector() {
         $grupo_sector = $this->input->post('grupo_sector');
         $lugar        = $this->input->post('lugar');
@@ -56,7 +49,7 @@ class eliminar_modificar_sector extends CI_Controller {
 
     public function modificarSectorForm() {
         $id_sector = $this->input->post('id_sector');
-        $grupo_sector = $this->cargoSector();
+        $grupo_sector = cargoSector();
         $row = $this->eliminar_modificar_sector_model->obtengoInformacionSector($id_sector);
         $attributes = 'class = "form-control" id = "grupo_sector_new"';
         $html = '

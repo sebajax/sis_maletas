@@ -4,65 +4,42 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Eliminar Modificar Valores</title>
-    <!-- link jquery ui css-->
-    <link href="<?php echo base_url('assets/jquery-ui/jquery-ui.min.css'); ?>" rel="stylesheet" type="text/css" />
-    <!--link the bootstrap css file-->
-    <link href="<?php echo base_url("assets/bootstrap/css/bootstrap.css"); ?>" rel="stylesheet" type="text/css" />
-    <!--load functions js file-->
-    <script src="<?php echo base_url('assets/js/functions.js'); ?>"></script>   
-    <!--include jquery library-->
-    <script src="<?php echo base_url('assets/js/jquery.min.js'); ?>"></script>
-    <!--include bootstrap library-->
-    <script src="<?php echo base_url("assets/bootstrap/js/bootstrap.min.js"); ?>"</script>
-    <!--load jquery ui js file-->
-    <script src="<?php echo base_url('assets/jquery-ui/jquery-ui.min.js'); ?>"></script>    
-    
-    <style type="text/css">
-        .colbox {
-            margin-left: 0px;
-            margin-right: 0px;
-        }
-        .noresize {
-            resize: none; 
-        } 
-        .top-buffer { margin-top:10px; }
-    </style>
+    <?php require_once "assets/header/header.php"; ?>
     
     <script type="text/javascript">
        
         function buscarValor() {
             var aerolinea    = $("#aerolinea").val();
             var grupo_sector = $("#grupo_sector").val();
-            var lugar        = $("#lugar").val();
             
             $.ajax({
                 method: "POST",
                 url: "<?php echo base_url("index.php/eliminar_modificar_valor/buscarValor"); ?>",
-                data: { aerolinea: aerolinea, grupo_sector: grupo_sector, lugar: lugar }
+                data: { aerolinea: aerolinea, grupo_sector: grupo_sector }
             }).done(function(data) {
                 $("#cuerpo").html(data);
             });
         }
         
-        function modificarValorForm(id_aerolinea, id_sector) {
+        function modificarValorForm(id_aerolinea, grupo_sector) {
             $("#modificar_valor_form").html("");
             $.ajax({
                 method: "POST",
                 url: "<?php echo base_url("index.php/eliminar_modificar_valor/modificarValorForm"); ?>",
-                data: { id_aerolinea: id_aerolinea, id_sector: id_sector }
+                data: { id_aerolinea: id_aerolinea, grupo_sector: grupo_sector }
             }).done(function(data) {
                 $("#modificar_valor_form").html(data);
                 $('#modificar_valor').modal('show');
             });
         }
         
-        function modificarValor(id_aerolinea, id_sector) {
+        function modificarValor(id_aerolinea, grupo_sector) {
             var valor_new = $("#valor_new").val();
             
             $.ajax({
                 method: "POST",
                 url: "<?php echo base_url("index.php/eliminar_modificar_valor/modificarValor"); ?>",
-                data: { id_aerolinea: id_aerolinea, id_sector: id_sector, valor_new: valor_new }
+                data: { id_aerolinea: id_aerolinea, grupo_sector: grupo_sector, valor_new: valor_new }
             }).done(function(data) {
                 if(data == "OK") {
                     mostrarMensaje("CORRECTO: el valor fue modificado correctamente.", "alert-success");
@@ -77,12 +54,12 @@
             $('#modificar_valor').modal('toggle');
         }
         
-        function eliminarValor(id_aerolinea, id_sector) {
+        function eliminarValor(id_aerolinea, grupo_sector) {
             $.ajax({
                 method: "POST",
                 dataType: "json",
                 url: "<?php echo base_url("index.php/eliminar_modificar_valor/eliminarValor"); ?>",
-                data: { id_aerolinea: id_aerolinea, id_sector: id_sector }
+                data: { id_aerolinea: id_aerolinea, grupo_sector: grupo_sector }
             }).done(function(data) {
                 if(data['estado'] == "1") {
                     mostrarMensaje(data['mensaje'], "alert-success");
@@ -118,10 +95,6 @@
                 echo form_dropdown('grupo_sector', $grupo_sector, set_value('grupo_sector'), $attributes);
                 ?>
             </div>             
-            <div class="form-group">
-                <label for="lugar">Lugar</label>
-                <input id="lugar" name="lugar" placeholder="nombre del lugar" type="text" class="form-control" />
-            </div>
             <button type="button" class="btn btn-primary" onclick="buscarValor();">Enviar</button>
             <button type="button" class="btn btn-danger" onclick="irMenu();">Volver</button>           
         </form> 
@@ -137,7 +110,6 @@
               <th>#</th>
               <th>Aerolinea</th>
               <th>Grupo sector</th>
-              <th>Lugar</th>
               <th>Valor</th>
               <th>Modif</th>
               <th>Eliminar</th>

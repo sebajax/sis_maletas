@@ -10,11 +10,12 @@ class alta_sector extends CI_Controller {
         parent::__construct();
         $this->load->model('alta_sector_model');
         $this->load->library('validation');
+        $this->load->helper('sectores_helper');
     }
     
     function index() {
         $data = array();
-        $data['grupo_sector'] = $this->cargoSector();
+        $data['grupo_sector'] = cargoSector();
         $this->load->view('alta_sector_view', $data);        
     }
     
@@ -41,14 +42,6 @@ class alta_sector extends CI_Controller {
             return false;
         }        
     }
-    
-    private function cargoSector() {
-        $sector = array('-SELECCIONE-');
-        for($i=0; $i < 12; $i++) {
-            array_push($sector, ($i+1));
-        }
-        return $sector;
-    }   
     
     private function validatePK($pk) {
         if($this->alta_sector_model->validatePK($pk) > 0) { return false; } else { return true; }

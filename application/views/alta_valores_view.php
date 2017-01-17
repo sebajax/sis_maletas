@@ -4,37 +4,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alta valores</title>
-    <!--link the bootstrap css file-->
-    <link href="<?php echo base_url("assets/bootstrap/css/bootstrap.css"); ?>" rel="stylesheet" type="text/css" />
-    <!--load functions js file-->
-    <script src="<?php echo base_url('assets/js/functions.js'); ?>"></script>   
-    <!--include jquery library-->
-    <script src="<?php echo base_url('assets/js/jquery.min.js'); ?>"></script>
-    
-    <style type="text/css">
-        .colbox {
-            margin-left: 0px;
-            margin-right: 0px;
-        }
-        .noresize {
-            resize: none; 
-        } 
-
-    </style>
+    <?php require_once "assets/header/header.php"; ?>
     
     <script type="text/javascript">
-        $(function() {
-            $("#grupo_sector").on("change", function() {
-                cargoLugares(this.value);
-            });
-        });
-        
         function altaValores() {
             $("span.text-danger").html('');
             
             var aerolinea    = $("#aerolinea").val();
             var grupo_sector = $("#grupo_sector").val();
-            var lugar        = $("#lugar_sector").val();
             var valor        = $("#valor").val();
             
             /*
@@ -49,12 +26,6 @@
             if(!grupo_sector) {
                 $("#grupo_sector_error").html(manejoMensajes("vacio", "grupo sector"));
                 $("#grupo_sector").focus();
-                return false;
-            }
-            
-            if(!lugar) {
-                $("#lugar_sector_error").html(manejoMensajes("vacio", "lugar"));
-                $("#lugar_sector").focus();
                 return false;
             }
             
@@ -76,7 +47,7 @@
             $.ajax({
                 method: "POST",
                 url: "<?php echo base_url("index.php/alta_valores/altaValores"); ?>",
-                data: { aerolinea: aerolinea, grupo_sector: grupo_sector, lugar: lugar, valor: valor }
+                data: { aerolinea: aerolinea, grupo_sector: grupo_sector, valor: valor }
             }).done(function(data) {
                 if(data == "OK") {
                     mostrarMensaje("Datos almacenados correctamente.", "alert-success");
@@ -88,16 +59,6 @@
                 }
             });
         }       
-        
-        function cargoLugares(grupo_sector) {
-            $.ajax({
-                method: "POST",
-                url: "<?php echo base_url("index.php/alta_valores/cargoLugares"); ?>",
-                data: { grupo_sector: grupo_sector }
-            }).done(function(data) {
-                $("#lugar_sector").html(data);
-            });            
-        }
         
         function irMenu() {
             window.location.href = "<?php echo base_url("index.php/menu_valor"); ?>";
@@ -146,18 +107,6 @@
                 </div>
             </div>    
             
-            <div class="form-group">
-                <div class="row colbox">
-                    <div class="col-lg-4 col-sm-4">
-                        <label for="lugar_sector" class="control-label">Lugar sector</label>
-                    </div>
-                    <div class="col-lg-8 col-sm-8">
-                        <select class="form-control" id="lugar_sector"> </select>
-                        <span id='lugar_sector_error' class="text-danger"></span>
-                    </div>
-                </div>
-            </div>            
-
             <div class="form-group">
                 <div class="row colbox">
                     <div class="col-lg-4 col-sm-4">

@@ -1,0 +1,8 @@
+.colbox {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+.noresize {
+    resize: none; 
+}
+.top-buffer { margin-top:10px; }

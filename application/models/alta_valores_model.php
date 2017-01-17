@@ -25,6 +25,27 @@ class alta_valores_model extends CI_Model {
         return $aerolineas;
     }   
     
+    public function validatePK($pk) {
+        $this->db->select('*');
+        $where = array('id_aerolinea' => $pk['id_aerolinea'], 'grupo_sector' => $pk['grupo_sector']);
+        $this->db->where($where);
+        $this->db->from('valores');
+        return $this->db->count_all_results();
+    }    
+    
+    public function getValor($id_aerolinea, $grupo_sector) {
+        $this->db->select('valor');
+        $where = array("id_aerolinea" => $id_aerolinea, "grupo_sector" => $grupo_sector);
+        $this->db->where($where);
+        $this->db->from('valores');
+        $query = $this->db->get();
+        $row = $query->row();
+        if(empty($row)) {
+            return "No hay valores cargados";
+        }
+        return $row->valor;
+    }
+    
     public function getLugares($grupo_sectores) {
         $lugares = array();
         $this->db->distinct();
@@ -38,15 +59,7 @@ class alta_valores_model extends CI_Model {
             $lugares[] = $row->lugar;
         }
         return $lugares;
-    }     
-    
-    public function validatePK($pk) {
-        $this->db->select('*');
-        $where = array('id_aerolinea' => $pk['id_aerolinea'], 'id_sector' => $pk['id_sector']);
-        $this->db->where($where);
-        $this->db->from('valores');
-        return $this->db->count_all_results();
-    }    
+    } 
     
     public function getSector($grupo_sector, $lugar) {
         $this->db->select('id_sector');
@@ -56,18 +69,5 @@ class alta_valores_model extends CI_Model {
         $query = $this->db->get();
         $row = $query->row();
         return $row->id_sector;
-    }
-    
-    public function getValor($id_aerolinea, $id_sector) {
-        $this->db->select('valor');
-        $where = array("id_aerolinea" => $id_aerolinea, "id_sector" => $id_sector);
-        $this->db->where($where);
-        $this->db->from('valores');
-        $query = $this->db->get();
-        $row = $query->row();
-        if(empty($row)) {
-            return "No hay valores cargados";
-        }
-        return $row->valor;
-    }
+    }    
 }

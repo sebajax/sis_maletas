@@ -5,12 +5,12 @@
  * @author Sebas
  */
 class alta_bdo_model extends CI_Model {
-    
+
     function __construct() {
         parent::__construct();
         $this->load->database();
     }
-    
+
     public function insert($data) {
         $this->db->insert("bdo", $data);
     }
@@ -21,5 +21,5 @@ class alta_bdo_model extends CI_Model {
         $this->db->where($where);
         $this->db->from('bdo');
         return $this->db->count_all_results();
-    }
+    } 
 }

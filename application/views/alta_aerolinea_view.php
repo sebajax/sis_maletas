@@ -4,23 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alta aerolinea</title>
-    <!--link the bootstrap css file-->
-    <link href="<?php echo base_url("assets/bootstrap/css/bootstrap.css"); ?>" rel="stylesheet" type="text/css" />
-    <!--load functions js file-->
-    <script src="<?php echo base_url('assets/js/functions.js'); ?>"></script> 
-    <!--include jquery library-->
-    <script src="<?php echo base_url('assets/js/jquery.min.js'); ?>"></script>
-    
-    <style type="text/css">
-        .colbox {
-            margin-left: 0px;
-            margin-right: 0px;
-        }
-        .noresize {
-            resize: none; 
-        } 
-
-    </style>
+    <?php require_once "assets/header/header.php"; ?>
     
     <script type="text/javascript">
         function altaAerolinea() {

@@ -4,27 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alta B.D.O</title>
-    <!--link the bootstrap css file-->
-    <link href="<?php echo base_url("assets/bootstrap/css/bootstrap.css"); ?>" rel="stylesheet" type="text/css" />
-    <!-- link jquery ui css-->
-    <link href="<?php echo base_url('assets/jquery-ui/jquery-ui.min.css'); ?>" rel="stylesheet" type="text/css" />
-    <!--load functions js file-->
-    <script src="<?php echo base_url('assets/js/functions.js'); ?>"></script> 
-    <!--include jquery library-->
-    <script src="<?php echo base_url('assets/js/jquery.min.js'); ?>"></script>
-    <!--load jquery ui js file-->
-    <script src="<?php echo base_url('assets/jquery-ui/jquery-ui.min.js'); ?>"></script>
-    
-    <style type="text/css">
-        .colbox {
-            margin-left: 0px;
-            margin-right: 0px;
-        }
-        .noresize {
-            resize: none; 
-        } 
-
-    </style>
+    <?php require_once "assets/header/header.php"; ?>
     
     <script type="text/javascript">
         //load datepicker control onfocus
@@ -45,18 +25,15 @@
                 isRTL: false,
                 showMonthAfterYear: false,
                 yearSuffix: ''
-            };
-            $.datepicker.setDefaults($.datepicker.regional['es']);            
+            }; 
+            $.datepicker.setDefaults($.datepicker.regional['es']); 
             
             $("#fecha_llegada").datepicker();
             
             $("#grupo_sector").on("change", function() {
+                cargoValor();
                 cargoLugares(this.value);
             });
-            
-            $("#lugar_sector").on("change", function() {
-                cargoValor();
-            });   
             
             $("#aerolinea").on("change", function() {
                 cargoValor();
@@ -197,7 +174,7 @@
         function cargoLugares(grupo_sector) {
             $.ajax({
                 method: "POST",
-                url: "<?php echo base_url("index.php/alta_valores/cargoLugares"); ?>",
+                url: "<?php echo base_url("index.php/alta_bdo/cargoLugares"); ?>",
                 data: { grupo_sector: grupo_sector }
             }).done(function(data) {
                 $("#lugar_sector").html(data);
@@ -207,14 +184,13 @@
         function cargoValor() {
             var aerolinea    = $("#aerolinea").val();
             var grupo_sector = $("#grupo_sector").val();
-            var lugar_sector = $("#lugar_sector").val();
             
-            if(aerolinea == 0 || grupo_sector == 0 || lugar_sector == 0) { return false; }
+            if(aerolinea == 0 || grupo_sector == 0) { return false; }
             
             $.ajax({
                 method: "POST",
                 url: "<?php echo base_url("index.php/alta_bdo/cargoValor"); ?>",
-                data: { aerolinea: aerolinea, grupo_sector: grupo_sector, lugar_sector: lugar_sector }
+                data: { aerolinea: aerolinea, grupo_sector: grupo_sector}
             }).done(function(data) {
                 $("#valor").val(data);
             });            

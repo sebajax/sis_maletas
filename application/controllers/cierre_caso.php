@@ -8,19 +8,16 @@ class cierre_caso extends CI_Controller {
     
     function __construct() {
         parent::__construct();
-        $this->load->model(array('cierre_caso_model', 'alta_valores_model'));
+        $this->load->model(array('cierre_caso_model', 'alta_valores_model', 'consulta_bdo_model'));
         $this->load->library('validation');
+        $this->load->helper(array('aerolineas_helper', 'bdo_helper'));
     }
     
     function index() {
         $data = array();
-        $data['aerolinea']    = $this->cargoAerolinea();
+        $data['aerolinea'] = cargoAerolinea();
         $this->load->view('cierre_caso_view', $data);
     }  
-    
-    private function cargoAerolinea() {
-        return $this->alta_valores_model->getAerolineas();
-    }
     
     public function buscarCierreCaso() {
         $numero       = $this->input->post('numero');
@@ -41,7 +38,7 @@ class cierre_caso extends CI_Controller {
                   <td>'.$row->fecha_llegada.'</td>
                   <td>
                     <button type="button" class="btn btn-default btn-md">
-                        <span class="glyphicon glyphicon-search" aria-hidden="true" onclick="cargoInformacion()"></span>
+                        <span class="glyphicon glyphicon-search" aria-hidden="true" onclick="cargoInformacionExtra('.$env_numero.', '.$env_id_aerolinea.')"></span>
                     </button>
                   </td>
                   <td>
@@ -66,4 +63,9 @@ class cierre_caso extends CI_Controller {
             echo "ERROR";
         }
     }
+
+    public function cargoInformacionExtra() {
+        echo cargoInformacionExtra($this->input->post('numero'),$this->input->post('aerolinea'));
+    } 
+    
 }

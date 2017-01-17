@@ -8,28 +8,17 @@ class eliminar_modificar_bdo extends CI_Controller {
     
     function __construct() {
         parent::__construct();
-        $this->load->model(array('eliminar_modificar_bdo_model', 'alta_valores_model'));
+        $this->load->model(array('eliminar_modificar_bdo_model', 'alta_valores_model', 'consulta_bdo_model'));
         $this->load->library('validation');
+        $this->load->helper(array('sectores_helper', 'aerolineas_helper', 'bdo_helper'));
     }
     
     function index() {
         $data = array();
-        $data['aerolinea'] = $this->cargoAerolinea();
-        $data['grupo_sector'] = $this->cargoSector();
+        $data['aerolinea'] = cargoAerolinea();
+        $data['grupo_sector'] = cargoSector();
         $this->load->view('eliminar_modificar_bdo_view', $data);
     }  
-    
-    private function cargoAerolinea() {
-        return $this->alta_valores_model->getAerolineas();
-    }
-    
-    private function cargoSector() {
-        $sector = array('-SELECCIONE-');
-        for($i=0; $i < 12; $i++) {
-            array_push($sector, ($i+1));
-        }
-        return $sector;
-    }    
     
     public function buscarBdo() {
         $numero       = $this->input->post('numero');
@@ -37,9 +26,9 @@ class eliminar_modificar_bdo extends CI_Controller {
         $nombre_pasajero = $this->input->post('pasajero');
         $fecha_desde = $this->input->post('fecha_desde');
         $fecha_hasta = $this->input->post('fecha_hasta');
-        $id_sector = $this->input->post('grupo_sector');
+        $grupo_sector = $this->input->post('grupo_sector');
         
-        $result = $this->eliminar_modificar_bdo_model->buscarBdo($numero, $id_aerolinea, $nombre_pasajero, $fecha_desde, $fecha_hasta, $id_sector);
+        $result = $this->eliminar_modificar_bdo_model->buscarBdo($numero, $id_aerolinea, $nombre_pasajero, $fecha_desde, $fecha_hasta, $grupo_sector);
         $tbody = '';
         foreach ($result as $key => $row) {
             if($row->estado == 1) {
@@ -68,7 +57,7 @@ class eliminar_modificar_bdo extends CI_Controller {
                   </td>
                   <td>
                     <button type='button' class='btn btn-default btn-md'>
-                        <span class='glyphicon glyphicon-pencil' aria-hidden='true' onclick='modificarBdo(".$aux_numero.", ".$aux_id_aerolinea.")'></span>
+                        <span class='glyphicon glyphicon-pencil' aria-hidden='true' onclick='modificarBdoForm(".$aux_numero.", ".$aux_id_aerolinea.")'></span>
                     </button>   
                   </td>
                   <td>
@@ -82,62 +71,157 @@ class eliminar_modificar_bdo extends CI_Controller {
     }  
     
     public function cargoInformacionExtra() {
-        $numero       = $this->input->post('numero');
-        $id_aerolinea = $this->input->post('aerolinea');
-
-        $result = $this->eliminar_modificar_bdo_model->cargoInformacionExtra($numero, $id_aerolinea);
-        
-        $table = '<table class="table table-hover">
-                    <tbody>
-                        <tr>
-                            <td>Numero B.D.O</td>
-                            <td>'.$numero.'</td>
-                        </tr>
-                        <tr>
-                            <td>Nombre Pasajero</td>
-                            <td>'.$result->nombre_pasajero.'</td>
-                        </tr>
-                        <tr>
-                            <td>Aerolinea</td>
-                            <td>'.$result->nombre_aerolinea.'</td>
-                        </tr>
-                        <tr>
-                            <td>Telefono</td>
-                            <td>'.$result->telefono.'</td>
-                        </tr>
-                        <tr>
-                            <td>Comuna</td>
-                            <td>'.$result->domicilio_comuna.'</td>
-                        </tr>
-                        <tr>
-                            <td>Direccion</td>
-                            <td>'.$result->domicilio_direccion.'</td>
-                        </tr>
-                        <tr>
-                            <td>Region</td>
-                            <td>'.$result->domicilio_region.'</td>
-                        </tr>
-                        <tr>
-                            <td>Sector</td>
-                            <td>'.$result->grupo_sector.'</td>
-                        </tr>
-                        <tr>
-                            <td>Nombre sector</td>
-                            <td>'.$result->lugar.'</td>
-                        </tr>                    
-                    </tbody>   
-                </table>';  
-        
-        echo $table;
+        echo cargoInformacionExtra($this->input->post('numero'),$this->input->post('aerolinea'));
     } 
     
-    public function modificarBdo() {
-        $numero       = $this->input->post('numero');
-        $id_aerolinea = $this->input->post('aerolinea');
-
-        $result = $this->eliminar_modificar_bdo_model->cargoInformacionExtra($numero, $id_aerolinea);
-
+    public function modificarBdoForm() {
+        $numero = $this->input->post('numero');
+        $id_aerolinea = $this->input->post('id_aerolinea');
+        $info_bdo = $this->consulta_bdo_model->cargoInformacionExtra($numero, $id_aerolinea);
+        $aerolinea = cargoAerolinea();
+        $grupo_sector = cargoSector();
+        $region = cargoRegion();
+        $attr_aerolinea = 'class = "form-control" id = "aerolinea_new" disabled= "disabled"';
+        $attr_region = 'class = "form-control" id = "region_new"';
+        $attr_grupo_sector = 'class = "form-control" id = "grupo_sector_new" onchange="grupoSectorEvents()"';
+        $aux_numero       = "'".$numero."'";
         
+        $html = '
+            <form>
+                <div class="form-group">
+                    <label for="numero_new" class="control-label">Numero</label>
+                    <input id="numero_new" disabled= "disabled" name="numero_new" placeholder="numero bdo" type="text" class="form-control" value="'.$info_bdo->numero.'" />
+                </div>
+
+                <div class="form-group">
+                    <label for="aerolinea_new" class="control-label">Aerolinea</label>
+                    '.form_dropdown('aerolinea_new', $aerolinea, $info_bdo->id_aerolinea, $attr_aerolinea).'
+                </div>            
+
+                <div class="form-group">
+                    <label for="fecha_llegada_new" class="control-label">Fecha Llegada</label>
+                    <input id="fecha_llegada_new" name="fecha_llegada_new" placeholder="fecha llegada" type="text" class="form-control" value="'.str_replace("-", "/", $info_bdo->fecha_llegada).'" />
+                </div>
+
+                <div class="form-group">
+                    <label for="nombre_pasajero_new" class="control-label">Nombre Pasajero</label>
+                    <input id="nombre_pasajero_new" name="nombre_pasajero_new" placeholder="nombre pasajero" type="text" class="form-control" value="'.$info_bdo->nombre_pasajero.'" />
+                </div>            
+
+                <div class="form-group">
+                    <label for="cantidad_maletas_new" class="control-label">Cantidad Maletas</label>
+                    <input id="cantidad_maletas_new" name="cantidad_maletas_new" placeholder="cantidad maletas" type="text" class="form-control" value="'.$info_bdo->cantidad_maletas.'" />
+                </div>  
+
+                <div class="form-group">
+                    <label for="region_new" class="control-label">Region</label>
+                    '.form_dropdown('region_new', $region, $info_bdo->domicilio_region, $attr_region).'
+                </div>
+
+                <div class="form-group">
+                    <label for="comuna_new" class="control-label">Comuna</label>
+                    <input id="comuna_new" name="comuna_new" placeholder="comuna" type="text" class="form-control" value="'.$info_bdo->domicilio_comuna.'" />
+                </div>
+
+                <div class="form-group">
+                    <label for="direccion_new" class="control-label">Direccion</label>
+                    <textarea class="form-control noresize" rows="5" id="direccion_new" placeholder="direccion">'.$info_bdo->domicilio_direccion.'</textarea>
+                </div>            
+
+                <div class="form-group">
+                    <label for="telefono_new" class="control-label">Telefono</label>
+                    <input id="telefono_new" name="telefono_new" placeholder="telefono" type="text" class="form-control" value="'.$info_bdo->telefono.'" />
+                </div>             
+
+                <div class="form-group">
+                    <label for="grupo_sector_new" class="control-label">Grupo sector</label>
+                    '.form_dropdown('grupo_sector_new', $grupo_sector, $info_bdo->grupo_sector, $attr_grupo_sector).'
+                </div>    
+
+                <div class="form-group">
+                    <label for="lugar_sector_new" class="control-label">Lugar sector</label>
+                    <select class="form-control" id="lugar_sector_new"> <option value="'.$info_bdo->lugar.'">'.$info_bdo->lugar.'</option> </select>
+                </div>  
+
+                <div class="form-group">
+                    <label for="valor_new" class="control-label">Valor</label>
+                    <input id="valor_new" name="valor_new" placeholder="valor" type="text" class="form-control" value="'.$info_bdo->valor.'" readonly/>
+                </div> 
+
+                <input id="btn_modificar" name="btn_modificar" type="button" class="btn btn-primary" value="Modificar bdo" onclick="modificarBdo('.$aux_numero.', '.$id_aerolinea.');" />
+                <input id="btn_cancelar" name="btn_cancelar" type="reset" class="btn btn-danger" value="Cancelar" onclick="cancelarModificarBdo();"/>
+            </form>';
+        
+        echo $html;
     }
+    
+    public function modificarBdo() {
+        //obtener id_sector
+        $id_sector_new = $this->alta_valores_model->getSector($this->input->post('grupo_sector_new'), $this->input->post('lugar_sector_new'));
+        
+        //cargo el post en variables
+        $data = array(
+            "numero"               => $this->input->post('numero'),
+            "id_aerolinea"         => $this->input->post('id_aerolinea'),
+            "fecha_llegada"        => $this->input->post('fecha_llegada_new'),
+            "nombre_pasajero"      => $this->input->post('nombre_pasajero_new'),
+            "cantidad_maletas"     => $this->input->post('cantidad_maletas_new'),
+            "domicilio_region"     => $this->input->post('region_new'),
+            "domicilio_comuna"     => $this->input->post('comuna_new'),
+            "domicilio_direccion"  => $this->input->post('direccion_new'),
+            "telefono"             => $this->input->post('telefono_new'),
+            "id_sector"            => $id_sector_new,
+            "valor"                => $this->input->post('valor_new')
+        );
+       
+        $errorEmpty  = false;
+        $errorDate   = false;
+        $errorEstado = false;
+        
+        if(!$this->validation->validateEmpty($data)) { $errorEmpty = true; }
+        if($this->validation->validateDate($data['fecha_llegada'])) { $errorDate = true; }
+ 
+        if($this->eliminar_modificar_bdo_model->verificoEstadoBdo($data['numero'], $data['id_aerolinea']) != 0) {
+            $errorEstado = true;
+        }
+        
+        
+        if(!$errorEmpty && !$errorDate && !$errorEstado) {
+            $this->eliminar_modificar_bdo_model->modificarBdo($data);
+            echo "OK";    
+            return true;
+        }else {
+            echo "ERROR";
+            return false;
+        }
+    }
+    
+    public function eliminarBdo() {
+        $numero = $this->input->post('numero');
+        $id_aerolinea = $this->input->post('id_aerolinea');
+        
+        $error = array(
+            'estado' => 0,
+            'mensaje' => "ERROR GENERICO"
+        );
+        
+        if(empty($numero) && empty($id_aerolinea)) {
+            $error['mensaje'] = "ERROR no puede contener elementos vacios al eliminar.";
+            echo json_encode($error);
+            return false;
+        }
+        
+        if($this->eliminar_modificar_bdo_model->verificoEstadoBdo($numero, $id_aerolinea) != 0) {
+            $error['mensaje'] = "ERROR para poder eliminar una bdo, esta tiene que ser un caso abierto.";
+            echo json_encode($error);
+            return false;
+        }
+        
+        $this->eliminar_modificar_bdo_model->eliminarBdo($numero, $id_aerolinea);
+        $error['mensaje'] = "CORRECTO bdo eliminada correctamente";
+        $error['estado'] = 1;
+        echo json_encode($error);
+        return true;
+    }    
     
 }

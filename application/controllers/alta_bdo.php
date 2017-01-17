@@ -10,30 +10,25 @@ class alta_bdo extends CI_Controller {
         parent::__construct();
         $this->load->model(array('alta_bdo_model', 'alta_valores_model'));
         $this->load->library('validation');
+        $this->load->helper(array('sectores_helper', 'aerolineas_helper'));
     }
     
     function index() {
         $data = array();
-        $data['aerolinea']    = $this->cargoAerolinea();
-        $data['region']       = $this->cargoRegion();
-        $data['grupo_sector'] = $this->cargoSector();
+        $data['aerolinea']    = cargoAerolinea();
+        $data['region']       = cargoRegion();
+        $data['grupo_sector'] = cargoSector();
         $this->load->view('alta_bdo_view', $data);
     }
     
-    function cargoLugares() {
-        echo $this->cargoLugaresProcess();
-    }    
-    
-    function cargoValor() {
-        //obtener id_sector
-        $id_sector = $this->alta_valores_model->getSector($this->input->post('grupo_sector'), $this->input->post('lugar_sector'));
-        echo $this->alta_valores_model->getValor($this->input->post('aerolinea'), $id_sector);
+    public function cargoValor() {
+        echo $this->alta_valores_model->getValor($this->input->post('aerolinea'), $this->input->post('grupo_sector'));
     }
     
-    function altaBdo() {
+    public function altaBdo() {
         
         //obtener id_sector
-        $id_sector = $this->alta_valores_model->getSector($this->input->post('grupo_sector'), $this->input->post('lugar_sector'));
+        $id_sector = getSector($this->input->post('grupo_sector'), $this->input->post('lugar_sector'));
         
         //cargo el post en variables
         $data = array(
@@ -70,41 +65,10 @@ class alta_bdo extends CI_Controller {
         }
     }
     
-    private function cargoAerolinea() {
-        return $this->alta_valores_model->getAerolineas();
-    }
-    
-    private function cargoRegion() {
-        $region = array('-SELECCIONE-');
-        array_push($region, "REGION DE LOS LAGOS");
-        array_push($region, "REGION DE VALPARAISO");
-        array_push($region, "REGION METROPOLITANA");
-        return $region;
-    }
-    
-    private function cargoSector() {
-        $sector = array('-SELECCIONE-');
-        for($i=0; $i < 12; $i++) {
-            array_push($sector, ($i+1));
-        }
-        return $sector;
-    }
-    
-    private function cargoLugaresProcess() {
-        $html = "<option> </option>";
+    public function cargoLugares() {
         $grupo_sector = $this->input->post('grupo_sector');
-        
-        if(empty($grupo_sector)) {
-            return $html;
-        }
-        
-        $lugares = $this->alta_valores_model->getLugares($grupo_sector);
-        
-        foreach($lugares as $val) {
-            $html .= "<option value='".$val."'>".$val."</option>";
-        }
-        return $html;
-    }    
+        echo cargoLugares($grupo_sector);
+    }
     
     private function validatePK($pk) {
         if($this->alta_bdo_model->validatePK($pk) > 0) { return false; } else { return true; }

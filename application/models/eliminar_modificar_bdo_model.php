@@ -11,7 +11,7 @@ class eliminar_modificar_bdo_model extends CI_Model {
         $this->load->database();
     }
 
-    public function buscarBdo($numero, $id_aerolinea, $nombre_pasajero, $fecha_desde, $fecha_hasta, $id_sector) {
+    public function buscarBdo($numero, $id_aerolinea, $nombre_pasajero, $fecha_desde, $fecha_hasta, $grupo_sector) {
         $where = array();
         
         $where['estado'] = 0;
@@ -29,33 +29,54 @@ class eliminar_modificar_bdo_model extends CI_Model {
             $where['bdo.fecha_llegada >='] = $fecha_desde;
             $where['bdo.fecha_llegada <='] = $fecha_hasta;
         }
-        if(!empty($id_sector)) {
-            $where['bdo.id_sector'] = $id_sector;
+        if(!empty($grupo_sector)) {
+            $where['sectores.grupo_sector'] = $grupo_sector;
         }
         $this->db->select('*');
-        $this->db->where($where);
         $this->db->from('bdo');
         $this->db->join('aerolineas', 'aerolineas.id_aerolinea = bdo.id_aerolinea');
+        $this->db->join('sectores', 'sectores.id_sector = bdo.id_sector');
+        $this->db->where($where);
         $query = $this->db->get();   
         return $query->result();
     }
     
-    public function cargoInformacionExtra($numero, $id_aerolinea) {
-        $where = array();
-        
-        if(!empty($numero)) {
-            $where['bdo.numero'] = $numero;
-        }
-        if(!empty($id_aerolinea)) {
-            $where['bdo.id_aerolinea'] = $id_aerolinea;
-        }
+    public function verificoEstadoBdo($numero, $id_aerolinea) {
+        $where = array(
+            'numero' => $numero, 
+            'id_aerolinea' => $id_aerolinea
+        );
         
         $this->db->select('*');
-        $this->db->where($where);
         $this->db->from('bdo');
-        $this->db->join('aerolineas', 'aerolineas.id_aerolinea = bdo.id_aerolinea');
-        $this->db->join('sectores', 'sectores.id_sector = bdo.id_sector');
+        $this->db->where($where);
         $query = $this->db->get();   
-        return $query->row();
+        return $query->row()->estado;        
     }
+    
+    public function eliminarBdo($numero, $id_aerolinea) {
+        $this->db->delete('bdo', array('numero' => $numero, 'id_aerolinea' => $id_aerolinea));
+    }  
+    
+    public function modificarBdo($data) {
+        $where = array(
+            'numero' => $data['numero'],
+            'id_aerolinea' => $data['id_aerolinea']
+        );
+       
+        $data_update = array(
+            "fecha_llegada"        => $data["fecha_llegada"],
+            "nombre_pasajero"      => $data["nombre_pasajero"],
+            "cantidad_maletas"     => $data["cantidad_maletas"],
+            "domicilio_region"     => $data["domicilio_region"],
+            "domicilio_comuna"     => $data["domicilio_comuna"],
+            "domicilio_direccion"  => $data["domicilio_direccion"],
+            "telefono"             => $data["telefono"],
+            "id_sector"            => $data["id_sector"],
+            "valor"                => $data["valor"]
+        );
+        
+        $this->db->where($where);
+        $this->db->update('bdo', $data_update);
+    }    
 }

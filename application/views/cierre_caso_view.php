@@ -4,25 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cierre caso</title>
-    <!--link the bootstrap css file-->
-    <link href="<?php echo base_url("assets/bootstrap/css/bootstrap.css"); ?>" rel="stylesheet" type="text/css" />
-    <!--load functions js file-->
-    <script src="<?php echo base_url('assets/js/functions.js'); ?>"></script>   
-    <!--include jquery library-->
-    <script src="<?php echo base_url('assets/js/jquery.min.js'); ?>"></script>
-    <!--include bootstrap library-->
-    <script src="<?php echo base_url("assets/bootstrap/js/bootstrap.min.js"); ?>"</script>
-    
-    <style type="text/css">
-        .colbox {
-            margin-left: 0px;
-            margin-right: 0px;
-        }
-        .noresize {
-            resize: none; 
-        } 
-        .top-buffer { margin-top:30px; }
-    </style>
+    <?php require_once "assets/header/header.php"; ?>
     
     <script type="text/javascript">
         
@@ -37,10 +19,6 @@
             }).done(function(data) {
                 $("#cuerpo").html(data);
             });
-        }
-        
-        function cargoInformacion() {
-           
         }
         
         function irMenu() {
@@ -63,6 +41,18 @@
                 }
             });            
         }
+        
+        function cargoInformacionExtra(numero, id_aerolinea) {
+            $("#informacion_extra_bdo").html("");
+            $.ajax({
+                method: "POST",
+                url: "<?php echo base_url("index.php/consulta_bdo/cargoInformacionExtra"); ?>",
+                data: { numero: numero, id_aerolinea: id_aerolinea }
+            }).done(function(data) {
+                $("#informacion_extra_bdo").html(data);
+                $('#informacion_bdo').modal('show');
+            });
+        }        
     </script>
     
 </head>
@@ -110,5 +100,22 @@
         </table>
     </div>
 </div>
+    
+<!-- Modal informacion b.d.o -->
+<div id="informacion_bdo" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">INFORMACION EXTRA B.D.O</h4>
+            </div>
+            <div class="modal-body" id="informacion_extra_bdo"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>    
 </body>
 </html>

@@ -10,18 +10,15 @@ class eliminar_modificar_aerolinea extends CI_Controller {
         parent::__construct();
         $this->load->model(array('eliminar_modificar_aerolinea_model', 'alta_valores_model'));
         $this->load->library('validation');
+        $this->load->helper(array('aerolineas_helper'));
     }
     
     function index() {
         $data = array();
-        $data['aerolinea'] = $this->cargoAerolinea();
+        $data['aerolinea'] = cargoAerolinea();
         $this->load->view('eliminar_modificar_aerolinea_view', $data);
     }  
-    
-    private function cargoAerolinea() {
-        return $this->alta_valores_model->getAerolineas();
-    }    
-    
+
     public function buscarAerolinea() {
         $aerolinea = $this->input->post('aerolinea');
         $result = $this->eliminar_modificar_aerolinea_model->buscarAerolinea($aerolinea);

@@ -11,31 +11,27 @@ class eliminar_modificar_valor_model extends CI_Model {
         $this->load->database();
     }
 
-    public function buscarValor($id_aerolinea, $grupo_sector, $lugar) {
+    public function buscarValor($id_aerolinea, $grupo_sector) {
         $where = array();
         
         if(!empty($id_aerolinea)) {
             $where['valores.id_aerolinea'] = $id_aerolinea;
         }
-        if(!empty($lugar)) {
-            $this->db->like('sectores.lugar', $lugar);
-        }
         if(!empty($grupo_sector)) {
-            $where['sectores.grupo_sector'] = $grupo_sector;
+            $where['valores.grupo_sector'] = $grupo_sector;
         }
         $this->db->select('*');
         $this->db->where($where);
         $this->db->from('valores');
         $this->db->join('aerolineas', 'aerolineas.id_aerolinea = valores.id_aerolinea');
-        $this->db->join('sectores', 'sectores.id_sector = valores.id_sector');
         $query = $this->db->get();   
         return $query->result();
     }
     
-    private function buscarUltimoValor($id_aerolinea, $id_sector) {
+    private function buscarUltimoValor($id_aerolinea, $grupo_sector) {
         $where = array(
             'id_aerolinea' => $id_aerolinea,
-            'id_sector'    => $id_sector
+            'grupo_sector' => $grupo_sector
         );
         
         $this->db->select('valor');
@@ -46,11 +42,11 @@ class eliminar_modificar_valor_model extends CI_Model {
         
     }
     
-    public function eliminarValor($id_aerolinea, $id_sector) {
-        $row = $this->buscarUltimoValor($id_aerolinea, $id_sector);
+    public function eliminarValor($id_aerolinea, $grupo_sector) {
+        $row = $this->buscarUltimoValor($id_aerolinea, $grupo_sector);
         $data = array(
             'id_aerolinea'   => $id_aerolinea,
-            'id_sector'      => $id_sector,
+            'grupo_sector'      => $grupo_sector,
             'valor_anterior' => $row->valor,
             'valor_nuevo'    => 0,
             'tipo'           => 'DELETE'
@@ -58,30 +54,29 @@ class eliminar_modificar_valor_model extends CI_Model {
         
         $this->db->trans_start();
         $this->db->insert('historico_valores', $data);
-        $this->db->delete('valores', array('id_aerolinea' => $id_aerolinea, 'id_sector' => $id_sector));
+        $this->db->delete('valores', array('id_aerolinea' => $id_aerolinea, 'grupo_sector' => $grupo_sector));
         $this->db->trans_complete();
     }  
     
-    public function obtengoInformacionValor($id_aerolinea, $id_sector) {
+    public function obtengoInformacionValor($id_aerolinea, $grupo_sector) {
         $where = array(
             'valores.id_aerolinea' => $id_aerolinea,
-            'valores.id_sector'    => $id_sector
+            'valores.grupo_sector' => $grupo_sector
         );
         
         $this->db->select('*');
         $this->db->where($where);
         $this->db->from('valores');
-        $this->db->join('sectores', 'sectores.id_sector = valores.id_sector');
         $query = $this->db->get();   
         return $query->row();
     }
     
-    public function modificarValor($id_aerolinea, $id_sector, $valor_new) {
+    public function modificarValor($id_aerolinea, $grupo_sector, $valor_new) {
         $this->db->trans_start();
-        $row = $this->buscarUltimoValor($id_aerolinea, $id_sector);
+        $row = $this->buscarUltimoValor($id_aerolinea, $grupo_sector);
         $data_insert = array(
             'id_aerolinea'   => $id_aerolinea,
-            'id_sector'      => $id_sector,
+            'grupo_sector'      => $grupo_sector,
             'valor_anterior' => $row->valor,
             'valor_nuevo'    => $valor_new,
             'tipo'           => 'UPDATE'
@@ -94,7 +89,7 @@ class eliminar_modificar_valor_model extends CI_Model {
         );
         $where = array(
             'id_aerolinea' => $id_aerolinea,
-            'id_sector' => $id_sector,
+            'grupo_sector' => $grupo_sector,
         );
         $this->db->where($where);
         $this->db->update('valores', $data_update);         
