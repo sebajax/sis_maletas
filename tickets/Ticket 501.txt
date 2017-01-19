@@ -1,0 +1,26 @@
+TICKET 501 - Login de usuario (Creacion de la session del usuario) 
+
+Ejemplo: 
+https://www.formget.com/form-login-codeigniter/
+
+Tareas:
+501.1
+*Crear 2 tablas en la base de datos (usuarios, login).
+usuarios: va a contener toda la informacion relevante a un usuario. 
+	-Nombre, Apellido, Usuario, Contraseña, Id_Perfil (Campo para futura tabla de creacion de perfiles).
+login: va a contener un registro de todos los intentos de login de la aplicacion, sean fallidos o exitosos.
+	-Usuario, Session_id, Ip_adress, User_agent, Fecha, Login (true, false).
+	
+501.2
+*Creacion de la variable de session que va a estar en memoria mientras este en ejecucion la aplicacion. 
+-$this->session->all_userdata(); //Contiene informacion relevante a la session del usuario en cuestion.
+	-Array
+		( [session_id] => 4a5b5dca45708ab1a84364eeb455j007 [ip_address] => 127.0.0.1 [user_agent] => Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_7; [last_activity] => 1102132923
+		)
+-La session ademas debe contener los siguiente datos:
+	$session_data = array(
+	'username' => $result[0]->user_name,
+	'isLoggedIn' => true,
+	);
+	// Add user data in session
+	$this->session->set_userdata('logged_in', $session_data);

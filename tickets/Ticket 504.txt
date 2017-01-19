@@ -1,0 +1,7 @@
+TICKET 504 - Optimizar codigo fuente de aplicacion (continuar). 
+
+Tareas:
+
+504.1
+-Optimizar codigo fuente de aplicacion en general, detalles que puedan ser pasados a helpers o librerias para uso unico. 
+-Crear libreria para manejo de excel, crear una funciona estandar con parametros que arme el excel automaticamente.  

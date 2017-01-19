@@ -9,7 +9,7 @@ class eliminar_modificar_aerolinea extends CI_Controller {
     function __construct() {
         parent::__construct();
         $this->load->model(array('eliminar_modificar_aerolinea_model', 'alta_valores_model'));
-        $this->load->library('validation');
+        $this->load->library(array('validation', 'excel', 'session'));
         $this->load->helper(array('aerolineas_helper'));
     }
     
@@ -22,6 +22,7 @@ class eliminar_modificar_aerolinea extends CI_Controller {
     public function buscarAerolinea() {
         $aerolinea = $this->input->post('aerolinea');
         $result = $this->eliminar_modificar_aerolinea_model->buscarAerolinea($aerolinea);
+        $this->session->set_userdata('result_excel', $result);
         $tbody = '';
         foreach ($result as $key => $row) {
             $tbody .= "
@@ -98,5 +99,22 @@ class eliminar_modificar_aerolinea extends CI_Controller {
         $error['estado'] = 1;
         echo json_encode($error);
         return true;
+    }
+    
+    public function importarExcel() {
+        $title = "consulta_aerolineas";    
+        $header = array();
+        $header[] = "ID AEROLINEA";
+        $header[] = "AEROLINEA";
+        $body = array();
+        if(count($this->session->userdata('result_excel')) > 0) {
+            $i = 0;
+            foreach ($this->session->userdata('result_excel') as $row) {
+                $body[$i][0] = $row->id_aerolinea;
+                $body[$i][1] = $row->nombre_aerolinea;
+                $i++;
+            }
+        }
+        $this->excel->crearExcel($header, $body, $title);
     }
 }

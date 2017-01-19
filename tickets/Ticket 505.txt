@@ -1,0 +1,11 @@
+TICKET 505 - Ordenar consultas.
+
+Tareas.
+
+505.1
+-Siempre trabajar el ordenamiento en base al array generado en cada consulta, no volver a realizar una consulta a la base de datos. 
+-Ordenamiento de consultas relacionadas a las BDO.
+-Poder hacer click en los elementos de los headers de la consulta, y que estos se ordenen de forma ascendete o descendete dependiendo del orden que contenian anteriormente.
+
+505.2
+-Asegurarse de re ordenar el array, para que la consulta quede exactamente de la misma forma al tratar de exportar a excel la consulta. 

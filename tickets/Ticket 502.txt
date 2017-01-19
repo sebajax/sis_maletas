@@ -1,0 +1,17 @@
+TICKET 502 - Control de modulos con login de usuario.
+
+Tareas:
+
+502.1 
+Creacion de libreria para control de login, esta libreria debe de decidir si el usuario puede o no entrar a los distintos modulos de la aplicacion. 
+
+502.2
+Verificar si datos de login con la libreria creada en 502.1 son correctos en todos los modulos de la aplicacion, si no la aplicacion debe morir die();
+
+Ejemplo: 
+if (isset($this->session->userdata['logged_in'])) {
+$username = ($this->session->userdata['logged_in']['username']);
+$email = ($this->session->userdata['logged_in']['email']);
+} else {
+header("location: login");
+}
