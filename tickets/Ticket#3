@@ -1,7 +1,0 @@
-TICKET 503 - Al apretar para borrar registros, preguntar si realmente desea eliminar el registro.
-
-Tareas:
-
-503.1
-En las consultas de eliminacion de todos los modulos de aplicacion, verificar si realmente desea o no borrar el registro. 
-Para esto, se realiza una pregunta al usuario medienta javascript, si desea realmente eliminar el registro, en el caso de OK se procede a eliminar el registro. 
