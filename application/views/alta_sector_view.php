@@ -31,7 +31,7 @@
             
             $.ajax({
                 method: "POST",
-                url: "<?php echo base_url("index.php/alta_sector/altaSector"); ?>",
+                url: "<?php echo base_url("alta_sector/altaSector"); ?>",
                 data: { grupo_sector: grupo_sector, lugar: lugar }
             }).done(function(data) {
                 if(data == "OK") {
@@ -46,7 +46,7 @@
         } 
         
         function irMenu() {
-            window.location.href = "<?php echo base_url("index.php/menu_sector"); ?>";
+            window.location.href = "<?php echo base_url("menu_sector"); ?>";
         }        
     </script>
     

@@ -23,7 +23,7 @@
             
             $.ajax({
                 method: "POST",
-                url: "<?php echo base_url("index.php/consulta_bdo/buscarBdo"); ?>",
+                url: "<?php echo base_url("consulta_bdo/buscarBdo"); ?>",
                 data: { aerolinea: aerolinea, numero: numero, pasajero: pasajero, fecha_desde: fecha_desde, fecha_hasta: fecha_hasta, grupo_sector: grupo_sector }
             }).done(function(data) {
                 $("#cuerpo").html(data);
@@ -34,7 +34,7 @@
             $("#informacion_extra_bdo").html("");
             $.ajax({
                 method: "POST",
-                url: "<?php echo base_url("index.php/consulta_bdo/cargoInformacionExtra"); ?>",
+                url: "<?php echo base_url("consulta_bdo/cargoInformacionExtra"); ?>",
                 data: { numero: numero, id_aerolinea: id_aerolinea }
             }).done(function(data) {
                 $("#informacion_extra_bdo").html(data);
@@ -43,7 +43,7 @@
         }
         
         function irMenu() {
-            window.location.href = "<?php echo base_url("index.php/menu_bdo"); ?>";
+            window.location.href = "<?php echo base_url("menu_bdo"); ?>";
         } 
     </script>
     

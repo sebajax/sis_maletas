@@ -14,7 +14,7 @@
             
             $.ajax({
                 method: "POST",
-                url: "<?php echo base_url("index.php/cierre_caso/buscarCierreCaso"); ?>",
+                url: "<?php echo base_url("cierre_caso/buscarCierreCaso"); ?>",
                 data: { aerolinea: aerolinea, numero: numero }
             }).done(function(data) {
                 $("#cuerpo").html(data);
@@ -22,13 +22,13 @@
         }
         
         function irMenu() {
-            window.location.href = "<?php echo base_url("index.php/menu_bdo"); ?>";
+            window.location.href = "<?php echo base_url("menu_bdo"); ?>";
         } 
         
         function cerrarCaso(numero, id_aerolinea) {
             $.ajax({
                 method: "POST",
-                url: "<?php echo base_url("index.php/cierre_caso/cerrarCaso"); ?>",
+                url: "<?php echo base_url("cierre_caso/cerrarCaso"); ?>",
                 data: { id_aerolinea: id_aerolinea, numero: numero }
             }).done(function(data) {
                 if(data == "OK") {
@@ -46,7 +46,7 @@
             $("#informacion_extra_bdo").html("");
             $.ajax({
                 method: "POST",
-                url: "<?php echo base_url("index.php/consulta_bdo/cargoInformacionExtra"); ?>",
+                url: "<?php echo base_url("consulta_bdo/cargoInformacionExtra"); ?>",
                 data: { numero: numero, id_aerolinea: id_aerolinea }
             }).done(function(data) {
                 $("#informacion_extra_bdo").html(data);

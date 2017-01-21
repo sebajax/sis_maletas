@@ -14,7 +14,7 @@
             
             $.ajax({
                 method: "POST",
-                url: "<?php echo base_url("index.php/eliminar_modificar_sector/buscarSector"); ?>",
+                url: "<?php echo base_url("eliminar_modificar_sector/buscarSector"); ?>",
                 data: { lugar: lugar, grupo_sector: grupo_sector }
             }).done(function(data) {
                 $("#cuerpo").html(data);
@@ -25,7 +25,7 @@
             $("#modificar_sector_form").html("");
             $.ajax({
                 method: "POST",
-                url: "<?php echo base_url("index.php/eliminar_modificar_sector/modificarSectorForm"); ?>",
+                url: "<?php echo base_url("eliminar_modificar_sector/modificarSectorForm"); ?>",
                 data: { id_sector: id_sector }
             }).done(function(data) {
                 $("#modificar_sector_form").html(data);
@@ -40,7 +40,7 @@
             
             $.ajax({
                 method: "POST",
-                url: "<?php echo base_url("index.php/eliminar_modificar_sector/modificarSector"); ?>",
+                url: "<?php echo base_url("eliminar_modificar_sector/modificarSector"); ?>",
                 data: { id_sector: id_sector, grupo_sector_new: grupo_sector_new, lugar_new: lugar_new }
             }).done(function(data) {
                 if(data == "OK") {
@@ -60,7 +60,7 @@
             $.ajax({
                 method: "POST",
                 dataType: "json",
-                url: "<?php echo base_url("index.php/eliminar_modificar_sector/eliminarSector"); ?>",
+                url: "<?php echo base_url("eliminar_modificar_sector/eliminarSector"); ?>",
                 data: { id_sector: id_sector }
             }).done(function(data) {
                 if(data['estado'] == "1") {
@@ -73,7 +73,7 @@
         }            
         
         function irMenu() {
-            window.location.href = "<?php echo base_url("index.php/menu_sector"); ?>";
+            window.location.href = "<?php echo base_url("menu_sector"); ?>";
         } 
     </script>
     

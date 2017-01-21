@@ -14,7 +14,7 @@
         });        
         
         function irAMenu() {
-            window.location.href = "<?php echo base_url("index.php/menu_bdo"); ?>";
+            window.location.href = "<?php echo base_url("menu_bdo"); ?>";
         } 
         
         function buscarBdo() {
@@ -27,7 +27,7 @@
             
             $.ajax({
                 method: "POST",
-                url: "<?php echo base_url("index.php/eliminar_modificar_bdo/buscarBdo"); ?>",
+                url: "<?php echo base_url("eliminar_modificar_bdo/buscarBdo"); ?>",
                 data: { aerolinea: aerolinea, numero: numero, pasajero: pasajero, fecha_desde: fecha_desde, fecha_hasta: fecha_hasta, grupo_sector: grupo_sector }
             }).done(function(data) {
                 $("#cuerpo").html(data);
@@ -43,7 +43,7 @@
             $("#informacion_extra_bdo").html("");
             $.ajax({
                 method: "POST",
-                url: "<?php echo base_url("index.php/eliminar_modificar_bdo/cargoInformacionExtra"); ?>",
+                url: "<?php echo base_url("eliminar_modificar_bdo/cargoInformacionExtra"); ?>",
                 data: { numero: numero, id_aerolinea: id_aerolinea }
             }).done(function(data) {
                 $("#informacion_extra_bdo").html(data);
@@ -55,7 +55,7 @@
             $("#modificar_bdo_form").html("");
             $.ajax({
                 method: "POST",
-                url: "<?php echo base_url("index.php/eliminar_modificar_bdo/modificarBdoForm"); ?>",
+                url: "<?php echo base_url("eliminar_modificar_bdo/modificarBdoForm"); ?>",
                 data: { numero: numero, id_aerolinea: id_aerolinea }
             }).done(function(data) {
                 $("#modificar_bdo_form").html(data);
@@ -162,7 +162,7 @@
             
             $.ajax({
                 method: "POST",
-                url: "<?php echo base_url("index.php/eliminar_modificar_bdo/modificarBdo"); ?>",
+                url: "<?php echo base_url("eliminar_modificar_bdo/modificarBdo"); ?>",
                 data: { numero: numero, id_aerolinea: id_aerolinea, fecha_llegada_new: fecha_llegada_new, nombre_pasajero_new: nombre_pasajero_new, cantidad_maletas_new: cantidad_maletas_new, region_new: region_new, comuna_new: comuna_new, direccion_new: direccion_new, telefono_new: telefono_new, grupo_sector_new: grupo_sector_new, lugar_sector_new: lugar_sector_new, valor_new: valor_new }
             }).done(function(data) {
                 if(data == "OK") {
@@ -182,7 +182,7 @@
             $.ajax({
                 method: "POST",
                 dataType: "json",
-                url: "<?php echo base_url("index.php/eliminar_modificar_bdo/eliminarBdo"); ?>",
+                url: "<?php echo base_url("eliminar_modificar_bdo/eliminarBdo"); ?>",
                 data: { numero: numero, id_aerolinea: id_aerolinea }
             }).done(function(data) {
                 if(data['estado'] == "1") {
@@ -197,7 +197,7 @@
         function cargoLugares(grupo_sector) {
             $.ajax({
                 method: "POST",
-                url: "<?php echo base_url("index.php/alta_bdo/cargoLugares"); ?>",
+                url: "<?php echo base_url("alta_bdo/cargoLugares"); ?>",
                 data: { grupo_sector: grupo_sector }
             }).done(function(data) {
                 $("#lugar_sector_new").html(data);
@@ -212,7 +212,7 @@
             
             $.ajax({
                 method: "POST",
-                url: "<?php echo base_url("index.php/alta_bdo/cargoValor"); ?>",
+                url: "<?php echo base_url("alta_bdo/cargoValor"); ?>",
                 data: { aerolinea: aerolinea, grupo_sector: grupo_sector}
             }).done(function(data) {
                 $("#valor_new").val(data);

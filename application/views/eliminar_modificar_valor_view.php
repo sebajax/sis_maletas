@@ -14,7 +14,7 @@
             
             $.ajax({
                 method: "POST",
-                url: "<?php echo base_url("index.php/eliminar_modificar_valor/buscarValor"); ?>",
+                url: "<?php echo base_url("eliminar_modificar_valor/buscarValor"); ?>",
                 data: { aerolinea: aerolinea, grupo_sector: grupo_sector }
             }).done(function(data) {
                 $("#cuerpo").html(data);
@@ -25,7 +25,7 @@
             $("#modificar_valor_form").html("");
             $.ajax({
                 method: "POST",
-                url: "<?php echo base_url("index.php/eliminar_modificar_valor/modificarValorForm"); ?>",
+                url: "<?php echo base_url("eliminar_modificar_valor/modificarValorForm"); ?>",
                 data: { id_aerolinea: id_aerolinea, grupo_sector: grupo_sector }
             }).done(function(data) {
                 $("#modificar_valor_form").html(data);
@@ -38,7 +38,7 @@
             
             $.ajax({
                 method: "POST",
-                url: "<?php echo base_url("index.php/eliminar_modificar_valor/modificarValor"); ?>",
+                url: "<?php echo base_url("eliminar_modificar_valor/modificarValor"); ?>",
                 data: { id_aerolinea: id_aerolinea, grupo_sector: grupo_sector, valor_new: valor_new }
             }).done(function(data) {
                 if(data == "OK") {
@@ -58,7 +58,7 @@
             $.ajax({
                 method: "POST",
                 dataType: "json",
-                url: "<?php echo base_url("index.php/eliminar_modificar_valor/eliminarValor"); ?>",
+                url: "<?php echo base_url("eliminar_modificar_valor/eliminarValor"); ?>",
                 data: { id_aerolinea: id_aerolinea, grupo_sector: grupo_sector }
             }).done(function(data) {
                 if(data['estado'] == "1") {
@@ -71,7 +71,7 @@
         }       
         
         function irMenu() {
-            window.location.href = "<?php echo base_url("index.php/menu_valor"); ?>";
+            window.location.href = "<?php echo base_url("menu_valor"); ?>";
         } 
     </script>
     

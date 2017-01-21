@@ -12,7 +12,7 @@
             
             $.ajax({
                 method: "POST",
-                url: "<?php echo base_url("index.php/eliminar_modificar_aerolinea/buscarAerolinea"); ?>",
+                url: "<?php echo base_url("eliminar_modificar_aerolinea/buscarAerolinea"); ?>",
                 data: { aerolinea: aerolinea }
             }).done(function(data) {
                 $("#cuerpo").html(data);
@@ -23,7 +23,7 @@
             ordenamiento();
             $.ajax({
                 method: "POST",
-                url: "<?php echo base_url("index.php/eliminar_modificar_aerolinea/ordenarBuscar"); ?>",
+                url: "<?php echo base_url("eliminar_modificar_aerolinea/ordenarBuscar"); ?>",
                 data: { parametro: parametro, ordenamiento: $("#ordenamiento").val() }
             }).done(function(data) {
                 $("#cuerpo").html(data);
@@ -34,7 +34,7 @@
             $("#modificar_aerolinea_form").html("");
             $.ajax({
                 method: "POST",
-                url: "<?php echo base_url("index.php/eliminar_modificar_aerolinea/modificarAerolineaForm"); ?>",
+                url: "<?php echo base_url("eliminar_modificar_aerolinea/modificarAerolineaForm"); ?>",
                 data: { id_aerolinea: id_aerolinea }
             }).done(function(data) {
                 $("#modificar_aerolinea_form").html(data);
@@ -47,7 +47,7 @@
             
             $.ajax({
                 method: "POST",
-                url: "<?php echo base_url("index.php/eliminar_modificar_aerolinea/modificarAerolinea"); ?>",
+                url: "<?php echo base_url("eliminar_modificar_aerolinea/modificarAerolinea"); ?>",
                 data: { id_aerolinea: id_aerolinea, nombre_aerolinea_new: nombre_aerolinea_new }
             }).done(function(data) {
                 if(data == "OK") {
@@ -67,7 +67,7 @@
             $.ajax({
                 method: "POST",
                 dataType: "json",
-                url: "<?php echo base_url("index.php/eliminar_modificar_aerolinea/eliminarAerolinea"); ?>",
+                url: "<?php echo base_url("eliminar_modificar_aerolinea/eliminarAerolinea"); ?>",
                 data: { id_aerolinea: id_aerolinea }
             }).done(function(data) {
                 if(data['estado'] == "1") {
@@ -80,11 +80,11 @@
         }        
         
         function irMenu() {
-            window.location.href = "<?php echo base_url("index.php/menu_aerolinea"); ?>";
+            window.location.href = "<?php echo base_url("menu_aerolinea"); ?>";
         } 
         
         function importarExcel() {
-            window.location.href = "<?php echo base_url("index.php/eliminar_modificar_aerolinea/importarExcel"); ?>";
+            window.location.href = "<?php echo base_url("eliminar_modificar_aerolinea/importarExcel"); ?>";
         }
     </script>
     

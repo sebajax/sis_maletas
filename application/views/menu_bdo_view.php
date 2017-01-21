@@ -8,19 +8,19 @@
     
     <script type="text/javascript">
         function irAltaBdo() {
-            window.location.href = "<?php echo base_url("index.php/alta_bdo"); ?>";
+            window.location.href = "<?php echo base_url("alta_bdo"); ?>";
         }
         function irCierreCaso() {
-            window.location.href = "<?php echo base_url("index.php/cierre_caso"); ?>";
+            window.location.href = "<?php echo base_url("cierre_caso"); ?>";
         }
         function irConsultaBdo() {
-            window.location.href = "<?php echo base_url("index.php/consulta_bdo"); ?>";
+            window.location.href = "<?php echo base_url("consulta_bdo"); ?>";
         }        
         function irEliminarBdo() {
-            window.location.href = "<?php echo base_url("index.php/eliminar_modificar_bdo"); ?>";
+            window.location.href = "<?php echo base_url("eliminar_modificar_bdo"); ?>";
         }        
         function irMenuPrincipal() {
-            window.location.href = "<?php echo base_url("index.php/menu_principal"); ?>";
+            window.location.href = "<?php echo base_url("menu_principal"); ?>";
         }        
     </script>    
     

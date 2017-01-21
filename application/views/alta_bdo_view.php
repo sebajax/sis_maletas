@@ -157,7 +157,7 @@
             
             $.ajax({
                 method: "POST",
-                url: "<?php echo base_url("index.php/alta_bdo/altaBdo"); ?>",
+                url: "<?php echo base_url("alta_bdo/altaBdo"); ?>",
                 data: { numero: numero, aerolinea: aerolinea, fecha_llegada: fecha_llegada, nombre_pasajero: nombre_pasajero, cantidad_maletas: cantidad_maletas, region: region, comuna: comuna, direccion: direccion, telefono: telefono, grupo_sector: grupo_sector, lugar_sector: lugar_sector,valor: valor }
             }).done(function(data) {
                 if(data == "OK") {
@@ -174,7 +174,7 @@
         function cargoLugares(grupo_sector) {
             $.ajax({
                 method: "POST",
-                url: "<?php echo base_url("index.php/alta_bdo/cargoLugares"); ?>",
+                url: "<?php echo base_url("alta_bdo/cargoLugares"); ?>",
                 data: { grupo_sector: grupo_sector }
             }).done(function(data) {
                 $("#lugar_sector").html(data);
@@ -189,7 +189,7 @@
             
             $.ajax({
                 method: "POST",
-                url: "<?php echo base_url("index.php/alta_bdo/cargoValor"); ?>",
+                url: "<?php echo base_url("alta_bdo/cargoValor"); ?>",
                 data: { aerolinea: aerolinea, grupo_sector: grupo_sector}
             }).done(function(data) {
                 $("#valor").val(data);
@@ -197,7 +197,7 @@
         } 
         
         function irMenu() {
-            window.location.href = "<?php echo base_url("index.php/menu_bdo"); ?>";
+            window.location.href = "<?php echo base_url("menu_bdo"); ?>";
         }        
     </script>
     

@@ -46,7 +46,7 @@
             
             $.ajax({
                 method: "POST",
-                url: "<?php echo base_url("index.php/alta_valores/altaValores"); ?>",
+                url: "<?php echo base_url("alta_valores/altaValores"); ?>",
                 data: { aerolinea: aerolinea, grupo_sector: grupo_sector, valor: valor }
             }).done(function(data) {
                 if(data == "OK") {
@@ -61,7 +61,7 @@
         }       
         
         function irMenu() {
-            window.location.href = "<?php echo base_url("index.php/menu_valor"); ?>";
+            window.location.href = "<?php echo base_url("menu_valor"); ?>";
         }        
     </script>
     

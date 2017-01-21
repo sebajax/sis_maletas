@@ -8,16 +8,16 @@
 
     <script type="text/javascript">
         function irMenuBdo() {
-            window.location.href = "<?php echo base_url("index.php/menu_bdo"); ?>";
+            window.location.href = "<?php echo base_url("menu_bdo"); ?>";
         }
         function irMenuAerolinea() {
-            window.location.href = "<?php echo base_url("index.php/menu_aerolinea"); ?>";
+            window.location.href = "<?php echo base_url("menu_aerolinea"); ?>";
         }
         function irMenuSector() {
-            window.location.href = "<?php echo base_url("index.php/menu_sector"); ?>";
+            window.location.href = "<?php echo base_url("menu_sector"); ?>";
         }
         function irMenuValor() {
-            window.location.href = "<?php echo base_url("index.php/menu_valor"); ?>";
+            window.location.href = "<?php echo base_url("menu_valor"); ?>";
         }      
     </script>    
     

@@ -8,13 +8,13 @@
     
     <script type="text/javascript">
         function irAltaValores() {
-            window.location.href = "<?php echo base_url("index.php/alta_valores"); ?>";
+            window.location.href = "<?php echo base_url("alta_valores"); ?>";
         }
         function irConsultarEliminarValores() {
-            window.location.href = "<?php echo base_url("index.php/eliminar_modificar_valor"); ?>";
+            window.location.href = "<?php echo base_url("eliminar_modificar_valor"); ?>";
         }
         function irMenuPrincipal() {
-            window.location.href = "<?php echo base_url("index.php/menu_principal"); ?>";
+            window.location.href = "<?php echo base_url("menu_principal"); ?>";
         }        
     </script>    
     

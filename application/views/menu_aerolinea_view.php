@@ -8,13 +8,13 @@
     
     <script type="text/javascript">
         function irAltaAerolineas() {
-            window.location.href = "<?php echo base_url("index.php/alta_aerolinea"); ?>";
+            window.location.href = "<?php echo base_url("alta_aerolinea"); ?>";
         }
         function irConsultarEliminarAerolineas() {
-            window.location.href = "<?php echo base_url("index.php/eliminar_modificar_aerolinea"); ?>";
+            window.location.href = "<?php echo base_url("eliminar_modificar_aerolinea"); ?>";
         }
         function irMenuPrincipal() {
-            window.location.href = "<?php echo base_url("index.php/menu_principal"); ?>";
+            window.location.href = "<?php echo base_url("menu_principal"); ?>";
         }        
     </script>    
     

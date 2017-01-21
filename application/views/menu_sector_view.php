@@ -8,13 +8,13 @@
     
     <script type="text/javascript">
         function irAltaSectores() {
-            window.location.href = "<?php echo base_url("index.php/alta_sector"); ?>";
+            window.location.href = "<?php echo base_url("alta_sector"); ?>";
         }
         function irConsultarEliminarSectores() {
-            window.location.href = "<?php echo base_url("index.php/eliminar_modificar_sector"); ?>";
+            window.location.href = "<?php echo base_url("eliminar_modificar_sector"); ?>";
         }
         function irMenuPrincipal() {
-            window.location.href = "<?php echo base_url("index.php/menu_principal"); ?>";
+            window.location.href = "<?php echo base_url("menu_principal"); ?>";
         }        
     </script>    
     
