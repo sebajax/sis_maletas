@@ -9,7 +9,7 @@ class eliminar_modificar_aerolinea extends CI_Controller {
     function __construct() {
         parent::__construct();
         $this->load->model(array('eliminar_modificar_aerolinea_model', 'alta_valores_model'));
-        $this->load->library(array('validation', 'excel', 'session'));
+        $this->load->library(array('validation', 'excel', 'session', 'funciones'));
         $this->load->helper(array('aerolineas_helper'));
     }
     
@@ -22,27 +22,8 @@ class eliminar_modificar_aerolinea extends CI_Controller {
     public function buscarAerolinea() {
         $aerolinea = $this->input->post('aerolinea');
         $result = $this->eliminar_modificar_aerolinea_model->buscarAerolinea($aerolinea);
-        $this->session->set_userdata('result_excel', $result);
-        $tbody = '';
-        foreach ($result as $key => $row) {
-            $tbody .= "
-                <tr>
-                    <th scope='row'>".($key + 1)."</th>
-                    <td>".$row->id_aerolinea."</td>
-                    <td>".$row->nombre_aerolinea."</td>
-                    <td>
-                        <button type='button' class='btn btn-default btn-md'>
-                            <span class='glyphicon glyphicon-pencil' aria-hidden='true' onclick='modificarAerolineaForm(".$row->id_aerolinea.")'></span>
-                        </button>   
-                    </td>
-                    <td>
-                        <button type='button' class='btn btn-default btn-md'>
-                            <span class='glyphicon glyphicon-trash' aria-hidden='true' onclick='eliminarAerolinea(".$row->id_aerolinea.")'></span>
-                        </button>   
-                    </td>                    
-                </tr>";
-        }
-        echo $tbody;
+        $this->session->set_userdata('result_buscarAerolinea', $this->funciones->objectToArray($result));
+        echo $this->armoConsulta($this->session->userdata('result_buscarAerolinea'));
     }  
     
     public function modificarAerolineaForm() {
@@ -101,20 +82,53 @@ class eliminar_modificar_aerolinea extends CI_Controller {
         return true;
     }
     
+    public function ordenarBuscar() {
+        $parametro = $this->input->post('parametro');
+        $ordenamiento = $this->input->post('ordenamiento');
+        if(count($this->session->userdata('result_buscarAerolinea')) > 0) {
+            $result = $this->funciones->array_sort($this->session->userdata('result_buscarAerolinea'), $parametro, $ordenamiento);
+            $this->session->set_userdata('result_buscarAerolinea', $result);
+            echo $this->armoConsulta($result);
+        }
+    }
+    
     public function importarExcel() {
         $title = "consulta_aerolineas";    
         $header = array();
         $header[] = "ID AEROLINEA";
         $header[] = "AEROLINEA";
         $body = array();
-        if(count($this->session->userdata('result_excel')) > 0) {
+        if(count($this->session->userdata('result_buscarAerolinea')) > 0) {
             $i = 0;
-            foreach ($this->session->userdata('result_excel') as $row) {
-                $body[$i][0] = $row->id_aerolinea;
-                $body[$i][1] = $row->nombre_aerolinea;
+            foreach ($this->session->userdata('result_buscarAerolinea') as $row) {
+                $body[$i][0] = $row['id_aerolinea'];
+                $body[$i][1] = $row['nombre_aerolinea'];
                 $i++;
             }
         }
         $this->excel->crearExcel($header, $body, $title);
+    }
+    
+    private function armoConsulta($result) {
+        $tbody = '';
+        foreach ($result as $key => $row) {
+            $tbody .= "
+                <tr>
+                    <th scope='row'>".($key + 1)."</th>
+                    <td>".$row['id_aerolinea']."</td>
+                    <td>".$row['nombre_aerolinea']."</td>
+                    <td>
+                        <button type='button' class='btn btn-default btn-md'>
+                            <span class='glyphicon glyphicon-pencil' aria-hidden='true' onclick='modificarAerolineaForm(".$row['id_aerolinea'].")'></span>
+                        </button>   
+                    </td>
+                    <td>
+                        <button type='button' class='btn btn-default btn-md'>
+                            <span class='glyphicon glyphicon-trash' aria-hidden='true' onclick='eliminarAerolinea(".$row['id_aerolinea'].")'></span>
+                        </button>   
+                    </td>                    
+                </tr>";
+        }
+        return $tbody;        
     }
 }

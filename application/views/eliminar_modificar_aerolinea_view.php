@@ -18,7 +18,18 @@
                 $("#cuerpo").html(data);
             });
         }
-        
+
+        function ordenarBuscar(parametro) {
+            ordenamiento();
+            $.ajax({
+                method: "POST",
+                url: "<?php echo base_url("index.php/eliminar_modificar_aerolinea/ordenarBuscar"); ?>",
+                data: { parametro: parametro, ordenamiento: $("#ordenamiento").val() }
+            }).done(function(data) {
+                $("#cuerpo").html(data);
+            });
+        }
+
         function modificarAerolineaForm(id_aerolinea) {
             $("#modificar_aerolinea_form").html("");
             $.ajax({
@@ -104,9 +115,9 @@
         <table class="table table-hover">
           <thead>
             <tr>
-              <th>#</th>
-              <th>Id</th>
-              <th>Aerolinea</th>
+              <th>#<span id="th_order"></span></th>
+              <th style="cursor: pointer;" onclick="ordenarBuscar('id_aerolinea')">Id</th>
+              <th style="cursor: pointer;" onclick="ordenarBuscar('nombre_aerolinea')">Aerolinea</th>
               <th>Modif</th>
               <th>Eliminar</th>
             </tr>
@@ -114,6 +125,7 @@
           <tbody id="cuerpo">
           </tbody>
         </table>
+        <input id="ordenamiento" type="hidden" value=""/>
     </div>
 </div>
 

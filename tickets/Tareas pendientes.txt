@@ -1,17 +1,24 @@
 RELEASE 1.00
--Login de usuario (Creacion de la session del usuario). (TICKET 501)
--Control de modulos con login de usuario. (TICKET 502)
--Al apretar para borrar registros, preguntar si realmente desea eliminar el registro.  (TICKET 503)
--Optimizar codigo fuente de aplicacion (continuar). (TICKET 504)
--Ordenar consultas. (TICKET 505)
--Exportacion a Excel. (TICKET 506)
--Corregir config para no usar index.php. (TICKET 507)
+-Login de usuario (Creacion de la session del usuario). (TICKET#1)
+https://github.com/sebajax/sis_maletas/issues/1
+-Control de modulos con login de usuario. (TICKET#2)
+https://github.com/sebajax/sis_maletas/issues/2
+-Al apretar para borrar registros, preguntar si realmente desea eliminar el registro.  (TICKET#3)
+https://github.com/sebajax/sis_maletas/issues/3
+-Optimizar codigo fuente de aplicacion (continuar). (TICKET#4)
+https://github.com/sebajax/sis_maletas/issues/4
+-Ordenar consultas. (TICKET#5)
+https://github.com/sebajax/sis_maletas/issues/5
+-Exportacion a Excel. (TICKET#6)
+https://github.com/sebajax/sis_maletas/issues/6
+-Corregir config para no usar index.php. (TICKET#7)
+https://github.com/sebajax/sis_maletas/issues/7
 
 RELEASE 1.01
--Sistema de auditoria de logs en base de datos (MONGO DB). (TICKET 509)
--Implentar navegacion de aplicacion. (TICKET 510) 
--Nueva optimizaciones codigo fuente de aplicacion. (TICKET 511)
--Generar libreria para manejar mensajes. (TICKET 508)
+-Sistema de auditoria de logs en base de datos (MONGO DB). (TICKET#9)
+-Implentar navegacion de aplicacion. (TICKET#10) 
+-Nueva optimizaciones codigo fuente de aplicacion. (TICKET#11)
+-Generar libreria para manejar mensajes. (TICKET#8)
 
 RELEASE 1.02
 -Modulo de cajas.

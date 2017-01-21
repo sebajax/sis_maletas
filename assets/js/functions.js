@@ -55,3 +55,18 @@ function isValidDate(s) {
 function isNumber(n) {
     return !isNaN(parseFloat(n)) && isFinite(n);
 }
+
+function ordenamiento() {
+    $("#th_order").removeClass();
+    if($("#ordenamiento").val() == "") {
+        $("#ordenamiento").val("SORT_ASC");
+        $("#th_order").addClass("glyphicon glyphicon-triangle-top");
+    }else if($("#ordenamiento").val() == "SORT_ASC") {
+        $("#ordenamiento").val("SORT_DESC");
+        $("#th_order").addClass("glyphicon glyphicon-triangle-bottom");
+    }else {
+        $("#ordenamiento").val("SORT_ASC");
+        $("#th_order").addClass("glyphicon glyphicon-triangle-top");
+    }
+    return true;
+}
