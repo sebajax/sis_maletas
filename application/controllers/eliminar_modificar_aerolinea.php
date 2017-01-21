@@ -92,7 +92,7 @@ class eliminar_modificar_aerolinea extends CI_Controller {
         }
     }
     
-    public function importarExcel() {
+    public function exportarExcel() {
         $title = "consulta_aerolineas";    
         $header = array();
         $header[] = "ID AEROLINEA";

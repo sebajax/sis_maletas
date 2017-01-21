@@ -65,8 +65,8 @@
             });
         }
         
-        function importarExcel() {
-            window.location.href = "<?php echo base_url("cierre_caso/importarExcel"); ?>";
+        function exportarExcel() {
+            window.location.href = "<?php echo base_url("cierre_caso/exportarExcel"); ?>";
         }        
     </script>
     
@@ -88,7 +88,7 @@
             <input id="numero" name="numero" placeholder="numero bdo" type="text" class="form-control" />
           </div>
             <button type="button" class="btn btn-primary" onclick="buscarCierreCaso();">Enviar</button>
-            <button type="button" class="btn btn-success" onclick="importarExcel();">Importa Excel</button>
+            <button type="button" class="btn btn-success" onclick="exportarExcel();">Exportar Excel</button>
             <button type="button" class="btn btn-danger" onclick="irMenu();">Volver</button>
         </form>         
         

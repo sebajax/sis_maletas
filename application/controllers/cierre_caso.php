@@ -37,7 +37,7 @@ class cierre_caso extends CI_Controller {
         }
     }
     
-    public function importarExcel() {
+    public function exportarExcel() {
         $title = "consulta_cierre_caso";    
         $header = array();
         $header[] = "NUMERO BDO";

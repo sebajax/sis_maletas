@@ -83,8 +83,8 @@
             window.location.href = "<?php echo base_url("menu_aerolinea"); ?>";
         } 
         
-        function importarExcel() {
-            window.location.href = "<?php echo base_url("eliminar_modificar_aerolinea/importarExcel"); ?>";
+        function exportarExcel() {
+            window.location.href = "<?php echo base_url("eliminar_modificar_aerolinea/exportarExcel"); ?>";
         }
     </script>
     
@@ -102,7 +102,7 @@
                 ?>
             </div>
             <button type="button" class="btn btn-primary" onclick="buscarAerolinea();">Enviar</button>
-            <button type="button" class="btn btn-success" onclick="importarExcel();">Importa Excel</button>
+            <button type="button" class="btn btn-success" onclick="exportarExcel();">Exportar Excel</button>
             <button type="button" class="btn btn-danger" onclick="irMenu();">Volver</button>
         </form>         
         

@@ -196,7 +196,7 @@ class eliminar_modificar_bdo extends CI_Controller {
         }
     }
     
-    public function importarExcel() {
+    public function exportarExcel() {
         $title = "consulta_bdo";    
         $header = array();
         $header[] = "NUMERO BDO";

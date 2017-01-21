@@ -230,8 +230,8 @@
             });
         }
         
-        function importarExcel() {
-            window.location.href = "<?php echo base_url("eliminar_modificar_bdo/importarExcel"); ?>";
+        function exportarExcel() {
+            window.location.href = "<?php echo base_url("eliminar_modificar_bdo/exportarExcel"); ?>";
         }         
     </script>
 </head>
@@ -275,7 +275,7 @@
                 ?>
             </div>    
             <button type="button" class="btn btn-primary"onclick="buscarBdo()" id="btnenviar">Enviar</button>
-            <button type="button" class="btn btn-success" onclick="importarExcel();">Importa Excel</button>
+            <button type="button" class="btn btn-success" onclick="exportarExcel();">Exportar Excel</button>
             <button type="button" class="btn btn-danger" onclick="irAMenu()" id="btnvolver">Volver</button>
         </form>         
         
