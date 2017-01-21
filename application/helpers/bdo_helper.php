@@ -35,7 +35,7 @@ if(!function_exists('cargoInformacionExtra')) {
                         </tr>
                         <tr>
                             <td>Region</td>
-                            <td>'.$result->domicilio_region.'</td>
+                            <td>'.regionTransform($result->domicilio_region).'</td>
                         </tr>
                         <tr>
                             <td>Sector</td>

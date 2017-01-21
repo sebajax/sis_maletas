@@ -32,23 +32,77 @@ if(!function_exists('cargoLugares')) {
 
 if(!function_exists('cargoRegion')) {
     function cargoRegion() {
-        $region = array('-SELECCIONE-');
-        array_push($region, "XV - Arica y Parinacota");
-        array_push($region, "I - Tarapaca");
-        array_push($region, "II - Antofagasta");
-        array_push($region, "III - Atacama");
-        array_push($region, "IV - Coquimbo");
-        array_push($region, "V - Valparaiso");
-        array_push($region, "RM - Metropolitana de Santiago");
-        array_push($region, "VI - Libertador General Bernardo OHiggins");
-        array_push($region, "VII - Maule");
-        array_push($region, "VIII - Biobio");
-        array_push($region, "IX - La Araucania");
-        array_push($region, "XIV - Los Rios");
-        array_push($region, "X - Los Lagos");
-        array_push($region, "XI - Aisen del General Carlos Ibañez del Campo");
-        array_push($region, "XII - Magallanes y de la Antartica Chilena");
+        $region = array();
+        $region[0] = "-SELECCIONE-";
+        $region[1] = "XV - Arica y Parinacota";
+        $region[2] = "I - Tarapaca";
+        $region[3] = "II - Antofagasta";
+        $region[4] = "III - Atacama";
+        $region[5] = "IV - Coquimbo";
+        $region[6] = "V - Valparaiso";
+        $region[7] = "RM - Metropolitana de Santiago";
+        $region[8] = "VI - Libertador General Bernardo OHiggins";
+        $region[9] = "VII - Maule";
+        $region[10] = "VIII - Biobio";
+        $region[11] = "IX - La Araucania";
+        $region[12] = "XIV - Los Rios";
+        $region[13] = "X - Los Lagos";
+        $region[14] = "XI - Aisen del General Carlos Ibañez del Campo";
+        $region[15] = "XII - Magallanes y de la Antartica Chilena";
         return $region;
+    } 
+}
+
+if(!function_exists('regionTransform')) {
+    function regionTransform($codigoRegion) {
+        switch ($codigoRegion) {
+            case 1:
+                $codigoRegion = "XV - Arica y Parinacota";
+                break;
+            case 2:
+                $codigoRegion = "I - Tarapaca";
+                break;
+            case 3:
+                $codigoRegion = "II - Antofagasta";
+                break;
+            case 4:
+                $codigoRegion = "III - Atacama";
+                break;
+            case 5:
+                $codigoRegion = "IV - Coquimbo";
+                break;
+            case 6:
+                $codigoRegion = "V - Valparaiso";
+                break;
+            case 7:
+                $codigoRegion = "RM - Metropolitana de Santiago";
+                break;
+            case 8:
+                $codigoRegion = "VI - Libertador General Bernardo OHiggins";
+                break;
+            case 9:
+                $codigoRegion = "VII - Maule";
+                break;
+            case 10:
+                $codigoRegion = "VIII - Biobio";
+                break;
+            case 11: 
+                $codigoRegion = "IX - La Araucania";
+                break;
+            case 12:
+                $codigoRegion = "XIV - Los Rios";
+                break;
+            case 13:
+                $codigoRegion = "X - Los Lagos";
+                break;
+            case 14:
+                $codigoRegion = "XI - Aisen del General Carlos Ibañez del Campo";
+                break;
+            case 15:
+                $codigoRegion = "XII - Magallanes y de la Antartica Chilena";
+                break;                
+        }
+        return $codigoRegion;
     } 
 }
 

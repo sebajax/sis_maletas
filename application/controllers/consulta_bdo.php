@@ -33,7 +33,7 @@ class consulta_bdo extends CI_Controller {
   }  
     
     public function cargoInformacionExtra() {
-        echo cargoInformacionExtra($this->input->post('numero'),$this->input->post('aerolinea'));       
+        echo cargoInformacionExtra($this->input->post('numero'),$this->input->post('id_aerolinea'));       
     } 
     
     public function ordenarBuscar() {
