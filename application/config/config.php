@@ -35,7 +35,7 @@ $config['base_url'] = '';
 | variable so that it is blank.
 |
 */
-$config['index_page'] = 'login';
+$config['index_page'] = 'index.php';
 
 /*
 |--------------------------------------------------------------------------
