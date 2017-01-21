@@ -124,7 +124,7 @@ class eliminar_modificar_aerolinea extends CI_Controller {
                     </td>
                     <td>
                         <button type='button' class='btn btn-default btn-md'>
-                            <span class='glyphicon glyphicon-trash' aria-hidden='true' onclick='eliminarAerolinea(".$row['id_aerolinea'].")'></span>
+                            <span class='glyphicon glyphicon-trash' aria-hidden='true' onclick='cofirmaEliminar(".$row['id_aerolinea'].")'></span>
                         </button>   
                     </td>                    
                 </tr>";

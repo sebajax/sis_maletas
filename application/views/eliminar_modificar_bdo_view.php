@@ -6,6 +6,8 @@
     <title>Eliminar Modificar B.D.O</title>
     <?php require_once "assets/header/header.php"; ?>
     
+    <style>.top-buffer { margin-top:20px; }</style>
+    
     <script type="text/javascript">
         //load datepicker control onfocus
         $(function() {
@@ -232,7 +234,14 @@
         
         function exportarExcel() {
             window.location.href = "<?php echo base_url("eliminar_modificar_bdo/exportarExcel"); ?>";
-        }         
+        }    
+        
+        function cofirmaEliminar(numero, id_aerolinea) {
+            $('#confirm').modal({ backdrop: 'static', keyboard: false })
+                .one('click', '#delete', function () {
+                    eliminarBdo(numero, id_aerolinea);
+            });        
+        }        
     </script>
 </head>
 
@@ -341,6 +350,20 @@
             </div>
         </div>
     </div>
+</div>
+
+<div id="confirm" class="modal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+               ¿ Seguro quieres eliminar el registro ?
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-primary" id="delete">Borrar</button>
+                <button type="button" data-dismiss="modal" class="btn">Cancelar</button>
+            </div>
+        </div>   
+    </div>    
 </div>
 
 </body>

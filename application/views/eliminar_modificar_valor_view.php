@@ -6,6 +6,8 @@
     <title>Eliminar Modificar Valores</title>
     <?php require_once "assets/header/header.php"; ?>
     
+    <style>.top-buffer { margin-top:20px; }</style>
+    
     <script type="text/javascript">
        
         function buscarValor() {
@@ -73,6 +75,13 @@
         function irMenu() {
             window.location.href = "<?php echo base_url("menu_valor"); ?>";
         } 
+        
+        function cofirmaEliminar(id_aerolinea, grupo_sector) {
+            $('#confirm').modal({ backdrop: 'static', keyboard: false })
+                .one('click', '#delete', function () {
+                    eliminarValor(id_aerolinea, grupo_sector);
+            });        
+        }        
     </script>
     
 </head>
@@ -139,6 +148,19 @@
     </div>
 </div>
 
+<div id="confirm" class="modal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+               ¿ Seguro quieres eliminar el registro ?
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-primary" id="delete">Borrar</button>
+                <button type="button" data-dismiss="modal" class="btn">Cancelar</button>
+            </div>
+        </div>   
+    </div>    
+</div>
 
 </body>
 </html>

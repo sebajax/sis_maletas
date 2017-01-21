@@ -6,6 +6,8 @@
     <title>Cierre caso</title>
     <?php require_once "assets/header/header.php"; ?>
     
+    <style>.top-buffer { margin-top:20px; }</style>
+    
     <script type="text/javascript">
         
         function buscarCierreCaso() {

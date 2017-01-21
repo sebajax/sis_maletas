@@ -262,7 +262,7 @@ class eliminar_modificar_bdo extends CI_Controller {
                   </td>
                   <td>
                     <button type='button' class='btn btn-default btn-md'>
-                        <span class='glyphicon glyphicon-trash' aria-hidden='true' onclick='eliminarBdo(".$aux_numero.", ".$aux_id_aerolinea.")'></span>
+                        <span class='glyphicon glyphicon-trash' aria-hidden='true' onclick='cofirmaEliminar(".$aux_numero.", ".$aux_id_aerolinea.")'></span>
                     </button>   
                   </td>                    
                 </tr>";

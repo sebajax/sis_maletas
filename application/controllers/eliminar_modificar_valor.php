@@ -40,7 +40,7 @@ class eliminar_modificar_valor extends CI_Controller {
                     </td>
                     <td>
                         <button type='button' class='btn btn-default btn-md'>
-                            <span class='glyphicon glyphicon-trash' aria-hidden='true' onclick='eliminarValor(".$row->id_aerolinea.", ".$row->grupo_sector.")'></span>
+                            <span class='glyphicon glyphicon-trash' aria-hidden='true' onclick='cofirmaEliminar(".$row->id_aerolinea.", ".$row->grupo_sector.")'></span>
                         </button>   
                     </td>                    
                 </tr>";
