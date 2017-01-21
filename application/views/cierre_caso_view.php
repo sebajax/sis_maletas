@@ -52,6 +52,21 @@
                 $("#informacion_extra_bdo").html(data);
                 $('#informacion_bdo').modal('show');
             });
+        }   
+        
+        function ordenarBuscar(parametro) {
+            ordenamiento();
+            $.ajax({
+                method: "POST",
+                url: "<?php echo base_url("cierre_caso/ordenarBuscar"); ?>",
+                data: { parametro: parametro, ordenamiento: $("#ordenamiento").val() }
+            }).done(function(data) {
+                $("#cuerpo").html(data);
+            });
+        }
+        
+        function importarExcel() {
+            window.location.href = "<?php echo base_url("cierre_caso/importarExcel"); ?>";
         }        
     </script>
     
@@ -73,7 +88,8 @@
             <input id="numero" name="numero" placeholder="numero bdo" type="text" class="form-control" />
           </div>
             <button type="button" class="btn btn-primary" onclick="buscarCierreCaso();">Enviar</button>
-          <button type="button" class="btn btn-danger" onclick="irMenu();">Volver</button>
+            <button type="button" class="btn btn-success" onclick="importarExcel();">Importa Excel</button>
+            <button type="button" class="btn btn-danger" onclick="irMenu();">Volver</button>
         </form>         
         
         <div class="form-group">
@@ -85,19 +101,18 @@
         <table class="table table-hover">
           <thead>
             <tr>
-              <th>#</th>
-              <th>Numero BDO</th>
-              <th>Aerolinea</th>
-              <th>Pasajero</th>
-              <th>Fecha</th>
+              <th>#<span id="th_order"></span></th>
+              <th style="cursor: pointer;" onclick="ordenarBuscar('numero')">Numero BDO</th>
+              <th style="cursor: pointer;" onclick="ordenarBuscar('id_aerolinea')">Aerolinea</th>
+              <th style="cursor: pointer;" onclick="ordenarBuscar('nombre_pasajero')">Pasajero</th>
+              <th style="cursor: pointer;" onclick="ordenarBuscar('fecha_llegada')">Fecha</th>
               <th>Info</th>
               <th>Cerrar</th>
             </tr>
           </thead>
-          <tbody id="cuerpo">
-
-          </tbody>
+          <tbody id="cuerpo"></tbody>
         </table>
+        <input id="ordenamiento" type="hidden" value=""/>
     </div>
 </div>
     

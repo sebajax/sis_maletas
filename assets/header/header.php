@@ -1,9 +1,9 @@
+<!--link the estilos css file-->
+<link href="<?php echo base_url("assets/css/estilo.css"); ?>" rel="stylesheet" type="text/css" />
 <!-- link jquery ui css-->
 <link href="<?php echo base_url('assets/jquery-ui/jquery-ui.min.css'); ?>" rel="stylesheet" type="text/css" />
 <!--link the bootstrap css file-->
 <link href="<?php echo base_url("assets/bootstrap/css/bootstrap.css"); ?>" rel="stylesheet" type="text/css" />
-<!--link the estilos css file-->
-<link href="<?php echo base_url("assets/css/estilo.css"); ?>" rel="stylesheet" type="text/css" />
 <!--load functions js file-->
 <script src="<?php echo base_url('assets/js/functions.js'); ?>"></script>       
 <!--include jquery library-->

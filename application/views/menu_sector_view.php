@@ -6,6 +6,8 @@
     <title>Menu Sector</title>
     <?php require_once "assets/header/header.php"; ?>
     
+    <style>.top-buffer { margin-top:20px; }</style>
+    
     <script type="text/javascript">
         function irAltaSectores() {
             window.location.href = "<?php echo base_url("alta_sector"); ?>";
