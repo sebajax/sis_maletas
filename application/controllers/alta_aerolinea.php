@@ -9,7 +9,8 @@ class alta_aerolinea extends CI_Controller {
     function __construct() {
         parent::__construct();
         $this->load->model('alta_aerolinea_model');
-        $this->load->library('validation');
+        $this->load->library(array('validation', 'perms'));
+        if(!$this->perms->verifico()) { die("USTED NO TIENE PERMISOS PARA ACCEDER A ESTE SITIO."); }
     }
     
     function index() {

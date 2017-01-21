@@ -9,8 +9,9 @@ class cierre_caso extends CI_Controller {
     function __construct() {
         parent::__construct();
         $this->load->model(array('cierre_caso_model', 'alta_valores_model', 'consulta_bdo_model'));
-        $this->load->library(array('validation', 'excel', 'session', 'funciones'));
+        $this->load->library(array('validation', 'excel', 'session', 'funciones', 'perms'));
         $this->load->helper(array('aerolineas_helper', 'bdo_helper'));
+        if(!$this->perms->verifico()) { die("USTED NO TIENE PERMISOS PARA ACCEDER A ESTE SITIO."); }
     }
     
     function index() {
@@ -30,7 +31,7 @@ class cierre_caso extends CI_Controller {
     public function ordenarBuscar() {
         $parametro = $this->input->post('parametro');
         $ordenamiento = $this->input->post('ordenamiento');
-        if(count($this->session->userdata('result_buscarCierreCaso')) > 0) {
+        if($this->session->has_userdata('result_buscarCierreCaso')) {
             $result = $this->funciones->array_sort($this->session->userdata('result_buscarCierreCaso'), $parametro, $ordenamiento);
             $this->session->set_userdata('result_buscarCierreCaso', $result);
             echo $this->armoConsulta($result);
@@ -45,7 +46,7 @@ class cierre_caso extends CI_Controller {
         $header[] = "PASAJERO";
         $header[] = "FECHA";
         $body = array();
-        if(count($this->session->userdata('result_buscarCierreCaso')) > 0) {
+        if($this->session->has_userdata('result_buscarCierreCaso')) {
             $i = 0;
             foreach ($this->session->userdata('result_buscarCierreCaso') as $row) {
                 $body[$i][0] = $row['numero'];

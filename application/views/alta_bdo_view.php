@@ -37,7 +37,11 @@
             
             $("#aerolinea").on("change", function() {
                 cargoValor();
-            });            
+            });  
+            
+            $("#cantidad_maletas").on("change", function() {
+                cargoValor();
+            });  
         });
         
         function altaBDO() {
@@ -184,13 +188,14 @@
         function cargoValor() {
             var aerolinea    = $("#aerolinea").val();
             var grupo_sector = $("#grupo_sector").val();
+            var cantidad_maletas = $("#cantidad_maletas").val();
             
-            if(aerolinea == 0 || grupo_sector == 0) { return false; }
+            if(aerolinea == 0 || grupo_sector == 0 || cantidad_maletas == 0) { return false; }
             
             $.ajax({
                 method: "POST",
                 url: "<?php echo base_url("alta_bdo/cargoValor"); ?>",
-                data: { aerolinea: aerolinea, grupo_sector: grupo_sector}
+                data: { aerolinea: aerolinea, grupo_sector: grupo_sector, cantidad_maletas: cantidad_maletas}
             }).done(function(data) {
                 $("#valor").val(data);
             });            

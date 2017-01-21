@@ -9,8 +9,9 @@ class alta_valores extends CI_Controller {
     function __construct() {
         parent::__construct();
         $this->load->model('alta_valores_model');
-        $this->load->library('validation');
+        $this->load->library(array('validation', 'perms'));
         $this->load->helper(array('sectores_helper', 'aerolineas_helper'));
+        if(!$this->perms->verifico()) { die("USTED NO TIENE PERMISOS PARA ACCEDER A ESTE SITIO."); }
     } 
     
     function index() {

@@ -9,8 +9,9 @@ class eliminar_modificar_bdo extends CI_Controller {
     function __construct() {
         parent::__construct();
         $this->load->model(array('eliminar_modificar_bdo_model', 'alta_valores_model', 'consulta_bdo_model'));
-        $this->load->library(array('validation', 'excel', 'session', 'funciones'));
+        $this->load->library(array('validation', 'excel', 'session', 'funciones', 'perms'));
         $this->load->helper(array('sectores_helper', 'aerolineas_helper', 'bdo_helper'));
+        if(!$this->perms->verifico()) { die("USTED NO TIENE PERMISOS PARA ACCEDER A ESTE SITIO."); }
     }
     
     function index() {
@@ -189,7 +190,7 @@ class eliminar_modificar_bdo extends CI_Controller {
     public function ordenarBuscar() {
         $parametro = $this->input->post('parametro');
         $ordenamiento = $this->input->post('ordenamiento');
-        if(count($this->session->userdata('result_buscarBdo')) > 0) {
+        if($this->session->has_userdata('result_buscarBdo')) {
             $result = $this->funciones->array_sort($this->session->userdata('result_buscarBdo'), $parametro, $ordenamiento);
             $this->session->set_userdata('result_buscarBdo', $result);
             echo $this->armoConsulta($result);
@@ -207,7 +208,7 @@ class eliminar_modificar_bdo extends CI_Controller {
         $header[] = "ESTADO";
         $header[] = "FECHA";
         $body = array();
-        if(count($this->session->userdata('result_buscarBdo')) > 0) {
+        if($this->session->has_userdata('result_buscarBdo')) {
             $i = 0;
             foreach ($this->session->userdata('result_buscarBdo') as $row) {
                 if($row['estado'] == 1) {

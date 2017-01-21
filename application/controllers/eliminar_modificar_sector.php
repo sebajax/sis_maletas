@@ -9,8 +9,9 @@ class eliminar_modificar_sector extends CI_Controller {
     function __construct() {
         parent::__construct();
         $this->load->model('eliminar_modificar_sector_model');
-        $this->load->library('validation');
+        $this->load->library(array('validation', 'perms'));
         $this->load->helper(array('sectores_helper'));
+        if(!$this->perms->verifico()) { die("USTED NO TIENE PERMISOS PARA ACCEDER A ESTE SITIO."); }
     }
     
     function index() {

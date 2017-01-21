@@ -9,8 +9,9 @@ class eliminar_modificar_aerolinea extends CI_Controller {
     function __construct() {
         parent::__construct();
         $this->load->model(array('eliminar_modificar_aerolinea_model', 'alta_valores_model'));
-        $this->load->library(array('validation', 'excel', 'session', 'funciones'));
+        $this->load->library(array('validation', 'excel', 'session', 'funciones', 'perms'));
         $this->load->helper(array('aerolineas_helper'));
+        if(!$this->perms->verifico()) { die("USTED NO TIENE PERMISOS PARA ACCEDER A ESTE SITIO."); }
     }
     
     function index() {
@@ -85,7 +86,7 @@ class eliminar_modificar_aerolinea extends CI_Controller {
     public function ordenarBuscar() {
         $parametro = $this->input->post('parametro');
         $ordenamiento = $this->input->post('ordenamiento');
-        if(count($this->session->userdata('result_buscarAerolinea')) > 0) {
+        if($this->session->has_userdata('result_buscarAerolinea')) {
             $result = $this->funciones->array_sort($this->session->userdata('result_buscarAerolinea'), $parametro, $ordenamiento);
             $this->session->set_userdata('result_buscarAerolinea', $result);
             echo $this->armoConsulta($result);
@@ -98,7 +99,7 @@ class eliminar_modificar_aerolinea extends CI_Controller {
         $header[] = "ID AEROLINEA";
         $header[] = "AEROLINEA";
         $body = array();
-        if(count($this->session->userdata('result_buscarAerolinea')) > 0) {
+        if($this->session->has_userdata('result_buscarAerolinea')) {
             $i = 0;
             foreach ($this->session->userdata('result_buscarAerolinea') as $row) {
                 $body[$i][0] = $row['id_aerolinea'];

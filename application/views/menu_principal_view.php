@@ -20,7 +20,16 @@
         }
         function irMenuValor() {
             window.location.href = "<?php echo base_url("menu_valor"); ?>";
-        }      
+        }
+        function cerrarSession() {
+            $.ajax({
+                method: "POST",
+                url: "<?php echo base_url("menu_principal/cerrar"); ?>",
+            }).done(function() {
+                window.location.href = "<?php echo base_url("login"); ?>";
+            });            
+            
+        }
     </script>    
     
 </head>
@@ -44,7 +53,7 @@
                 <div class="row top-buffer"></div>
                 <button type="button" class="btn btn-primary btn-lg btn-block" onclick="irMenuValor();">MENU VALOR</button>
                 <div class="row top-buffer"></div>
-                <button type="button" class="btn btn-danger btn-lg btn-block" onclick="">CERRAR SESION</button>
+                <button type="button" class="btn btn-danger btn-lg btn-block" onclick="cerrarSession();">CERRAR SESION</button>
             </div>
         </fieldset>
         <?php echo form_close(); ?>
