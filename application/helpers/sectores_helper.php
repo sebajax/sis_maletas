@@ -33,9 +33,21 @@ if(!function_exists('cargoLugares')) {
 if(!function_exists('cargoRegion')) {
     function cargoRegion() {
         $region = array('-SELECCIONE-');
-        array_push($region, "REGION DE LOS LAGOS");
-        array_push($region, "REGION DE VALPARAISO");
-        array_push($region, "REGION METROPOLITANA");
+        array_push($region, "XV - Arica y Parinacota");
+        array_push($region, "I - Tarapaca");
+        array_push($region, "II - Antofagasta");
+        array_push($region, "III - Atacama");
+        array_push($region, "IV - Coquimbo");
+        array_push($region, "V - Valparaiso");
+        array_push($region, "RM - Metropolitana de Santiago");
+        array_push($region, "VI - Libertador General Bernardo OHiggins");
+        array_push($region, "VII - Maule");
+        array_push($region, "VIII - Biobio");
+        array_push($region, "IX - La Araucania");
+        array_push($region, "XIV - Los Rios");
+        array_push($region, "X - Los Lagos");
+        array_push($region, "XI - Aisen del General Carlos Ibañez del Campo");
+        array_push($region, "XII - Magallanes y de la Antartica Chilena");
         return $region;
     } 
 }
