@@ -21,13 +21,14 @@ class consulta_bdo extends CI_Controller {
     }  
     
     public function buscarBdo() {
-        $numero       = $this->input->post('numero');
-        $id_aerolinea = $this->input->post('aerolinea');
+        $numero          = $this->input->post('numero');
+        $id_aerolinea    = $this->input->post('aerolinea');
         $nombre_pasajero = $this->input->post('pasajero');
-        $fecha_desde = $this->input->post('fecha_desde');
-        $fecha_hasta = $this->input->post('fecha_hasta');
-        $grupo_sector = $this->input->post('grupo_sector');
-        $result = $this->consulta_bdo_model->buscarBdo($numero, $id_aerolinea, $nombre_pasajero, $fecha_desde, $fecha_hasta, $grupo_sector);
+        $fecha_desde     = $this->input->post('fecha_desde');
+        $fecha_hasta     = $this->input->post('fecha_hasta');
+        $grupo_sector    = $this->input->post('grupo_sector');
+        $estado          = $this->input->post('estado');
+        $result = $this->consulta_bdo_model->buscarBdo($numero, $id_aerolinea, $nombre_pasajero, $fecha_desde, $fecha_hasta, $grupo_sector, $estado);
         $this->session->set_userdata('result_buscarBdo', $this->funciones->objectToArray($result));
         echo $this->armoConsulta($this->session->userdata('result_buscarBdo'));
   }  

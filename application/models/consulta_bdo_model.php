@@ -11,7 +11,7 @@ class consulta_bdo_model extends CI_Model {
         $this->load->database();
     }
 
-    public function buscarBdo($numero, $id_aerolinea, $nombre_pasajero, $fecha_desde, $fecha_hasta, $grupo_sector) {
+    public function buscarBdo($numero, $id_aerolinea, $nombre_pasajero, $fecha_desde, $fecha_hasta, $grupo_sector, $estado) {
         $where = array();
         
         if(!empty($numero)) {
@@ -29,6 +29,9 @@ class consulta_bdo_model extends CI_Model {
         }
         if(!empty($grupo_sector)) {
             $where['sectores.grupo_sector'] = $grupo_sector;
+        }
+        if($estado != "") {
+            $where['estado'] = $estado;
         }
         $this->db->select('*');
         $this->db->from('bdo');

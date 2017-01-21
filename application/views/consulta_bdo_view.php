@@ -20,11 +20,12 @@
             var fecha_desde  = $("#fecha_desde").val();
             var fecha_hasta  = $("#fecha_hasta").val();
             var grupo_sector = $("#grupo_sector").val();
+            var estado       = $("#estado").val();
             
             $.ajax({
                 method: "POST",
                 url: "<?php echo base_url("consulta_bdo/buscarBdo"); ?>",
-                data: { aerolinea: aerolinea, numero: numero, pasajero: pasajero, fecha_desde: fecha_desde, fecha_hasta: fecha_hasta, grupo_sector: grupo_sector }
+                data: { aerolinea: aerolinea, numero: numero, pasajero: pasajero, fecha_desde: fecha_desde, fecha_hasta: fecha_hasta, grupo_sector: grupo_sector, estado: estado }
             }).done(function(data) {
                 $("#cuerpo").html(data);
             });
@@ -100,7 +101,18 @@
                 $attributes = 'class = "form-control" id = "grupo_sector"';
                 echo form_dropdown('grupo_sector', $grupo_sector, set_value('grupo_sector'), $attributes);
                 ?>
-            </div>    
+            </div>
+        </form>    
+        <div class="row top-buffer"></div>
+        <form class="form-inline">
+            <div class="form-group">
+                <label for="estado">Estado</label>
+                <select class = "form-control" id = "estado">
+                    <option value="">-SELECCIONE-</option>
+                    <option value="0">ABIERTO</option>
+                    <option value="1">CERRADO</option>
+                </select>    
+            </div> 
             <button type="button" class="btn btn-primary" onclick="buscarBdo();">Enviar</button>
             <button type="button" class="btn btn-success" onclick="exportarExcel();">Exportar Excel</button>
             <button type="button" class="btn btn-danger" onclick="irMenu();">Volver</button>
