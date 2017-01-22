@@ -91,6 +91,7 @@
           </div>
             <button type="button" class="btn btn-primary" onclick="buscarCierreCaso();">Enviar</button>
             <button type="button" class="btn btn-success" onclick="exportarExcel();">Exportar Excel</button>
+            <button type="button" class="btn btn-info" onclick="printDiv();">Imprimir</button>
             <button type="button" class="btn btn-danger" onclick="irMenu();">Volver</button>
         </form>         
         
@@ -100,20 +101,22 @@
         
         <hr />
         
-        <table class="table table-hover">
-          <thead>
-            <tr>
-              <th>#<span id="th_order"></span></th>
-              <th style="cursor: pointer;" onclick="ordenarBuscar('numero')">Numero BDO</th>
-              <th style="cursor: pointer;" onclick="ordenarBuscar('id_aerolinea')">Aerolinea</th>
-              <th style="cursor: pointer;" onclick="ordenarBuscar('nombre_pasajero')">Pasajero</th>
-              <th style="cursor: pointer;" onclick="ordenarBuscar('fecha_llegada')">Fecha</th>
-              <th>Info</th>
-              <th>Cerrar</th>
-            </tr>
-          </thead>
-          <tbody id="cuerpo"></tbody>
-        </table>
+        <div id="printDiv">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>#<span id="th_order"></span></th>
+                  <th style="cursor: pointer;" onclick="ordenarBuscar('numero')">Numero BDO</th>
+                  <th style="cursor: pointer;" onclick="ordenarBuscar('id_aerolinea')">Aerolinea</th>
+                  <th style="cursor: pointer;" onclick="ordenarBuscar('nombre_pasajero')">Pasajero</th>
+                  <th style="cursor: pointer;" onclick="ordenarBuscar('fecha_llegada')">Fecha</th>
+                  <th>Info</th>
+                  <th>Cerrar</th>
+                </tr>
+              </thead>
+              <tbody id="cuerpo"></tbody>
+            </table>
+        </div>    
         <input id="ordenamiento" type="hidden" value=""/>
     </div>
 </div>

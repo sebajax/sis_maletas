@@ -70,3 +70,12 @@ function ordenamiento() {
     }
     return true;
 }
+
+function printDiv() {
+    var divToPrint=document.getElementById('printDiv');
+    var newWin=window.open('','Print-Window');
+    newWin.document.open();
+    newWin.document.write('<html> <script src="assets/js/jquery.min.js"></script> <link href="assets/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" /> <body onload="window.print()">'+divToPrint.innerHTML+'</body></html>');
+    newWin.document.close();
+    setTimeout(function(){newWin.close();},10);
+}   

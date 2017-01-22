@@ -104,6 +104,7 @@
                 <input id="lugar" name="lugar" placeholder="nombre del lugar" type="text" class="form-control" />
             </div>
             <button type="button" class="btn btn-primary" onclick="buscarSector();">Enviar</button>
+            <button type="button" class="btn btn-info" onclick="printDiv();">Imprimir</button>
             <button type="button" class="btn btn-danger" onclick="irMenu();">Volver</button>
         </form>         
         
@@ -113,21 +114,21 @@
         
         <hr />
         
-        <table class="table table-hover">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Id</th>
-              <th>Grupo</th>
-              <th>Lugar</th>
-              <th>Modif</th>
-              <th>Eliminar</th>
-            </tr>
-          </thead>
-          <tbody id="cuerpo">
-
-          </tbody>
-        </table>
+        <div id="printDiv">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Id</th>
+                        <th>Grupo</th>
+                        <th>Lugar</th>
+                        <th>Modif</th>
+                        <th>Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody id="cuerpo"></tbody>
+            </table>
+        </div>  
     </div>
 </div>
 

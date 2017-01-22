@@ -105,6 +105,7 @@
                 ?>
             </div>             
             <button type="button" class="btn btn-primary" onclick="buscarValor();">Enviar</button>
+            <button type="button" class="btn btn-info" onclick="printDiv();">Imprimir</button>
             <button type="button" class="btn btn-danger" onclick="irMenu();">Volver</button>           
         </form> 
         <div class="form-group">
@@ -113,21 +114,21 @@
         
         <hr />
         
-        <table class="table table-hover">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Aerolinea</th>
-              <th>Grupo sector</th>
-              <th>Valor</th>
-              <th>Modif</th>
-              <th>Eliminar</th>
-            </tr>
-          </thead>
-          <tbody id="cuerpo">
-
-          </tbody>
-        </table>
+        <div id="printDiv">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                    <th>#</th>
+                    <th>Aerolinea</th>
+                    <th>Grupo sector</th>
+                    <th>Valor</th>
+                    <th>Modif</th>
+                    <th>Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody id="cuerpo"></tbody>
+            </table>
+        </div>    
     </div>
 </div>
 
