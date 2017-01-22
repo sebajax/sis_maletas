@@ -27,23 +27,6 @@
             window.location.href = "<?php echo base_url("menu_bdo"); ?>";
         } 
         
-        function cerrarCaso(numero, id_aerolinea) {
-            $.ajax({
-                method: "POST",
-                url: "<?php echo base_url("cierre_caso/cerrarCaso"); ?>",
-                data: { id_aerolinea: id_aerolinea, numero: numero }
-            }).done(function(data) {
-                if(data == "OK") {
-                    mostrarMensaje("Se cierra el caso correctamente", "alert-success");
-                    setTimeout(function(){
-                        buscarCierreCaso();
-                    }, 2000);
-                }else {
-                    mostrarMensaje("Hubo un problema al procesar su solicitud", "alert-danger");
-                }
-            });            
-        }
-        
         function cargoInformacionExtra(numero, id_aerolinea) {
             $("#informacion_extra_bdo").html("");
             $.ajax({
@@ -69,7 +52,40 @@
         
         function exportarExcel() {
             window.location.href = "<?php echo base_url("cierre_caso/exportarExcel"); ?>";
-        }        
+        }  
+        
+        function cerrarCasoForm(numero, id_aerolinea, nombre_aerolinea) {
+            $("#numero_comentario").val(numero);
+            $("#id_aerolinea_comentario").val(id_aerolinea);
+            $("#nombre_aerolinea_comentario").val(nombre_aerolinea);
+            $("#comentario").val("");
+            $('#comentario_bdo').modal('show');            
+        }
+        
+        function cerrarCaso() {
+            var numero = $("#numero_comentario").val();
+            var id_aerolinea = $("#id_aerolinea_comentario").val();
+            var comentario = $("#comentario").val();
+            
+            $.ajax({
+                method: "POST",
+                url: "<?php echo base_url("cierre_caso/cerrarCaso"); ?>",
+                data: { id_aerolinea: id_aerolinea, numero: numero, comentario: comentario }
+            }).done(function(data) {
+                if(data == "OK") {
+                    mostrarMensaje("Se cierra el caso correctamente", "alert-success");
+                    setTimeout(function(){
+                        buscarCierreCaso();
+                    }, 2000);
+                }else {
+                    mostrarMensaje("Hubo un problema al procesar su solicitud", "alert-danger");
+                }
+            });           
+        }  
+        
+        function cancelarComentario() {
+            $('#comentario_bdo').modal('toggle');
+        }            
     </script>
     
 </head>
@@ -89,6 +105,9 @@
             <label for="numero">Numero</label>
             <input id="numero" name="numero" placeholder="numero bdo" type="text" class="form-control" />
           </div>
+        </form>    
+        <div class="row top-buffer"></div>
+        <form class="form-inline">    
             <button type="button" class="btn btn-primary" onclick="buscarCierreCaso();">Enviar</button>
             <button type="button" class="btn btn-success" onclick="exportarExcel();">Exportar Excel</button>
             <button type="button" class="btn btn-info" onclick="printDiv();">Imprimir</button>
@@ -136,6 +155,41 @@
             </div>
         </div>
     </div>
-</div>    
+</div> 
+
+<!-- Agregar comentario modal -->
+<div id="comentario_bdo" class="modal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Cerrar caso BDO</h4>
+            </div>
+            <div class="modal-body" id="comentario_bdo_form">
+                <form>
+                    <div class="form-group">
+                        <label for="numero_comentario" class="control-label">Numero</label>
+                        <input id="numero_comentario" disabled= "disabled" name="numero_comentario" placeholder="numero bdo" type="text" class="form-control"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="nombre_aerolinea_comentario" class="control-label">Aerolinea</label>
+                        <input id="nombre_aerolinea_comentario" disabled= "disabled" name="nombre_aerolinea_comentario" placeholder="aerolinea" type="text" class="form-control"/>
+                        <input id="id_aerolinea_comentario" disabled= "disabled" name="id_aerolinea_comentario" placeholder="aerolinea" type="hidden" class="form-control"/>
+                    </div>                    
+                    <div class="form-group">
+                        <label for="comentario" class="control-label">Comentario</label>
+                        <textarea class="form-control noresize" rows="8" id="comentario" placeholder="comentario"></textarea>
+                    </div>
+                    <input id="btn_comentario" name="btn_comentario" type="button" class="btn btn-primary" value="Cerrar caso" onclick="cerrarCaso();" />
+                    <input id="btn_cancelar" name="btn_cancelar_comentario" type="reset" class="btn btn-danger" value="Cancelar" onclick="cancelarComentario();"/>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

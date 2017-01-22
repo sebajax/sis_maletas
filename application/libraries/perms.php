@@ -10,8 +10,6 @@ class perms {
         $CI = get_instance();
         $CI->load->library("session");
         
-        log_message("debug", print_r($CI->session->userdata(), true));
-        
         if(!$CI->session->has_userdata('usuario')) {
             return false;
         }

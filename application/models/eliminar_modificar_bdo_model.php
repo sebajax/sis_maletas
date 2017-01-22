@@ -79,4 +79,8 @@ class eliminar_modificar_bdo_model extends CI_Model {
         $this->db->where($where);
         $this->db->update('bdo', $data_update);
     }    
+    
+    public function agregarComentario($data) {
+        $this->db->insert("comentarios_bdo", $data);
+    }
 }

@@ -62,14 +62,23 @@ class cierre_caso extends CI_Controller {
     public function cerrarCaso() {
         $numero       = $this->input->post('numero');
         $id_aerolinea = $this->input->post('id_aerolinea');
-        log_message("debug", "NUMERO:".$numero);
-        log_message("debug", "ID AEROLINEA:".$id_aerolinea);
-        if(!empty($numero) && !empty($id_aerolinea)) {
-            $this->cierre_caso_model->cerrarCaso($numero, $id_aerolinea);
-            echo "OK";
-        }else {
+        $comentario   = $this->input->post('comentario');
+        
+        if(empty($numero) || empty($id_aerolinea) || empty($comentario)) {
             echo "ERROR";
+            return false;
         }
+        
+        $data = array(
+            "numero" => $numero,
+            "id_aerolinea" => $id_aerolinea,
+            "comentario" => $comentario,
+            "usuario" => $this->session->userdata('usuario')
+        );
+        
+        $this->cierre_caso_model->cerrarCaso($data);
+        echo "OK";
+        return true;        
     }
 
     public function cargoInformacionExtra() {
@@ -82,6 +91,7 @@ class cierre_caso extends CI_Controller {
             //Parametros para funcion cerrarCaso JS
             $env_numero = "'".$row['numero']."'";
             $env_id_aerolinea = "'".$row['id_aerolinea']."'";
+            $env_nombre_aerolinea = "'".$row['nombre_aerolinea']."'";
             
             $tbody .= '
                 <tr>
@@ -97,7 +107,7 @@ class cierre_caso extends CI_Controller {
                   </td>
                   <td>
                     <button type="button" class="btn btn-default btn-md">
-                        <span class="glyphicon glyphicon-remove" aria-hidden="true" onclick="cerrarCaso('.$env_numero.', '.$env_id_aerolinea.')"></span>
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true" onclick="cerrarCasoForm('.$env_numero.', '.$env_id_aerolinea.', '.$env_nombre_aerolinea.')"></span>
                     </button>
                   </td>                  
                 </tr>';

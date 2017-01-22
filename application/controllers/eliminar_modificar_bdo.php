@@ -34,7 +34,7 @@ class eliminar_modificar_bdo extends CI_Controller {
     }  
     
     public function cargoInformacionExtra() {
-        echo cargoInformacionExtra($this->input->post('numero'),$this->input->post('aerolinea'));
+        echo cargoInformacionExtra($this->input->post('numero'),$this->input->post('id_aerolinea'));
     } 
     
     public function modificarBdoForm() {
@@ -185,7 +185,29 @@ class eliminar_modificar_bdo extends CI_Controller {
         $error['estado'] = 1;
         echo json_encode($error);
         return true;
-    }    
+    } 
+    
+    public function agregarComentario() {
+        $numero = $this->input->post('numero');
+        $id_aerolinea = $this->input->post('id_aerolinea');
+        $comentario = $this->input->post('comentario');
+        
+        if(empty($numero) || empty($id_aerolinea) || empty($comentario)) {
+            echo "ERROR";
+            return false;
+        }
+        
+        $data = array(
+            "numero" => $numero,
+            "id_aerolinea" => $id_aerolinea,
+            "comentario" => $comentario,
+            "usuario" => $this->session->userdata('usuario')
+        );
+        
+        $this->eliminar_modificar_bdo_model->agregarComentario($data);
+        echo "OK";
+        return true;
+    }
     
     public function ordenarBuscar() {
         $parametro = $this->input->post('parametro');
@@ -240,6 +262,7 @@ class eliminar_modificar_bdo extends CI_Controller {
             
             $aux_numero       = '"'.$row['numero'].'"';
             $aux_id_aerolinea = '"'.$row['id_aerolinea'].'"';
+            $aux_nombre_aerolinia = '"'.$row['nombre_aerolinea'].'"';
             
             $tbody .= "
                 <tr>
@@ -256,6 +279,11 @@ class eliminar_modificar_bdo extends CI_Controller {
                         <span class='glyphicon glyphicon-search' aria-hidden='true' onclick='cargoInformacionExtra(".$aux_numero.", ".$aux_id_aerolinea.")'></span>
                     </button>   
                   </td>
+                  <td>
+                    <button type='button' class='btn btn-default btn-md'>
+                        <span class='glyphicon glyphicon-edit' aria-hidden='true' onclick='agregarComentarioForm(".$aux_numero.", ".$aux_id_aerolinea.", ".$aux_nombre_aerolinia.")'></span>
+                    </button>   
+                  </td>                  
                   <td>
                     <button type='button' class='btn btn-default btn-md'>
                         <span class='glyphicon glyphicon-pencil' aria-hidden='true' onclick='modificarBdoForm(".$aux_numero.", ".$aux_id_aerolinea.")'></span>

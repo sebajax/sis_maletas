@@ -4,8 +4,36 @@ if(!function_exists('cargoInformacionExtra')) {
     function cargoInformacionExtra($numero, $id_aerolinea) {
         $CI = get_instance();
         $CI->load->model('consulta_bdo_model');   
+        $table_comments = "";
         
         $result = $CI->consulta_bdo_model->cargoInformacionExtra($numero, $id_aerolinea);
+        
+        if(!$result) {
+            echo "";
+            return false;
+        }
+        
+        $result_coments = $CI->consulta_bdo_model->cargoComentarios($numero, $id_aerolinea);
+        
+        foreach ($result_coments as $row) {
+            $table_comments .= '
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <td>Fecha</td>
+                            <td>'.$row->fecha.'</td>
+                        </tr>
+                        <tr>
+                            <td>Usuario</td>
+                            <td>'.$row->usuario.'</td>
+                        </tr>
+                        <tr>
+                            <td>Comentario</td>
+                            <td>'.$row->comentario.'</td>
+                        </tr>
+                    </tbody>        
+                </table>';
+        }
         
         $table = '<table class="table table-hover">
                     <tbody>
@@ -50,9 +78,9 @@ if(!function_exists('cargoInformacionExtra')) {
                             <td>'.$result->fecha_modif_estado.'</td>
                         </tr>                        
                     </tbody>   
-                </table>';  
+                </table>';
         
-        echo $table;
+        echo $table.'<hr /> <label> Comentarios </label>'.$table_comments;
     }     
 }
 

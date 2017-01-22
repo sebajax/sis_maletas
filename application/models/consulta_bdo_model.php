@@ -45,12 +45,15 @@ class consulta_bdo_model extends CI_Model {
     public function cargoInformacionExtra($numero, $id_aerolinea) {
         $where = array();
         
-        if(!empty($numero)) {
-            $where['bdo.numero'] = $numero;
+        if(empty($numero)) {
+           return false; 
         }
-        if(!empty($id_aerolinea)) {
-            $where['bdo.id_aerolinea'] = $id_aerolinea;
+        if(empty($id_aerolinea)) {
+            return false;
         }
+        
+        $where['bdo.id_aerolinea'] = $id_aerolinea;
+        $where['bdo.numero'] = $numero;
         
         $this->db->select('*');
         $this->db->where($where);
@@ -59,5 +62,25 @@ class consulta_bdo_model extends CI_Model {
         $this->db->join('sectores', 'sectores.id_sector = bdo.id_sector');
         $query = $this->db->get();   
         return $query->row();
+    }
+    
+    public function cargoComentarios($numero, $id_aerolinea) {
+        $where = array();
+        
+        if(empty($numero)) {
+           return false; 
+        }
+        if(empty($id_aerolinea)) {
+            return false;
+        }
+        
+        $where['id_aerolinea'] = $id_aerolinea;
+        $where['numero'] = $numero;
+        
+        $this->db->select('*');
+        $this->db->from('comentarios_bdo');
+        $this->db->where($where);
+        $query = $this->db->get();
+        return $query->result();     
     }
 }
