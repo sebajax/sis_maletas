@@ -9,7 +9,7 @@ class alta_bdo extends CI_Controller {
     function __construct() {
         parent::__construct();
         $this->load->model(array('alta_bdo_model', 'alta_valores_model'));
-        $this->load->library(array('validation', 'perms'));
+        $this->load->library(array('validation', 'perms', 'session'));
         $this->load->helper(array('sectores_helper', 'aerolineas_helper'));
         if(!$this->perms->verifico()) { die("USTED NO TIENE PERMISOS PARA ACCEDER A ESTE SITIO."); }
     }
@@ -43,7 +43,8 @@ class alta_bdo extends CI_Controller {
             "domicilio_direccion"  => $this->input->post('direccion'),
             "telefono"             => $this->input->post('telefono'),
             "id_sector"            => $id_sector,
-            "valor"                => $this->input->post('valor')
+            "valor"                => $this->input->post('valor'),
+            "usuario"              => $this->session->userdata('usuario')
         );
         
         $errorPk    = false;

@@ -49,7 +49,8 @@ class eliminar_modificar_valor_model extends CI_Model {
             'grupo_sector'      => $grupo_sector,
             'valor_anterior' => $row->valor,
             'valor_nuevo'    => 0,
-            'tipo'           => 'DELETE'
+            'tipo'           => 'DELETE',
+            "usuario"        => $this->session->userdata('usuario')
         );
         
         $this->db->trans_start();
@@ -76,10 +77,11 @@ class eliminar_modificar_valor_model extends CI_Model {
         $row = $this->buscarUltimoValor($id_aerolinea, $grupo_sector);
         $data_insert = array(
             'id_aerolinea'   => $id_aerolinea,
-            'grupo_sector'      => $grupo_sector,
+            'grupo_sector'   => $grupo_sector,
             'valor_anterior' => $row->valor,
             'valor_nuevo'    => $valor_new,
-            'tipo'           => 'UPDATE'
+            'tipo'           => 'UPDATE',
+            "usuario"        => $this->session->userdata('usuario')
         );
         
         $this->db->insert('historico_valores', $data_insert);
