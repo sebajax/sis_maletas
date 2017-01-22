@@ -1,3 +1,4 @@
+<link rel="shortcut icon" type="image/png" href="<?php echo base_url("assets/images/maletas.png"); ?>"/>
 <!--link the estilos css file-->
 <link href="<?php echo base_url("assets/css/estilo.css"); ?>" rel="stylesheet" type="text/css" />
 <!-- link jquery ui css-->

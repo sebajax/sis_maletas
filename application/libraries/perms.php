@@ -29,12 +29,10 @@ class perms {
         }     
         
         if($CI->session->userdata('is_logged') != 1) {
-            log_message("debug", "ME VOY ACA");
             return false;
         }
         
         if($CI->session->userdata('is_logged') == 1) {
-            log_message("debug", "ME VOY ACA true");
             return true;
         }
     }
