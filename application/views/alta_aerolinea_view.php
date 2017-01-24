@@ -44,6 +44,11 @@
 <body>
 <div class="container">
     <div class="row">
+        <ol class="breadcrumb">
+            <li><a href="<?php echo base_url("menu_principal"); ?>">Menu Principal</a></li>
+            <li><a href="<?php echo base_url("menu_aerolinea"); ?>">Menu Aerolinea</a></li>
+            <li class="active">Alta aerolinea</li>
+        </ol>          
         <div class="col-sm-offset-3 col-lg-6 col-sm-6 well">
         <legend>Alta aerolinea</legend>
         <?php 

@@ -30,6 +30,10 @@
 <body>
 <div class="container">
     <div class="row">
+        <ol class="breadcrumb">
+            <li><a href="<?php echo base_url("menu_principal"); ?>">Menu Principal</a></li>
+            <li class="active">Menu B.D.O</li>
+        </ol>        
         <div class="col-sm-offset-3 col-lg-6 col-sm-6 well">
             <ul class="nav nav-pills nav-justified">
                 <li role="presentation"><a href="<?php echo base_url("menu_principal"); ?>">Principal</a></li>

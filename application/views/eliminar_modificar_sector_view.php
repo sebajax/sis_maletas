@@ -90,6 +90,11 @@
 <body>
 <div class="container">
     <div class="row">
+        <ol class="breadcrumb">
+            <li><a href="<?php echo base_url("menu_principal"); ?>">Menu Principal</a></li>
+            <li><a href="<?php echo base_url("menu_sector"); ?>">Menu Sector</a></li>
+            <li class="active">Eliminar Modificar Sectores</li>
+        </ol>         
         <legend>Eliminar Modificar Sectores</legend>
         <form class="form-inline">
             <div class="form-group">

@@ -88,6 +88,11 @@
 <body>
 <div class="container">
     <div class="row">
+        <ol class="breadcrumb">
+            <li><a href="<?php echo base_url("menu_principal"); ?>">Menu Principal</a></li>
+            <li><a href="<?php echo base_url("menu_bdo"); ?>">Menu B.D.O</a></li>
+            <li class="active">Consulta B.D.O</li>
+        </ol> 
         <legend>Consulta B.D.O</legend>
         <form class="form-inline">
           <div class="form-group">

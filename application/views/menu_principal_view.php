@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menu principal</title>
+    <title>Menu Principal</title>
     <?php require_once "assets/header/header.php"; ?>
 
     <style>.top-buffer { margin-top:20px; }</style>    
@@ -36,6 +36,9 @@
 <body>
 <div class="container">
     <div class="row">
+        <ol class="breadcrumb">
+            <li class="active">Menu Principal</li>
+        </ol>          
         <div class="col-sm-offset-3 col-lg-6 col-sm-6 well">
             <ul class="nav nav-pills nav-justified">
                 <li role="presentation" class="active"><a href="#">Principal</a></li>
@@ -47,7 +50,7 @@
             </ul>  
         </div>      
         <div class="col-sm-offset-3 col-lg-6 col-sm-6 well">
-        <legend>Menu principal</legend>
+        <legend>Menu Principal</legend>
         <?php 
         $attributes = array("class" => "form-horizontal", "id" => "menuprincipalform", "name" => "menuprincipalform");
         echo form_open("menu_principal/index", $attributes);
