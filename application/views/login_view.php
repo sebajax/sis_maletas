@@ -7,16 +7,46 @@
     <?php require_once "assets/header/header.php"; ?>
     
     <style>
-        html, body, .container-table {
-            height: 100%;
+        body {
+          padding-top: 40px;
+          padding-bottom: 40px;
+          background-color: #eee;
         }
-        .container-table {
-            display: table;
+
+        .form-signin {
+          max-width: 330px;
+          padding: 15px;
+          margin: 0 auto;
         }
-        .vertical-center-row {
-            display: table-cell;
-            vertical-align: middle;
-        }     
+        .form-signin .form-signin-heading,
+        .form-signin .checkbox {
+          margin-bottom: 10px;
+        }
+        .form-signin .checkbox {
+          font-weight: normal;
+        }
+        .form-signin .form-control {
+          position: relative;
+          height: auto;
+          -webkit-box-sizing: border-box;
+             -moz-box-sizing: border-box;
+                  box-sizing: border-box;
+          padding: 10px;
+          font-size: 16px;
+        }
+        .form-signin .form-control:focus {
+          z-index: 2;
+        }
+        .form-signin input[type="text"] {
+          margin-bottom: -1px;
+          border-bottom-right-radius: 0;
+          border-bottom-left-radius: 0;
+        }
+        .form-signin input[type="password"] {
+          margin-bottom: 10px;
+          border-top-left-radius: 0;
+          border-top-right-radius: 0;
+        } 
     </style>
     
     <script type="text/javascript">
@@ -61,53 +91,18 @@
     
 </head>
 <body>
-<div class="container container-table">
-    <div class="row vertical-center-row">
-        <div class="col-sm-offset-3 col-lg-6 col-sm-6 well">
-        <legend>Login</legend>
-        <?php 
-        $attributes = array("class" => "form-horizontal", "id" => "loginform", "name" => "loginform");
-        echo form_open("login/index", $attributes);
-        ?>
-        
-        <fieldset>
-            <div class="form-group">
-                <div class="row colbox">
-                    <div class="col-lg-4 col-sm-4">
-                        <label for="usuario" class="control-label">Usuario</label>
-                    </div>
-                    <div class="col-lg-8 col-sm-8">
-                        <input id="usuario" name="usuario" placeholder="ingrese su usuario" type="text" class="form-control" />
-                        <span id='usuario_error' class="text-danger"></span>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="form-group">
-                <div class="row colbox">
-                    <div class="col-lg-4 col-sm-4">
-                        <label for="clave" class="control-label">Contraseña</label>
-                    </div>
-                    <div class="col-lg-8 col-sm-8">
-                        <input id="clave" name="clave" placeholder="ingrese su contraseña" type="password" class="form-control" />
-                        <span id='clave_error' class="text-danger"></span>
-                    </div>
-                </div>
-            </div>            
-
-            <div class="form-group">
-                <div id="alert_placeholder"></div>
-            </div>            
-            
-            <div class="form-group">
-            <div class="col-sm-offset-4 col-lg-8 col-sm-8 text-left">
-                <input id="btn_login" name="btn_login" type="button" class="btn btn-large btn-block btn-success" value="Login" onclick="login();" />
-            </div>
-            </div>
-        </fieldset>
-        <?php echo form_close(); ?>
-        </div>
-    </div>
-</div>
+  <body>
+    <div class="container">
+      <form class="form-signin">
+        <h2 class="form-signin-heading">Login</h2>
+        <label for="usuario" class="sr-only">Usuario</label>
+        <input type="text" id="usuario" class="form-control" placeholder="Usuario" required autofocus>
+        <span id='usuario_error' class="text-danger"></span>
+        <label for="clave" class="sr-only">Clave</label>
+        <input type="password" id="clave" class="form-control" placeholder="Clave" required>
+        <span id='clave_error' class="text-danger"></span>
+        <button id="btn_login" class="btn btn-lg btn-primary btn-block" type="button" onclick="login();">Login</button>
+      </form>
+    </div> <!-- /container -->
 </body>
 </html>
