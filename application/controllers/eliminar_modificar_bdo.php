@@ -252,20 +252,22 @@ class eliminar_modificar_bdo extends CI_Controller {
     }    
     
     private function armoConsulta($result) {
-        $tbody = '';
+        $tbody = "";
         foreach ($result as $key => $row) {
+            $class = "";
             if($row['estado'] == 1) {
                 $estado = "CERRADO";
             }else {
                 $estado = "ABIERTO";
             }
-            
             $aux_numero       = '"'.$row['numero'].'"';
             $aux_id_aerolinea = '"'.$row['id_aerolinea'].'"';
             $aux_nombre_aerolinia = '"'.$row['nombre_aerolinea'].'"';
-            
+            if($this->consulta_bdo_model->countComentarios($row['numero'], $row['id_aerolinea']) > 0) {
+                $class="class='warning'";
+            }            
             $tbody .= "
-                <tr>
+                <tr ".$class.">
                   <th scope='row'>".($key + 1)."</th>
                   <td>".$row['numero']."</td>
                   <td>".$row['nombre_aerolinea']."</td>

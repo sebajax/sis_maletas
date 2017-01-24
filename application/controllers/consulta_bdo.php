@@ -81,8 +81,9 @@ class consulta_bdo extends CI_Controller {
     }
 
     public function armoConsulta($result) {
-        $tbody = '';
+        $tbody = "";
         foreach ($result as $key => $row) {
+            $class = "";
             if($row['estado'] == 1) {
                 $estado = "CERRADO";
             }else {
@@ -91,9 +92,11 @@ class consulta_bdo extends CI_Controller {
             
             $aux_numero       = '"'.$row['numero'].'"';
             $aux_id_aerolinea = '"'.$row['id_aerolinea'].'"';
-            
+            if($this->consulta_bdo_model->countComentarios($row['numero'], $row['id_aerolinea']) > 0) {
+                $class="class='warning'";
+            }
             $tbody .= "
-                <tr>
+                <tr ".$class.">
                   <th scope='row'>".($key + 1)."</th>
                   <td>".$row['numero']."</td>
                   <td>".$row['nombre_aerolinea']."</td>

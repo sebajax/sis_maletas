@@ -88,13 +88,16 @@ class cierre_caso extends CI_Controller {
     private function armoConsulta($result) {
         $tbody = '';
         foreach ($result as $key => $row) {
+            $class = '';
             //Parametros para funcion cerrarCaso JS
             $env_numero = "'".$row['numero']."'";
             $env_id_aerolinea = "'".$row['id_aerolinea']."'";
             $env_nombre_aerolinea = "'".$row['nombre_aerolinea']."'";
-            
+            if($this->consulta_bdo_model->countComentarios($row['numero'], $row['id_aerolinea']) > 0) {
+                $class="class='warning'";
+            }            
             $tbody .= '
-                <tr>
+                <tr '.$class.'>
                   <th scope="row">'.($key + 1).'</th>
                   <td>'.$row['numero'].'</td>
                   <td>'.$row['nombre_aerolinea'].'</td>

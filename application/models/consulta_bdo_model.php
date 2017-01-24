@@ -83,4 +83,26 @@ class consulta_bdo_model extends CI_Model {
         $query = $this->db->get();
         return $query->result();     
     }
+    
+    public function countComentarios($numero, $id_aerolinea) {
+        $where = array();
+        
+        if(empty($numero)) {
+           return false; 
+        }
+        if(empty($id_aerolinea)) {
+            return false;
+        }
+        
+        $where['cbdo.id_aerolinea'] = $id_aerolinea;
+        $where['cbdo.numero'] = $numero;
+        $where['bdo.estado'] = 0;
+        
+        $this->db->select('*');
+        $this->db->from('comentarios_bdo cbdo');
+        $this->db->join('bdo bdo', 'bdo.numero = cbdo.numero AND bdo.id_aerolinea = cbdo.id_aerolinea');
+        $this->db->where($where);
+        $query = $this->db->get();
+        return $query->num_rows();        
+    }
 }
