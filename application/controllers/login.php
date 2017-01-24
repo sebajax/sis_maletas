@@ -11,10 +11,10 @@ class login extends CI_Controller {
         parent::__construct();
         $this->load->model('login_model');
         $this->load->library(array('validation', 'session', 'user_agent'));
-        //$this->session->sess_destroy();
     }
     
     function index() {
+        $this->session->sess_destroy();
         $this->load->view('login_view');
     }
     

@@ -31,6 +31,16 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-offset-3 col-lg-6 col-sm-6 well">
+            <ul class="nav nav-pills nav-justified">
+                <li role="presentation"><a href="<?php echo base_url("menu_principal"); ?>">Principal</a></li>
+                <li role="presentation" class="active"><a href="#">BDO</a></li>
+                <li role="presentation"><a href="<?php echo base_url("menu_sector"); ?>">Sector</a></li>
+                <li role="presentation"><a href="<?php echo base_url("menu_aerolinea"); ?>">Aerolinea</a></li>
+                <li role="presentation"><a href="<?php echo base_url("menu_valor"); ?>">Valor</a></li>
+                <li role="presentation"><a href="<?php echo base_url("login"); ?>">Salir</a></li>
+            </ul>  
+        </div>        
+        <div class="col-sm-offset-3 col-lg-6 col-sm-6 well">
         <legend>Menu B.D.O</legend>
         <?php 
         $attributes = array("class" => "form-horizontal", "id" => "menubdoform", "name" => "menubdoform");
