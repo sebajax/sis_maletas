@@ -75,10 +75,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
-	'username' => 'root',
-	'password' => '',
-	'database' => 'sistema_maletas',
+	'hostname' => 'localhost', //transportesoliveros.cl
+	'username' => 'root', //transpor_root
+	'password' => '', //Maletas.2017
+	'database' => 'sistema_maletas', //transpor_sistema_maletas
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,

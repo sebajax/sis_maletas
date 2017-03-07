@@ -110,7 +110,7 @@
                 ?>
             </div>             
             <button type="button" class="btn btn-primary" onclick="buscarValor();">Enviar</button>
-            <button type="button" class="btn btn-info" onclick="printDiv();">Imprimir</button>
+            <button type="button" class="btn btn-primary" onclick="printDiv();">Imprimir</button>
             <button type="button" class="btn btn-danger" onclick="irMenu();">Volver</button>           
         </form> 
         <div class="form-group">

@@ -341,8 +341,8 @@
         <div class="row top-buffer"></div>
         <form class="form-inline">
             <button type="button" class="btn btn-primary"onclick="buscarBdo()" id="btnenviar">Enviar</button>
-            <button type="button" class="btn btn-success" onclick="exportarExcel();">Exportar Excel</button>
-            <button type="button" class="btn btn-info" onclick="printDiv();">Imprimir</button>
+            <button type="button" class="btn btn-primary" onclick="exportarExcel();">Exportar Excel</button>
+            <button type="button" class="btn btn-primary" onclick="printDiv();">Imprimir</button>
             <button type="button" class="btn btn-danger" onclick="irAMenu()" id="btnvolver">Volver</button>
         </form>        
         

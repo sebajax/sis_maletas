@@ -109,7 +109,7 @@
                 <input id="lugar" name="lugar" placeholder="nombre del lugar" type="text" class="form-control" />
             </div>
             <button type="button" class="btn btn-primary" onclick="buscarSector();">Enviar</button>
-            <button type="button" class="btn btn-info" onclick="printDiv();">Imprimir</button>
+            <button type="button" class="btn btn-primary" onclick="printDiv();">Imprimir</button>
             <button type="button" class="btn btn-danger" onclick="irMenu();">Volver</button>
         </form>         
         

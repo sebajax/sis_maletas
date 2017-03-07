@@ -114,8 +114,8 @@
         <div class="row top-buffer"></div>
         <form class="form-inline">    
             <button type="button" class="btn btn-primary" onclick="buscarCierreCaso();">Enviar</button>
-            <button type="button" class="btn btn-success" onclick="exportarExcel();">Exportar Excel</button>
-            <button type="button" class="btn btn-info" onclick="printDiv();">Imprimir</button>
+            <button type="button" class="btn btn-primary" onclick="exportarExcel();">Exportar Excel</button>
+            <button type="button" class="btn btn-primary" onclick="printDiv();">Imprimir</button>
             <button type="button" class="btn btn-danger" onclick="irMenu();">Volver</button>
         </form>         
         
