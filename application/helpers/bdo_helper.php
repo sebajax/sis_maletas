@@ -3,17 +3,17 @@
 if(!function_exists('cargoInformacionExtra')) {
     function cargoInformacionExtra($numero, $id_aerolinea) {
         $CI = get_instance();
-        $CI->load->model('consulta_bdo_model');   
+        $CI->load->model('ConsultaBdo_model');   
         $table_comments = "";
         
-        $result = $CI->consulta_bdo_model->cargoInformacionExtra($numero, $id_aerolinea);
+        $result = $CI->ConsultaBdo_model->cargoInformacionExtra($numero, $id_aerolinea);
         
         if(!$result) {
             echo "";
             return false;
         }
         
-        $result_coments = $CI->consulta_bdo_model->cargoComentarios($numero, $id_aerolinea);
+        $result_coments = $CI->ConsultaBdo_model->cargoComentarios($numero, $id_aerolinea);
         
         foreach ($result_coments as $row) {
             $table_comments .= '

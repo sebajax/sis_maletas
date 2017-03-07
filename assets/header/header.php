@@ -1,4 +1,4 @@
-<link rel="shortcut icon" type="image/png" href="<?php echo base_url("assets/images/maletas.png"); ?>"/>
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');?>
 <!--link the estilos css file-->
 <link href="<?php echo base_url("assets/css/estilo.css"); ?>" rel="stylesheet" type="text/css" />
 <!-- link jquery ui css-->

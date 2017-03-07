@@ -13,7 +13,7 @@ if(!function_exists('cargoSector')) {
 if(!function_exists('cargoLugares')) {
     function cargoLugares($grupo_sector) {
         $CI = get_instance();
-        $CI->load->model('alta_valores_model');
+        $CI->load->model('AltaValores_model');
         
         $html = "<option> </option>";
         
@@ -21,7 +21,7 @@ if(!function_exists('cargoLugares')) {
             return $html;
         }
         
-        $lugares = $CI->alta_valores_model->getLugares($grupo_sector);
+        $lugares = $CI->AltaValores_model->getLugares($grupo_sector);
         
         foreach($lugares as $val) {
             $html .= "<option value='".$val."'>".$val."</option>";
@@ -109,7 +109,7 @@ if(!function_exists('regionTransform')) {
 if(!function_exists('getSector')) {
     function getSector($grupo_sector, $lugar) {
         $CI = get_instance();
-        $CI->load->model('alta_valores_model');
-        return $CI->alta_valores_model->getSector($grupo_sector, $lugar);
+        $CI->load->model('AltaValores_model');
+        return $CI->AltaValores_model->getSector($grupo_sector, $lugar);
     } 
 }
