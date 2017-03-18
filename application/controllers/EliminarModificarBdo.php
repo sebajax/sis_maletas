@@ -82,9 +82,14 @@ class EliminarModificarBdo extends CI_Controller {
                 </div>
 
                 <div class="form-group">
-                    <label for="comuna_new" class="control-label">Comuna</label>
-                    <input id="comuna_new" name="comuna_new" placeholder="comuna" type="text" class="form-control" value="'.$info_bdo->domicilio_comuna.'" />
-                </div>
+                    <label for="grupo_sector_new" class="control-label">Grupo sector</label>
+                    '.form_dropdown('grupo_sector_new', $grupo_sector, $info_bdo->grupo_sector, $attr_grupo_sector).'
+                </div>    
+
+                <div class="form-group">
+                    <label for="lugar_sector_new" class="control-label">Lugar sector</label>
+                    <select class="form-control" id="lugar_sector_new"> <option value="'.$info_bdo->lugar.'">'.$info_bdo->lugar.'</option> </select>
+                </div>  
 
                 <div class="form-group">
                     <label for="direccion_new" class="control-label">Direccion</label>
@@ -97,21 +102,16 @@ class EliminarModificarBdo extends CI_Controller {
                 </div>             
 
                 <div class="form-group">
-                    <label for="grupo_sector_new" class="control-label">Grupo sector</label>
-                    '.form_dropdown('grupo_sector_new', $grupo_sector, $info_bdo->grupo_sector, $attr_grupo_sector).'
-                </div>    
-
-                <div class="form-group">
-                    <label for="lugar_sector_new" class="control-label">Lugar sector</label>
-                    <select class="form-control" id="lugar_sector_new"> <option value="'.$info_bdo->lugar.'">'.$info_bdo->lugar.'</option> </select>
-                </div>  
+                    <label for="valor_estimado_new" class="control-label">Estimado</label>
+                    <input id="valor_estimado_new" name="valor_estimado_new" placeholder="valor" type="text" class="form-control" readonly/>
+                </div>
 
                 <div class="form-group">
                     <label for="valor_new" class="control-label">Valor</label>
-                    <input id="valor_new" name="valor_new" placeholder="valor" type="text" class="form-control" value="'.$info_bdo->valor.'" readonly/>
+                    <input id="valor_new" name="valor_new" placeholder="valor" type="text" class="form-control" value="'.$info_bdo->valor.'"/>
                 </div> 
 
-                <input id="btn_modificar" name="btn_modificar" type="button" class="btn btn-primary" value="Modificar bdo" onclick="modificarBdo('.$aux_numero.', '.$id_aerolinea.');" />
+                <input id="btn_modificar" name="btn_modificar" type="button" class="btn btn-primary" value="Modificar bdo" onclick="verificar_valores('.$aux_numero.', '.$id_aerolinea.');" />
                 <input id="btn_cancelar" name="btn_cancelar" type="reset" class="btn btn-danger" value="Cancelar" onclick="cancelarModificarBdo();"/>
             </form>';
         
@@ -130,7 +130,6 @@ class EliminarModificarBdo extends CI_Controller {
             "nombre_pasajero"      => $this->input->post('nombre_pasajero_new'),
             "cantidad_maletas"     => $this->input->post('cantidad_maletas_new'),
             "domicilio_region"     => $this->input->post('region_new'),
-            "domicilio_comuna"     => $this->input->post('comuna_new'),
             "domicilio_direccion"  => $this->input->post('direccion_new'),
             "telefono"             => $this->input->post('telefono_new'),
             "id_sector"            => $id_sector_new,

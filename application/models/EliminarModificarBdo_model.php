@@ -69,7 +69,6 @@ class EliminarModificarBdo_model extends CI_Model {
             "nombre_pasajero"      => $data["nombre_pasajero"],
             "cantidad_maletas"     => $data["cantidad_maletas"],
             "domicilio_region"     => $data["domicilio_region"],
-            "domicilio_comuna"     => $data["domicilio_comuna"],
             "domicilio_direccion"  => $data["domicilio_direccion"],
             "telefono"             => $data["telefono"],
             "id_sector"            => $data["id_sector"],

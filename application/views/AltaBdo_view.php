@@ -54,7 +54,6 @@
             var nombre_pasajero  = $("#nombre_pasajero").val();
             var cantidad_maletas = $("#cantidad_maletas").val();
             var region           = $("#region").val();
-            var comuna           = $("#comuna").val();
             var direccion        = $("#direccion").val();
             var telefono         = $("#telefono").val();
             var grupo_sector     = $("#grupo_sector").val();
@@ -97,12 +96,6 @@
             if(!region) {
                 $("#region_error").html(manejoMensajes("vacio", "region"));
                 $("#region").focus();
-                return false;
-            }
-            
-            if(!comuna) {
-                $("#comuna_error").html(manejoMensajes("vacio", "comuna"));
-                $("#comuna").focus();
                 return false;
             }
             
@@ -163,12 +156,12 @@
             $.ajax({
                 method: "POST",
                 url: "<?php echo base_url("AltaBdo/altaBdo"); ?>",
-                data: { numero: numero, aerolinea: aerolinea, fecha_llegada: fecha_llegada, nombre_pasajero: nombre_pasajero, cantidad_maletas: cantidad_maletas, region: region, comuna: comuna, direccion: direccion, telefono: telefono, grupo_sector: grupo_sector, lugar_sector: lugar_sector,valor: valor }
+                data: { numero: numero, aerolinea: aerolinea, fecha_llegada: fecha_llegada, nombre_pasajero: nombre_pasajero, cantidad_maletas: cantidad_maletas, region: region, direccion: direccion, telefono: telefono, grupo_sector: grupo_sector, lugar_sector: lugar_sector,valor: valor }
             }).done(function(data) {
                 if(data == "OK") {
                     mostrarMensaje("Datos almacenados correctamente.", "alert-success");
-                    resetearFormulario();
-                }else if(data == "PK"){
+                    resetear_bdo();
+                }else if(data == "PK") {
                     mostrarMensaje("El numero de b.d.o que desea ingresar, ya existe.", "alert-danger");
                 }else {
                     mostrarMensaje("Datos erroneos favor verifique.", "alert-danger");
@@ -198,13 +191,41 @@
                 url: "<?php echo base_url("AltaBdo/cargoValor"); ?>",
                 data: { aerolinea: aerolinea, grupo_sector: grupo_sector, cantidad_maletas: cantidad_maletas}
             }).done(function(data) {
+                $("#valor_estimado").val(data);
                 $("#valor").val(data);
             });            
         } 
         
         function irMenu() {
             window.location.href = "<?php echo base_url("MenuBdo"); ?>";
-        }        
+        }  
+        
+        function verificar_valores() {
+            var valor            = $("#valor").val();
+            var valor_estimado   = $("#valor_estimado").val();
+            if(valor != valor_estimado) {
+                $('#confirm').modal({
+                    backdrop: 'static',
+                    keyboard: false
+                })
+                .one('click', '#confirmar', function() {
+                    altaBDO();
+                });                
+            }else {
+                altaBDO();
+            }
+        }
+        
+        function resetear_bdo() {
+            $("#numero").val("");
+            $("#fecha_llegada").val("");
+            $("#nombre_pasajero").val("");
+            $("#cantidad_maletas").val("");
+            $("#direccion").val("");
+            $("#telefono").val("");
+            $("#valor").val("");     
+            $("#valor_estimado").val("");
+        }
     </script>
     
 </head>
@@ -305,14 +326,29 @@
             <div class="form-group">
                 <div class="row colbox">
                     <div class="col-lg-4 col-sm-4">
-                        <label for="comuna" class="control-label">Comuna</label>
+                        <label for="grupo_sector" class="control-label">Grupo sector</label>
                     </div>
                     <div class="col-lg-8 col-sm-8">
-                        <input id="comuna" name="comuna" placeholder="comuna" type="text" class="form-control" />
-                        <span id='comuna_error' class="text-danger"></span>
+                        <?php
+                        $attributes = 'class = "form-control" id = "grupo_sector"';
+                        echo form_dropdown('grupo_sector', $grupo_sector, set_value('grupo_sector'), $attributes);
+                        ?>
+                        <span id='grupo_sector_error' class="text-danger"></span>
                     </div>
                 </div>
-            </div>
+            </div>    
+            
+            <div class="form-group">
+                <div class="row colbox">
+                    <div class="col-lg-4 col-sm-4">
+                        <label for="lugar_sector" class="control-label">Lugar sector</label>
+                    </div>
+                    <div class="col-lg-8 col-sm-8">
+                        <select class="form-control" id="lugar_sector"> </select>
+                        <span id='lugar_sector_error' class="text-danger"></span>
+                    </div>
+                </div>
+            </div> 
 
             <div class="form-group">
                 <div class="row colbox">
@@ -341,29 +377,17 @@
             <div class="form-group">
                 <div class="row colbox">
                     <div class="col-lg-4 col-sm-4">
-                        <label for="grupo_sector" class="control-label">Grupo sector</label>
+                        <label for="valor_estimado" class="control-label">Estimado</label>
                     </div>
                     <div class="col-lg-8 col-sm-8">
-                        <?php
-                        $attributes = 'class = "form-control" id = "grupo_sector"';
-                        echo form_dropdown('grupo_sector', $grupo_sector, set_value('grupo_sector'), $attributes);
-                        ?>
-                        <span id='grupo_sector_error' class="text-danger"></span>
+                        <div class="input-group">
+                            <div class="input-group-addon">CLP</div>
+                            <input id="valor_estimado" name="valor_estimado" placeholder="valor" type="text" class="form-control" readonly/>
+                        </div>
+                        <span id='valor_estimado_error' class="text-danger"></span>
                     </div>
                 </div>
-            </div>    
-            
-            <div class="form-group">
-                <div class="row colbox">
-                    <div class="col-lg-4 col-sm-4">
-                        <label for="lugar_sector" class="control-label">Lugar sector</label>
-                    </div>
-                    <div class="col-lg-8 col-sm-8">
-                        <select class="form-control" id="lugar_sector"> </select>
-                        <span id='lugar_sector_error' class="text-danger"></span>
-                    </div>
-                </div>
-            </div>  
+            </div>             
             
             <div class="form-group">
                 <div class="row colbox">
@@ -373,7 +397,7 @@
                     <div class="col-lg-8 col-sm-8">
                         <div class="input-group">
                             <div class="input-group-addon">CLP</div>
-                            <input id="valor" name="valor" placeholder="valor" type="text" class="form-control" readonly/>
+                            <input id="valor" name="valor" placeholder="valor" type="text" class="form-control" />
                         </div>
                         <span id='valor_error' class="text-danger"></span>
                     </div>
@@ -386,7 +410,7 @@
             
             <div class="form-group">
             <div class="col-sm-offset-4 col-lg-8 col-sm-8 text-left">
-                <input id="btn_insertar" name="btn_insertar" type="button" class="btn btn-primary" value="Alta B.D.O" onclick="altaBDO();" />
+                <input id="btn_insertar" name="btn_insertar" type="button" class="btn btn-primary" value="Alta B.D.O" onclick="verificar_valores();" />
                 <input id="btn_cancelar" name="btn_cancelar" type="reset" class="btn btn-danger" value="Cancelar" />
                 <input id="btn_volver" name="btn_volver" type="button" class="btn btn-primary" value="Volver" onclick="irMenu();" />
             </div>
@@ -396,5 +420,20 @@
         </div>
     </div>
 </div>
+<!-- Modal confirmacion BDO valores distintos -->
+<div id="confirm" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-body">
+                El valor estimado es distinto al valor ingresado, esta seguro que desea realizar el ingreso.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="confirmar">Confirmar</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>      
 </body>
 </html>

@@ -82,6 +82,7 @@
             }).done(function(data) {
                 $("#modificar_bdo_form").html(data);
                 $("#fecha_llegada_new").datepicker();
+                cargoValorEstimado();
                 $('#modificar_bdo').modal('show');
             });
         }        
@@ -91,7 +92,6 @@
             var nombre_pasajero_new = $("#nombre_pasajero_new").val();
             var cantidad_maletas_new = $("#cantidad_maletas_new").val();
             var region_new = $("#region_new").val();
-            var comuna_new = $("#comuna_new").val();
             var direccion_new = $("#direccion_new").val();
             var telefono_new = $("#telefono_new").val();
             var grupo_sector_new = $("#grupo_sector_new").val();
@@ -128,11 +128,6 @@
             
             if(!region_new) {
                 $("#region_new").focus();
-                return false;
-            }
-            
-            if(!comuna_new) {
-                $("#comuna_new").focus();
                 return false;
             }
             
@@ -185,7 +180,7 @@
             $.ajax({
                 method: "POST",
                 url: "<?php echo base_url("EliminarModificarBdo/modificarBdo"); ?>",
-                data: { numero: numero, id_aerolinea: id_aerolinea, fecha_llegada_new: fecha_llegada_new, nombre_pasajero_new: nombre_pasajero_new, cantidad_maletas_new: cantidad_maletas_new, region_new: region_new, comuna_new: comuna_new, direccion_new: direccion_new, telefono_new: telefono_new, grupo_sector_new: grupo_sector_new, lugar_sector_new: lugar_sector_new, valor_new: valor_new }
+                data: { numero: numero, id_aerolinea: id_aerolinea, fecha_llegada_new: fecha_llegada_new, nombre_pasajero_new: nombre_pasajero_new, cantidad_maletas_new: cantidad_maletas_new, region_new: region_new, direccion_new: direccion_new, telefono_new: telefono_new, grupo_sector_new: grupo_sector_new, lugar_sector_new: lugar_sector_new, valor_new: valor_new }
             }).done(function(data) {
                 if(data == "OK") {
                     mostrarMensaje("CORRECTO: datos de bdo modificados.", "alert-success");
@@ -195,6 +190,22 @@
                 }
             });            
         }
+        
+        function verificar_valores(numero, id_aerolinea) {
+            var valor            = $("#valor_new").val();
+            var valor_estimado   = $("#valor_estimado_new").val();
+            if(valor != valor_estimado) {
+                $('#confirm_valores').modal({
+                    backdrop: 'static',
+                    keyboard: false
+                })
+                .one('click', '#confirmar_valores', function() {
+                    modificarBdo(numero, id_aerolinea);
+                });                
+            }else {
+                modificarBdo(numero, id_aerolinea);
+            }
+        }        
         
         function cancelarModificarBdo() {
             $('#modificar_bdo').modal('toggle');
@@ -233,17 +244,35 @@
         function cargoValor() {
             var aerolinea    = $("#aerolinea_new").val();
             var grupo_sector = $("#grupo_sector_new").val();
+            var cantidad_maletas = $("#cantidad_maletas_new").val();
             
-            if(aerolinea == 0 || grupo_sector == 0) { return false; }
+            if(aerolinea == 0 || grupo_sector == 0 || cantidad_maletas == 0) { return false; }
             
             $.ajax({
                 method: "POST",
                 url: "<?php echo base_url("AltaBdo/cargoValor"); ?>",
-                data: { aerolinea: aerolinea, grupo_sector: grupo_sector}
+                data: { aerolinea: aerolinea, grupo_sector: grupo_sector, cantidad_maletas: cantidad_maletas}
             }).done(function(data) {
+                $("#valor_estimado_new").val(data);
                 $("#valor_new").val(data);
             });            
         }
+        
+        function cargoValorEstimado() {
+            var aerolinea    = $("#aerolinea_new").val();
+            var grupo_sector = $("#grupo_sector_new").val();
+            var cantidad_maletas = $("#cantidad_maletas_new").val();
+            
+            if(aerolinea == 0 || grupo_sector == 0 || cantidad_maletas == 0) { return false; }
+            
+            $.ajax({
+                method: "POST",
+                url: "<?php echo base_url("AltaBdo/cargoValor"); ?>",
+                data: { aerolinea: aerolinea, grupo_sector: grupo_sector, cantidad_maletas: cantidad_maletas}
+            }).done(function(data) {
+                $("#valor_estimado_new").val(data);
+            });            
+        }        
         
         function ordenarBuscar(parametro) {
             ordenamiento();
@@ -427,6 +456,22 @@
         </div>   
     </div>    
 </div>
+
+<!-- Modal confirmacion BDO valores distintos -->
+<div id="confirm_valores" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-body">
+                El valor estimado es distinto al valor ingresado, esta seguro que desea realizar el ingreso.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="confirmar_valores">Confirmar</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div> 
 
 <!-- Agregar comentario modal -->
 <div id="comentario_bdo" class="modal" role="dialog">

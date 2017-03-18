@@ -23,7 +23,24 @@ class AltaBdo extends CI_Controller {
     }
     
     public function cargoValor() {
-        echo ($this->input->post('cantidad_maletas') * $this->AltaValores_model->getValor($this->input->post('aerolinea'), $this->input->post('grupo_sector')));
+        $aerolinea = $this->input->post('aerolinea');
+        $cantidad = $this->input->post('cantidad_maletas');
+        $valor = $this->AltaValores_model->getValor($this->input->post('aerolinea'), $this->input->post('grupo_sector'));
+        switch($aerolinea) {
+            case 1: //AIRFRANCE 
+            case 2: //KLM   
+                if($cantidad > 2) {
+                    $valor = $this->calculoValores($cantidad, $valor);
+                }
+                break;
+            case 3: //UNITED AIRLINES
+                $valor = $valor;
+                break;
+            case 4: //ALITALIA
+                $valor = $valor;
+                break;
+        }
+        echo $valor;
     }
     
     public function altaBdo() {
@@ -39,7 +56,6 @@ class AltaBdo extends CI_Controller {
             "nombre_pasajero"      => $this->input->post('nombre_pasajero'),
             "cantidad_maletas"     => $this->input->post('cantidad_maletas'),
             "domicilio_region"     => $this->input->post('region'),
-            "domicilio_comuna"     => $this->input->post('comuna'),
             "domicilio_direccion"  => $this->input->post('direccion'),
             "telefono"             => $this->input->post('telefono'),
             "id_sector"            => $id_sector,
@@ -74,5 +90,11 @@ class AltaBdo extends CI_Controller {
     
     private function validatePK($pk) {
         if($this->AltaBdo_model->validatePK($pk) > 0) { return false; } else { return true; }
+    }
+    
+    private function calculoValores($cantidad, $valor) {
+        $valor_extra = $valor * 0.5;
+        $cantidad_extra = $cantidad - 2;
+        return ($valor + ($valor_extra * $cantidad_extra));        
     }
 }

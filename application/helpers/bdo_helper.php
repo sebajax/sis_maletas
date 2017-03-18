@@ -54,10 +54,6 @@ if(!function_exists('cargoInformacionExtra')) {
                             <td>'.$result->telefono.'</td>
                         </tr>
                         <tr>
-                            <td>Comuna</td>
-                            <td>'.$result->domicilio_comuna.'</td>
-                        </tr>
-                        <tr>
                             <td>Direccion</td>
                             <td>'.$result->domicilio_direccion.'</td>
                         </tr>
