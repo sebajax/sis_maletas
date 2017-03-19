@@ -16,9 +16,12 @@
         function irConsultarEliminarSectores() {
             window.location.href = "<?php echo base_url("EliminarModificarSector"); ?>";
         }
+        function irCantidadSectores() {
+            window.location.href = "<?php echo base_url("CantidadSectores"); ?>";
+        }        
         function irMenuPrincipal() {
             window.location.href = "<?php echo base_url("MenuPrincipal"); ?>";
-        }        
+        }  
     </script>    
     
 </head>
@@ -52,6 +55,8 @@
                 <div class="row top-buffer"></div>
                 <button type="button" class="btn btn-primary btn-lg btn-block" onclick="irConsultarEliminarSectores();">CONSULTAR MODIFICAR ELIMINAR SECTORES</button>
                 <div class="row top-buffer"></div>
+                <button type="button" class="btn btn-primary btn-lg btn-block" onclick="irCantidadSectores();">CANTIDAD SECTORES</button>
+                <div class="row top-buffer"></div>                
                 <button type="button" class="btn btn-danger btn-lg btn-block" onclick="irMenuPrincipal();">VOLVER A MENU PRINCIPAL</button>
             </div>
         </fieldset>

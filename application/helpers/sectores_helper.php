@@ -2,8 +2,11 @@
 
 if(!function_exists('cargoSector')) {
     function cargoSector() {
+        $CI = get_instance();
+        $CI->load->model('CantidadSectores_model');    
+        $cantidad = $CI->CantidadSectores_model->cantidadActual();
         $sector = array('-SELECCIONE-');
-        for($i=0; $i < 12; $i++) {
+        for($i=0; $i < $cantidad; $i++) {
             array_push($sector, ($i+1));
         }
         return $sector;
