@@ -32,7 +32,7 @@ class ConsultaBdo extends CI_Controller {
         $result = $this->ConsultaBdo_model->buscarBdo($numero, $id_aerolinea, $nombre_pasajero, $fecha_desde, $fecha_hasta, $grupo_sector, $estado);
         $this->session->set_userdata('result_buscarBdo', $this->funciones->objectToArray($result));
         echo $this->armoConsulta($this->session->userdata('result_buscarBdo'));
-  }  
+    }  
     
     public function cargoInformacionExtra() {
         echo cargoInformacionExtra($this->input->post('numero'),$this->input->post('id_aerolinea'));       

@@ -39,13 +39,25 @@ class CierreCaso_model extends CI_Model {
             $this->db->update('bdo');
             $this->db->insert("cierre_caso", $data);
             $this->db->insert("comentarios_bdo", $data);
-            $valor = $this->montoTransaccion($data['numero'], $data['id_aerolinea']);
-            $data_trans = array(
+            $informacionBdo = $this->informacionBDO($data['numero'], $data['id_aerolinea']);
+            $sector = $this->EliminarModificarSector_model->obtengoInformacionSector($informacionBdo->id_sector);
+            $data_ingreso_caja = array(
                 'numero' => $data['numero'],
                 'id_aerolinea' => $data['id_aerolinea'],
-                'monto' => $valor,
+                'monto' => $informacionBdo->valor,
             );
-            $this->db->insert("ingresos_caja", $data_trans);
+            $data_trans = array(
+                'numero_bdo' => $data['numero'],
+                'id_aerolinea' => $data['id_aerolinea'],
+                'nombre_pasajero' => $informacionBdo->nombre_pasajero,
+                'fecha_llegada' => $informacionBdo->fecha_llegada,
+                'domicilio_direccion' => $informacionBdo->domicilio_direccion,
+                'grupo_sector' => $sector->grupo_sector,
+                'lugar' => $sector->lugar,
+                'valor' => $informacionBdo->valor,
+            );
+            $this->db->insert("ingresos_caja", $data_ingreso_caja);
+            $this->db->insert("transacciones_bdo_cerradas", $data_trans);
             $this->db->trans_complete();
         }
     }
@@ -72,5 +84,16 @@ class CierreCaso_model extends CI_Model {
         $query = $this->db->get();   
         $row = $query->row();
         return $row->valor;      
+    }
+    
+    private function informacionBDO($numero, $id_aerolinea) {
+        $where = array();
+        $where['bdo.numero'] = $numero;
+        $where['bdo.id_aerolinea'] = $id_aerolinea;
+        $this->db->select('bdo.*');
+        $this->db->from('bdo');
+        $this->db->where($where);
+        $query = $this->db->get();   
+        return $query->row();
     }
 }

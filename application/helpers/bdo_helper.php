@@ -69,6 +69,11 @@ if(!function_exists('cargoInformacionExtra')) {
                             <td>Nombre sector</td>
                             <td>'.$result->lugar.'</td>
                         </tr>  
+                        </tr>
+                        <tr>
+                            <td>Valor</td>
+                            <td>'.$result->valor.'</td>
+                        </tr>                         
                         <tr>
                             <td>Fecha cierre</td>
                             <td>'.$result->fecha_modif_estado.'</td>

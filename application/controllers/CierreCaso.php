@@ -8,7 +8,7 @@ class CierreCaso extends CI_Controller {
     
     function __construct() {
         parent::__construct();
-        $this->load->model(array('CierreCaso_model', 'ConsultaBdo_model'));
+        $this->load->model(array('CierreCaso_model', 'ConsultaBdo_model', 'EliminarModificarSector_model'));
         $this->load->library(array('validation', 'excel', 'session', 'funciones', 'perms'));
         $this->load->helper(array('aerolineas_helper', 'bdo_helper'));
         if(!$this->perms->verifico()) { die("USTED NO TIENE PERMISOS PARA ACCEDER A ESTE SITIO."); }

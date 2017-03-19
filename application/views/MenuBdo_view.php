@@ -21,7 +21,10 @@
         }        
         function irEliminarBdo() {
             window.location.href = "<?php echo base_url("EliminarModificarBdo"); ?>";
-        }        
+        }  
+        function irTransaccionesBdo() {
+            window.location.href = "<?php echo base_url("TransaccionesBdo"); ?>";
+        }         
         function irMenuPrincipal() {
             window.location.href = "<?php echo base_url("MenuPrincipal"); ?>";
         }        
@@ -62,6 +65,8 @@
                 <div class="row top-buffer"></div>
                 <button type="button" class="btn btn-primary btn-lg btn-block" onclick="irEliminarBdo();">ELIMINAR MODIFICAR B.D.O</button>
                 <div class="row top-buffer"></div>
+                <button type="button" class="btn btn-primary btn-lg btn-block" onclick="irTransaccionesBdo();">TRANSACCIONES B.D.O</button>
+                <div class="row top-buffer"></div>                
                 <button type="button" class="btn btn-danger btn-lg btn-block" onclick="irMenuPrincipal();">VOLVER A MENU PRINCIPAL</button>
             </div>
         </fieldset>
