@@ -39,6 +39,8 @@
                 <li role="presentation" class="active"><a href="#">Sector</a></li>
                 <li role="presentation"><a href="<?php echo base_url("MenuAerolinea"); ?>">Aerolinea</a></li>
                 <li role="presentation"><a href="<?php echo base_url("MenuValor"); ?>">Valor</a></li>
+                <li role="presentation"><a href="<?php echo base_url("MenuGasto"); ?>">Gasto</a></li>
+                <li role="presentation"><a href="<?php echo base_url("ModuloCaja"); ?>">Caja</a></li>                
                 <li role="presentation"><a href="<?php echo base_url("Login"); ?>">Salir</a></li>
             </ul>  
         </div>        

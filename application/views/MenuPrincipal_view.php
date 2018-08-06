@@ -22,6 +22,12 @@
         function irMenuValor() {
             window.location.href = "<?php echo base_url("MenuValor"); ?>";
         }
+        function irMenuGasto() {
+            window.location.href = "<?php echo base_url("MenuGasto"); ?>";
+        }        
+        function irModuloCaja() {
+            window.location.href = "<?php echo base_url("ModuloCaja"); ?>";
+        }           
         function cerrarSession() {
             $.ajax({
                 method: "POST",
@@ -47,6 +53,8 @@
                 <li role="presentation"><a href="<?php echo base_url("MenuSector"); ?>">Sector</a></li>
                 <li role="presentation"><a href="<?php echo base_url("MenuAerolinea"); ?>">Aerolinea</a></li>
                 <li role="presentation"><a href="<?php echo base_url("MenuValor"); ?>">Valor</a></li>
+                <li role="presentation"><a href="<?php echo base_url("MenuGasto"); ?>">Gasto</a></li>
+                <li role="presentation"><a href="<?php echo base_url("ModuloCaja"); ?>">Caja</a></li>
                 <li role="presentation"><a href="<?php echo base_url("Login"); ?>">Salir</a></li>
             </ul>  
         </div>      
@@ -67,6 +75,10 @@
                 <div class="row top-buffer"></div>
                 <button type="button" class="btn btn-primary btn-lg btn-block" onclick="irMenuValor();">MENU VALOR</button>
                 <div class="row top-buffer"></div>
+                <button type="button" class="btn btn-primary btn-lg btn-block" onclick="irMenuGasto();">MENU GASTO</button>
+                <div class="row top-buffer"></div>         
+                <button type="button" class="btn btn-primary btn-lg btn-block" onclick="irModuloCaja();">MODULO CAJA</button>
+                <div class="row top-buffer"></div>                    
                 <button type="button" class="btn btn-danger btn-lg btn-block" onclick="cerrarSession();">CERRAR SESION</button>
             </div>
         </fieldset>
