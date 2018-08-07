@@ -28,6 +28,8 @@ class TransaccionesGasto extends CI_Controller {
         if(!empty($result)) {
             $this->session->set_userdata('result_transaccionesGasto', $this->funciones->objectToArray($result));
             echo json_encode($this->armoConsulta($this->session->userdata('result_transaccionesGasto')));
+        }else {
+            echo json_encode($this->armoConsulta());
         }
     }  
     
@@ -54,19 +56,21 @@ class TransaccionesGasto extends CI_Controller {
         $this->excel->crearExcel($header, $body, $title);
     }
 
-    public function armoConsulta($result) {
+    public function armoConsulta($result = "") {
         $tbody = "";
         $monto_total = 0;
-        foreach ($result as $row) {
-            $tbody .= "
-                <tr>
-                    <th scope='row'>".$row['id_gasto']."</th>
-                    <td>".$row['tipo_gasto']."</td>
-                    <td>".$row['fecha']."</td>
-                    <td>".$row['comentario']."</td>
-                    <td>".$row['monto']."</td>    
-                </tr>";
-            $monto_total += $row['monto'];
+        if(!empty($result)) {
+            foreach ($result as $row) {
+                $tbody .= "
+                    <tr>
+                        <th scope='row'>".$row['id_gasto']."</th>
+                        <td>".$row['tipo_gasto']."</td>
+                        <td>".$row['fecha']."</td>
+                        <td>".$row['comentario']."</td>
+                        <td>".$row['monto']."</td>    
+                    </tr>";
+                $monto_total += $row['monto'];
+            }
         }
         $tbody .= '<tr class="danger" style="text-align: right; border-top: 1px solid #ddd;"><td colspan="9">TOTAL - '.$monto_total.' CLP</td></tr>';
         return array('tbody' => $tbody, 'monto_total' => $monto_total);

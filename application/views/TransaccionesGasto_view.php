@@ -38,6 +38,7 @@
         });
 
         function buscarGasto() {
+            $("#busqueda_error").html("");
             var tipo_gasto   = $("#tipo_gasto").val();
             var fecha_desde  = $("#fecha_desde").val();
             var fecha_hasta  = $("#fecha_hasta").val();
@@ -120,11 +121,11 @@
             </div>
             <div class="form-group">
                 <label for="fecha_desde">Fecha desde</label>
-                <input id="fecha_desde" name="fecha_desde" placeholder="fecha llegada desde" type="text" class="form-control" />
+                <input id="fecha_desde" name="fecha_desde" placeholder="fecha desde" type="text" class="form-control" />
             </div>
             <div class="form-group">
                 <label for="fecha_hasta">Fecha hasta</label>
-                <input id="fecha_hasta" name="fecha_hasta" placeholder="fecha llegada hasta" type="text" class="form-control" />
+                <input id="fecha_hasta" name="fecha_hasta" placeholder="fecha hasta" type="text" class="form-control" />
             </div>   
         </form> 
         <div class="row top-buffer"></div>

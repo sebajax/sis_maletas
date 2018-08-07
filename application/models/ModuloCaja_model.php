@@ -12,7 +12,6 @@ class ModuloCaja_model extends CI_Model {
     }
     
     public function IngresosCaja($fecha_desde, $fecha_hasta) {
-        $where = array();
         if(empty($fecha_desde) || empty($fecha_hasta)) return false;
         $this->db->select('aerolineas.nombre_aerolinea AS aerolinea, SUM(transacciones_bdo_cerradas.valor) AS monto');
         $this->db->from('transacciones_bdo_cerradas');
@@ -23,6 +22,7 @@ class ModuloCaja_model extends CI_Model {
         }
         $this->db->group_by('transacciones_bdo_cerradas.id_aerolinea');
         $query = $this->db->get(); 
+        //log_message("error", $this->db->last_query());
         return $query->result();
     }
     
@@ -36,6 +36,7 @@ class ModuloCaja_model extends CI_Model {
         }
         $query = $this->db->get(); 
         $row = $query->row();
+        if(!isset($row->monto)) return 0;
         return $row->monto;
     }
 }

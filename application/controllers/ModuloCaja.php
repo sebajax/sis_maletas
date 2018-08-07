@@ -25,9 +25,7 @@ class ModuloCaja extends CI_Controller {
             $this->session->set_userdata('result_ingresosCaja', $this->funciones->objectToArray($result_ingresos));
         }
         $result_salidas = $this->ModuloCaja_model->SalidasCaja($fecha_desde, $fecha_hasta);
-        if(!empty($result_salidas)) {
-            $this->session->set_userdata('result_salidasCaja', $result_salidas);
-        }   
+        $this->session->set_userdata('result_salidasCaja', $result_salidas);
         echo json_encode($this->armoConsulta($this->session->userdata('result_ingresosCaja'), $this->session->userdata('result_salidasCaja')));
     }  
     
