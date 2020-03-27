@@ -44,7 +44,7 @@
 <body>
  
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <a class="navbar-brand" href="#"><i class="fas fa-suitcase-rolling fa-2x"></i></a>
+        <a class="navbar-brand" href="<?php echo base_url("MenuPrincipal"); ?>"><i class="fas fa-suitcase-rolling fa-2x"></i></a>
 
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
@@ -68,6 +68,10 @@
             <a class="nav-link d-inline-flex flex-row-reverse text-white" href="<?php echo base_url("Login"); ?>">Salir</a>
         </div>
     </nav>
+   
+    <div id="imagen_principal" class="d-flex justify-content-center" style="padding-top: 240px; font-size: 44px;">
+        <span class="fas fa-luggage-cart fa-10x" style="opacity: 0.1;"></span>
+    </div>
     
 </body>
 </html>

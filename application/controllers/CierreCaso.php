@@ -104,14 +104,18 @@ class CierreCaso extends CI_Controller {
                   <td>'.$row['nombre_pasajero'].'</td>
                   <td>'.$row['fecha_llegada'].'</td>
                   <td>
+                    <div class="d-flex justify-content-center">
                     <button type="button" class="btn btn-default">
                         <i aria-hidden="true" class="fas fa-search-plus fa-lg" onclick="cargoInformacionExtra('.$env_numero.', '.$env_id_aerolinea.')"></i>
                     </button>
+                    </div>
                   </td>
                   <td>
+                    <div class="d-flex justify-content-center">
                     <button type="button" class="btn btn-default">
                         <i aria-hidden="true" class="fas fa-check-circle fa-lg" onclick="cerrarCasoForm('.$env_numero.', '.$env_id_aerolinea.', '.$env_nombre_aerolinea.')"></i>
                     </button>
+                    </div>
                   </td>                  
                 </tr>';
         }

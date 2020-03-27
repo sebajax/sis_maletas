@@ -10,6 +10,7 @@
     <script type="text/javascript">
         $(document).ready(function(){
             $("#menu_bdo").addClass("active");
+            $("#imagen_principal").remove();
         });
         
         //load datepicker control onfocus
@@ -286,6 +287,9 @@
                             <span class="input-group-text bg-primary text-white w-100" id="fecha_llegada_addon">Fecha Llegada</span>
                         </div>                    
                         <input aria-label="fecha llegada" aria-describedby="fecha_llegada_addon" id="fecha_llegada" name="fecha_llegada" placeholder="fecha llegada" type="text" class="form-control">
+                        <div class="input-group-append">
+                            <span class="input-group-text far fa-calendar-alt fa-lg pt-2"></span>
+                        </div>
                     </div>
                     <span id='fecha_llegada_error' class="text-danger"></span>
                 </div>
@@ -365,7 +369,9 @@
                     </div>
                     <span id='telefono_error' class="text-danger"></span>
                 </div>             
-
+                
+                <div class="form-group"><hr></div>
+                
                 <div class="form-group">
                     <div class="input-group mb-3">
                         <div class="input-group-prepend w-25">

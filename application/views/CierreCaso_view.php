@@ -8,8 +8,9 @@
     <?php require_once "MenuPrincipal_view.php"; ?>
     
     <script type="text/javascript">
-        $(document).ready(function(){
+        $(document).ready(function() {
             $("#menu_bdo").addClass("active");
+            $("#imagen_principal").remove();
         });        
         
         function buscarCierreCaso() {
@@ -98,23 +99,29 @@
 
         <legend>Cierre caso B.D.O</legend>
 
-        <form class="form-inline my-3">
-            <label class="my-2 mr-2" for="aerolinea">Aerolinea</label>
-            <?php
-            $attributes = 'class = "custom-select" id = "aerolinea"';
-            echo form_dropdown('aerolinea', $aerolinea, set_value('aerolinea'), $attributes);
-            ?>
-            <label class="my-2 mr-2 ml-5" for="numero">Numero</label>
-            <input id="numero" name="numero" placeholder="numero bdo" type="text" class="form-control" />
+        <form>
+            <div class="form-row">
+                <div class="form-group col-2">
+                    <label for="aerolinea">Aerolinea</label>
+                    <?php
+                    $attributes = 'class = "custom-select" id = "aerolinea"';
+                    echo form_dropdown('aerolinea', $aerolinea, set_value('aerolinea'), $attributes);
+                    ?>
+                </div>
+                <div class="form-group col-2 ml-5">
+                    <label for="numero">Numero</label>
+                    <input id="numero" name="numero" placeholder="numero bdo" type="text" class="form-control" />
+                </div>
+            </div>
         </form>   
 
         <div class="row top-buffer"></div>
         <form class="form-inline mt-3">    
-            <button type="button" class="btn btn-outline-success" onclick="buscarCierreCaso();">Enviar</button>
-            <button type="button" class="btn btn-outline-success ml-5" onclick="exportarExcel();">Exportar Excel</button>
-            <button type="button" class="btn btn-outline-success ml-5" onclick="printDiv();">Imprimir</button>
-            <button type="button" class="btn btn-outline-success ml-5" onclick="cerrarTodosCasos();">Cerrar Casos</button>
-            <button type="button" class="btn btn-outline-danger ml-5" onclick="irMenu();">Volver</button>
+            <button type="button" class="btn btn-outline-success col-1" onclick="buscarCierreCaso();">Enviar</button>
+            <button type="button" class="btn btn-outline-success ml-5 col-1" onclick="exportarExcel();">Exportar Excel</button>
+            <button type="button" class="btn btn-outline-success ml-5 col-1" onclick="printDiv();">Imprimir</button>
+            <button type="button" class="btn btn-outline-success ml-5 col-1" onclick="cerrarTodosCasos();">Cerrar Casos</button>
+            <button type="button" class="btn btn-outline-danger ml-5 col-1" onclick="irMenu();">Volver</button>
         </form>         
 
         <div class="form-group">
@@ -124,7 +131,7 @@
         <hr />
 
         <div id="printDiv">
-            <table class="table table-hover">
+            <table class="table table-hover table-bordered">
                 <thead class="thead-dark">
                 <tr>
                   <th>#<span id="th_order"></span></th>
