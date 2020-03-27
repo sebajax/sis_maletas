@@ -88,29 +88,29 @@ class CierreCaso extends CI_Controller {
     private function armoConsulta($result) {
         $tbody = '';
         foreach ($result as $key => $row) {
-            $class = '';
+            $class = "class='table-light'";
             //Parametros para funcion cerrarCaso JS
             $env_numero = "'".$row['numero']."'";
             $env_id_aerolinea = "'".$row['id_aerolinea']."'";
             $env_nombre_aerolinea = "'".$row['nombre_aerolinea']."'";
             if($this->ConsultaBdo_model->countComentarios($row['numero'], $row['id_aerolinea']) > 0) {
-                $class="class='warning'";
+                $class="class='table-warning'";
             }            
             $tbody .= '
                 <tr '.$class.'>
-                  <th scope="row">'.($key + 1).'</th>
+                  <td><input type="checkbox"></td>
                   <td>'.$row['numero'].'</td>
                   <td>'.$row['nombre_aerolinea'].'</td>
                   <td>'.$row['nombre_pasajero'].'</td>
                   <td>'.$row['fecha_llegada'].'</td>
                   <td>
-                    <button type="button" class="btn btn-default btn-md">
-                        <span class="glyphicon glyphicon-search" aria-hidden="true" onclick="cargoInformacionExtra('.$env_numero.', '.$env_id_aerolinea.')"></span>
+                    <button type="button" class="btn btn-default">
+                        <i aria-hidden="true" class="fas fa-search-plus fa-lg" onclick="cargoInformacionExtra('.$env_numero.', '.$env_id_aerolinea.')"></i>
                     </button>
                   </td>
                   <td>
-                    <button type="button" class="btn btn-default btn-md">
-                        <span class="glyphicon glyphicon-remove" aria-hidden="true" onclick="cerrarCasoForm('.$env_numero.', '.$env_id_aerolinea.', '.$env_nombre_aerolinea.')"></span>
+                    <button type="button" class="btn btn-default">
+                        <i aria-hidden="true" class="fas fa-check-circle fa-lg" onclick="cerrarCasoForm('.$env_numero.', '.$env_id_aerolinea.', '.$env_nombre_aerolinea.')"></i>
                     </button>
                   </td>                  
                 </tr>';

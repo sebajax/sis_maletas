@@ -6,28 +6,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu Principal</title>
     <?php require_once "assets/header/header.php"; ?>
-
-    <style>.top-buffer { margin-top:20px; }</style>    
     
     <script type="text/javascript">
-        function irMenuBdo() {
-            window.location.href = "<?php echo base_url("MenuBdo"); ?>";
-        }
-        function irMenuAerolinea() {
-            window.location.href = "<?php echo base_url("MenuAerolinea"); ?>";
-        }
-        function irMenuSector() {
-            window.location.href = "<?php echo base_url("MenuSector"); ?>";
-        }
-        function irMenuValor() {
-            window.location.href = "<?php echo base_url("MenuValor"); ?>";
-        }
-        function irMenuGasto() {
-            window.location.href = "<?php echo base_url("MenuGasto"); ?>";
-        }        
         function irModuloCaja() {
             window.location.href = "<?php echo base_url("ModuloCaja"); ?>";
-        }           
+        }   
+        function irAltaBdo() {
+            window.location.href = "<?php echo base_url("AltaBdo"); ?>";
+        }
+        function irCierreCaso() {
+            window.location.href = "<?php echo base_url("CierreCaso"); ?>";
+        }
+        function irConsultaBdo() {
+            window.location.href = "<?php echo base_url("ConsultaBdo"); ?>";
+        }        
+        function irEliminarBdo() {
+            window.location.href = "<?php echo base_url("EliminarModificarBdo"); ?>";
+        }  
+        function irTransaccionesBdo() {
+            window.location.href = "<?php echo base_url("TransaccionesBdo"); ?>";
+        }         
+        function irMenuPrincipal() {
+            window.location.href = "<?php echo base_url("MenuPrincipal"); ?>";
+        }            
         function cerrarSession() {
             $.ajax({
                 method: "POST",
@@ -41,50 +42,32 @@
     
 </head>
 <body>
-<div class="container">
-    <div class="row">
-        <ol class="breadcrumb">
-            <li class="active">Menu Principal</li>
-        </ol>          
-        <div class="col-sm-offset-3 col-lg-6 col-sm-6 well">
-            <ul class="nav nav-pills nav-justified">
-                <li role="presentation" class="active"><a href="#">Principal</a></li>
-                <li role="presentation"><a href="<?php echo base_url("MenuBdo"); ?>">BDO</a></li>
-                <li role="presentation"><a href="<?php echo base_url("MenuSector"); ?>">Sector</a></li>
-                <li role="presentation"><a href="<?php echo base_url("MenuAerolinea"); ?>">Aerolinea</a></li>
-                <li role="presentation"><a href="<?php echo base_url("MenuValor"); ?>">Valor</a></li>
-                <li role="presentation"><a href="<?php echo base_url("MenuGasto"); ?>">Gasto</a></li>
-                <li role="presentation"><a href="<?php echo base_url("ModuloCaja"); ?>">Caja</a></li>
-                <li role="presentation"><a href="<?php echo base_url("Login"); ?>">Salir</a></li>
-            </ul>  
-        </div>      
-        <div class="col-sm-offset-3 col-lg-6 col-sm-6 well">
-        <legend>Menu Principal</legend>
-        <?php 
-        $attributes = array("class" => "form-horizontal", "id" => "menuprincipalform", "name" => "menuprincipalform");
-        echo form_open("MenuPrincipal/index", $attributes);
-        ?>
-        
-        <fieldset>
-            <div class="form-group">
-                <button type="button" class="btn btn-primary btn-lg btn-block" onclick="irMenuBdo();">MENU B.D.O</button>
-                <div class="row top-buffer"></div>
-                <button type="button" class="btn btn-primary btn-lg btn-block" onclick="irMenuSector();">MENU SECTOR</button>
-                <div class="row top-buffer"></div>
-                <button type="button" class="btn btn-primary btn-lg btn-block" onclick="irMenuAerolinea();">MENU AEROLINEA</button>
-                <div class="row top-buffer"></div>
-                <button type="button" class="btn btn-primary btn-lg btn-block" onclick="irMenuValor();">MENU VALOR</button>
-                <div class="row top-buffer"></div>
-                <button type="button" class="btn btn-primary btn-lg btn-block" onclick="irMenuGasto();">MENU GASTO</button>
-                <div class="row top-buffer"></div>         
-                <button type="button" class="btn btn-primary btn-lg btn-block" onclick="irModuloCaja();">MODULO CAJA</button>
-                <div class="row top-buffer"></div>                    
-                <button type="button" class="btn btn-danger btn-lg btn-block" onclick="cerrarSession();">CERRAR SESION</button>
-            </div>
-        </fieldset>
-        <?php echo form_close(); ?>
+ 
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand" href="#"><i class="fas fa-suitcase-rolling fa-2x"></i></a>
+
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item dropdown px-3" id="menu_bdo">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Menu BDO</a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#" onclick="irAltaBdo();">INGRESAR B.D.O</a>
+                        <a class="dropdown-item" href="#" onclick="irCierreCaso();">CIERRE CASO</a>
+                        <a class="dropdown-item" href="#" onclick="irConsultaBdo();">CONSULTAS B.D.O</a>
+                        <a class="dropdown-item" href="#" onclick="irEliminarBdo();">ELIMINAR MODIFICAR B.D.O</a>
+                        <a class="dropdown-item" href="#" onclick="irTransaccionesBdo();">TRANSACCIONES B.D.O</a>
+                    </div>
+                </li> 
+                
+                <li class="nav-item px-3"><a id="menu_sector" class="nav-link" href="<?php echo base_url("MenuSector"); ?>">Sector</a></li>
+                <li class="nav-item px-3"><a id="menu_aerolinea" class="nav-link" href="<?php echo base_url("MenuAerolinea"); ?>">Aerolinea</a></li>
+                <li class="nav-item px-3"><a id="menu_valor" class="nav-link" href="<?php echo base_url("MenuValor"); ?>">Valor</a></li>
+                <li class="nav-item px-3"><a id="menu_gasto" class="nav-link" href="<?php echo base_url("MenuGasto"); ?>">Gasto</a></li>
+                <li class="nav-item px-3"><a id="menu_caja" class="nav-link" href="<?php echo base_url("ModuloCaja"); ?>">Caja</a></li>
+            </ul>    
+            <a class="nav-link d-inline-flex flex-row-reverse text-white" href="<?php echo base_url("Login"); ?>">Salir</a>
         </div>
-    </div>
-</div>
+    </nav>
+    
 </body>
 </html>

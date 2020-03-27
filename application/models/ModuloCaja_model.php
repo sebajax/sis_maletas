@@ -28,15 +28,14 @@ class ModuloCaja_model extends CI_Model {
     
     public function SalidasCaja($fecha_desde, $fecha_hasta) {
         if(empty($fecha_desde) || empty($fecha_hasta)) return false;
-        $this->db->select_sum('monto');
+        $this->db->select('gastos.fecha, gastos.monto, tipos_gasto.tipo_gasto');
         $this->db->from('gastos');
+        $this->db->join('tipos_gasto', 'gastos.id_tipo_gasto = tipos_gasto.id_tipo_gasto');
         if(!empty($fecha_desde) && !empty($fecha_hasta)) {
             $this->db->where('gastos.fecha >=', $fecha_desde);
             $this->db->where('gastos.fecha <=', $fecha_hasta);
         }
         $query = $this->db->get(); 
-        $row = $query->row();
-        if(!isset($row->monto)) return 0;
-        return $row->monto;
+        return $query->result();
     }
 }

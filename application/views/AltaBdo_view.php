@@ -5,9 +5,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alta B.D.O</title>
-    <?php require_once "assets/header/header.php"; ?>
+    <?php require_once "MenuPrincipal_view.php"; ?>
     
     <script type="text/javascript">
+        $(document).ready(function(){
+            $("#menu_bdo").addClass("active");
+        });
+        
         //load datepicker control onfocus
         $(function() {
             $.datepicker.regional['es'] = {
@@ -183,6 +187,8 @@
             var aerolinea    = $("#aerolinea").val();
             var grupo_sector = $("#grupo_sector").val();
             var cantidad_maletas = $("#cantidad_maletas").val();
+            var iva = 0;
+            var total = 0;
             
             if(aerolinea == 0 || grupo_sector == 0 || cantidad_maletas == 0) { return false; }
             
@@ -191,19 +197,19 @@
                 url: "<?php echo base_url("AltaBdo/cargoValor"); ?>",
                 data: { aerolinea: aerolinea, grupo_sector: grupo_sector, cantidad_maletas: cantidad_maletas}
             }).done(function(data) {
+                iva = eval(data) * 0.19;
+                total = eval(iva) + eval(data);
                 $("#valor_estimado").val(data);
-                $("#valor").val(data);
+                $("#iva").val(iva);
+                $("#valor").val(total);
             });            
         } 
-        
-        function irMenu() {
-            window.location.href = "<?php echo base_url("MenuBdo"); ?>";
-        }  
         
         function verificar_valores() {
             var valor            = $("#valor").val();
             var valor_estimado   = $("#valor_estimado").val();
-            if(valor != valor_estimado) {
+            var total            = eval($("#iva").val()) + eval(valor_estimado);
+            if(valor != total) {
                 $('#confirm').modal({
                     backdrop: 'static',
                     keyboard: false
@@ -225,201 +231,191 @@
             $("#telefono").val("");
             $("#valor").val("");     
             $("#valor_estimado").val("");
+            $("#iva").val("");
         }
     </script>
-    
 </head>
+
 <body>
+
+<br/>
+    
 <div class="container">
     <div class="row">
-        <ol class="breadcrumb">
-            <li><a href="<?php echo base_url("MenuPrincipal"); ?>">Menu Principal</a></li>
-            <li><a href="<?php echo base_url("MenuBdo"); ?>">Menu B.D.O</a></li>
-            <li class="active">Alta B.D.O</li>
-        </ol>         
-        <div class="col-sm-offset-3 col-lg-6 col-sm-6 well">
-        <legend>Alta B.D.O</legend>
-        <?php 
-        $attributes = array("class" => "form-horizontal", "id" => "altabdoform", "name" => "altabdoform");
-        echo form_open("AltaBdo/index", $attributes);
-        ?>
-        
-        <fieldset>
-            <div class="form-group">
-                <div class="row colbox">
-                    <div class="col-lg-4 col-sm-4">
-                        <label for="numero" class="control-label">Numero</label>
-                    </div>
-                    <div class="col-lg-8 col-sm-8">
-                        <input id="numero" name="numero" placeholder="numero bdo" type="text" class="form-control" />
-                        <span id='numero_error' class="text-danger"></span>
-                    </div>
-                </div>
-            </div>
+        <div class="col-sm">   
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item text-primary">Menu B.D.O</li>
+                    <li class="breadcrumb-item active">Alta B.D.O</li>
+                </ol> 
+            </nav>    
 
-            <div class="form-group">
-                <div class="row colbox">
-                    <div class="col-lg-4 col-sm-4">
-                        <label for="aerolinea" class="control-label">Aerolinea</label>
+
+            <div class="jumbotron w-100 p-3 mx-auto">
+
+            <legend>Alta B.D.O</legend>
+
+            <form>
+
+                <div class="form-group">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend w-25">
+                            <span class="input-group-text bg-primary text-white w-100" id="numero_addon">Numero</span>
+                        </div>                    
+                        <input aria-label="numero bdo" aria-describedby="numero_addon" id="numero" name="numero" placeholder="numero bdo" type="text" class="form-control">
                     </div>
-                    <div class="col-lg-8 col-sm-8">
+                    <span id="numero_error" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend w-25">
+                            <span class="input-group-text bg-primary text-white w-100" id="aerolinea_addon">Aerolinea</span>
+                        </div>                    
                         <?php
-                        $attributes = 'class = "form-control" id = "aerolinea"';
+                        $attributes = 'class = "form-control" id = "aerolinea" aria-label="aerolinea" aria-describedby="aerolinea_addon"';
                         echo form_dropdown('aerolinea', $aerolinea, set_value('aerolinea'), $attributes);
                         ?>
-                        <span id='aerolinea_error' class="text-danger"></span>
                     </div>
+                    <span id="aerolinea_error" class="text-danger"></span>
                 </div>
-            </div>            
-            
-            <div class="form-group">
-                <div class="row colbox">
-                    <div class="col-lg-4 col-sm-4">
-                        <label for="fecha_llegada" class="control-label">Fecha Llegada</label>
-                    </div>
-                    <div class="col-lg-8 col-sm-8">
-                        <input id="fecha_llegada" name="fecha_llegada" placeholder="fecha llegada" type="text" class="form-control" />
-                        <span id='fecha_llegada_error' class="text-danger"></span>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="form-group">
-                <div class="row colbox">
-                    <div class="col-lg-4 col-sm-4">
-                        <label for="nombre_pasajero" class="control-label">Nombre Pasajero</label>
-                    </div>
-                    <div class="col-lg-8 col-sm-8">
-                        <input id="nombre_pasajero" name="nombre_pasajero" placeholder="nombre pasajero" type="text" class="form-control" />
-                        <span id='nombre_pasajero_error' class="text-danger"></span>
-                    </div>
-                </div>
-            </div>            
 
-            <div class="form-group">
-                <div class="row colbox">
-                    <div class="col-lg-4 col-sm-4">
-                        <label for="cantidad_maletas" class="control-label">Cantidad Maletas</label>
+                <div class="form-group">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend w-25">
+                            <span class="input-group-text bg-primary text-white w-100" id="fecha_llegada_addon">Fecha Llegada</span>
+                        </div>                    
+                        <input aria-label="fecha llegada" aria-describedby="fecha_llegada_addon" id="fecha_llegada" name="fecha_llegada" placeholder="fecha llegada" type="text" class="form-control">
                     </div>
-                    <div class="col-lg-8 col-sm-8">
-                        <input id="cantidad_maletas" name="cantidad_maletas" placeholder="cantidad maletas" type="text" class="form-control" />
-                        <span id='cantidad_maletas_error' class="text-danger"></span>
-                    </div>
+                    <span id='fecha_llegada_error' class="text-danger"></span>
                 </div>
-            </div>  
-            
-            <div class="form-group">
-                <div class="row colbox">
-                    <div class="col-lg-4 col-sm-4">
-                        <label for="region" class="control-label">Region</label>
+
+                <div class="form-group">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend w-25">
+                            <span class="input-group-text bg-primary text-white w-100" id="nombre_pasajero_addon">Nombre Pasajero</span>
+                        </div>                    
+                        <input aria-label="nombre pasajero" aria-describedby="nombre_pasajero_addon" id="nombre_pasajero" name="nombre_pasajero" placeholder="nombre pasajero" type="text" class="form-control">
                     </div>
-                    <div class="col-lg-8 col-sm-8">
+                    <span id='nombre_pasajero_error' class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend w-25">
+                            <span class="input-group-text bg-primary text-white w-100" id="cantidad_maletas_addon">Cantidad Maleta</span>
+                        </div>                    
+                        <input aria-label="cantidad maletas" aria-describedby="cantidad_maletas_addon" id="cantidad_maletas" name="cantidad_maletas" placeholder="cantidad de maletas" type="text" class="form-control">
+                    </div>
+                    <span id='cantidad_maletas_error' class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend w-25">
+                            <span class="input-group-text bg-primary text-white w-100" id="region_addon">Region</span>
+                        </div>
                         <?php
-                        $attributes = 'class = "form-control" id = "region"';
+                        $attributes = 'class = "form-control" id = "region" aria-label="region" aria-describedby="region_addon"';
                         echo form_dropdown('region', $region, set_value('region'), $attributes);
                         ?>
                         <span id='region_error' class="text-danger"></span>
                     </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                <div class="row colbox">
-                    <div class="col-lg-4 col-sm-4">
-                        <label for="grupo_sector" class="control-label">Grupo sector</label>
-                    </div>
-                    <div class="col-lg-8 col-sm-8">
+                <div class="form-group">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend w-25">
+                            <span class="input-group-text bg-primary text-white w-100" id="grupo_sector_addon">Grupo sector</span>
+                        </div>
                         <?php
-                        $attributes = 'class = "form-control" id = "grupo_sector"';
+                        $attributes = 'class = "form-control" id = "grupo_sector" aria-label="grupo_sector" aria-describedby="grupo_sector_addon"';
                         echo form_dropdown('grupo_sector', $grupo_sector, set_value('grupo_sector'), $attributes);
                         ?>
-                        <span id='grupo_sector_error' class="text-danger"></span>
                     </div>
-                </div>
-            </div>    
-            
-            <div class="form-group">
-                <div class="row colbox">
-                    <div class="col-lg-4 col-sm-4">
-                        <label for="lugar_sector" class="control-label">Lugar sector</label>
-                    </div>
-                    <div class="col-lg-8 col-sm-8">
-                        <select class="form-control" id="lugar_sector"> </select>
-                        <span id='lugar_sector_error' class="text-danger"></span>
-                    </div>
-                </div>
-            </div> 
+                    <span id='grupo_sector_error' class="text-danger"></span>
+                </div>    
 
-            <div class="form-group">
-                <div class="row colbox">
-                    <div class="col-lg-4 col-sm-4">
-                        <label for="direccion" class="control-label">Direccion</label>
+                <div class="form-group">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend w-25">
+                            <span class="input-group-text bg-primary text-white w-100" id="lugar_sector_addon">Lugar sector</span>
+                        </div>
+                            <select class="form-control" id="lugar_sector" aria-label="lugar sector" aria-describedby="lugar_sector_addon"> </select>
                     </div>
-                    <div class="col-lg-8 col-sm-8">
-                        <textarea class="form-control noresize" rows="5" id="direccion" placeholder="direccion"></textarea>
-                        <span id='direccion_error' class="text-danger"></span>
-                    </div>
-                </div>
-            </div>            
+                    <span id='lugar_sector_error' class="text-danger"></span>
+                </div> 
 
-            <div class="form-group">
-                <div class="row colbox">
-                    <div class="col-lg-4 col-sm-4">
-                        <label for="telefono" class="control-label">Telefono</label>
-                    </div>
-                    <div class="col-lg-8 col-sm-8">
-                        <input id="telefono" name="telefono" placeholder="telefono" type="text" class="form-control" />
-                        <span id='telefono_error' class="text-danger"></span>
-                    </div>
-                </div>
-            </div>             
-            
-            <div class="form-group">
-                <div class="row colbox">
-                    <div class="col-lg-4 col-sm-4">
-                        <label for="valor_estimado" class="control-label">Estimado</label>
-                    </div>
-                    <div class="col-lg-8 col-sm-8">
-                        <div class="input-group">
-                            <div class="input-group-addon">CLP</div>
-                            <input id="valor_estimado" name="valor_estimado" placeholder="valor" type="text" class="form-control" readonly/>
+                <div class="form-group">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend w-25">
+                            <span class="input-group-text bg-primary text-white w-100" id="dureccion_addon">Direccion</span>
                         </div>
-                        <span id='valor_estimado_error' class="text-danger"></span>
+                        <textarea class="form-control noresize" rows="5" id="direccion" placeholder="direccion" aria-label="direccion" aria-describedby="direccion_addon"></textarea>
                     </div>
-                </div>
-            </div>             
-            
-            <div class="form-group">
-                <div class="row colbox">
-                    <div class="col-lg-4 col-sm-4">
-                        <label for="valor" class="control-label">Valor</label>
-                    </div>
-                    <div class="col-lg-8 col-sm-8">
-                        <div class="input-group">
-                            <div class="input-group-addon">CLP</div>
-                            <input id="valor" name="valor" placeholder="valor" type="text" class="form-control" />
+                    <span id='direccion_error' class="text-danger"></span>
+                </div>            
+
+                <div class="form-group">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend w-25">
+                            <span class="input-group-text bg-primary text-white w-100" id="telefono_addon">Telefono</span>
                         </div>
-                        <span id='valor_error' class="text-danger"></span>
+                        <input id="telefono" name="telefono" placeholder="telefono" type="text" class="form-control" aria-label="telefono" aria-describedby="telefono_addon">
+                    </div>
+                    <span id='telefono_error' class="text-danger"></span>
+                </div>             
+
+                <div class="form-group">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend w-25">
+                            <span class="input-group-text bg-primary text-white w-100" id="valor_estimado_addon">Valor Estimado</span>
+                            <span class="input-group-text" id="valor_estimado_addon">$</span>
+                        </div>
+                        <input id="valor_estimado" name="valor_estimado" placeholder="valor" type="text" class="form-control" aria-label="valor estimado" aria-describedby="valor_estimado_addon" readonly>
+                    </div>
+                </div>             
+
+                <div class="form-group">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend w-25">
+                            <span class="input-group-text bg-primary text-white w-100" id="iva_addon">IVA</span>
+                            <span class="input-group-text" id="iva_addon">$</span>
+                        </div>
+                        <input id="iva" name="iva" placeholder="iva" type="text" class="form-control" aria-label="iva" aria-describedby="iva_addon" readonly>
+                    </div>
+                </div>              
+
+                <div class="form-group">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend w-25">
+                            <span class="input-group-text bg-primary text-white w-100" id="region_addon">Valor</span>
+                            <span class="input-group-text" id="valor_estimado_addon">$</span>
+                        </div>
+                        <input id="valor" name="valor" placeholder="valor" type="text" class="form-control" aria-label="direccion" aria-describedby="direccion_addon">
+                    </div>
+                    <span id='valor_error' class="text-danger"></span>
+                </div>  
+
+                <div class="form-group">
+                    <div id="alert_placeholder"></div>
+                </div>            
+
+                <div class="form-group">
+                    <div class="d-flex flex-row-reverse">
+                        <div class="p-2"><input id="btn_insertar" name="btn_insertar" type="button" class="btn btn-outline-success" value="Alta B.D.O" onclick="verificar_valores();"></div>
+                        <div class="p-2"><input id="btn_cancelar" name="btn_cancelar" type="reset" class="btn btn-outline-danger" value="Cancelar"></div>
                     </div>
                 </div>
-            </div>  
-            
-            <div class="form-group">
-                <div id="alert_placeholder"></div>
-            </div>            
-            
-            <div class="form-group">
-            <div class="col-sm-offset-4 col-lg-8 col-sm-8 text-left">
-                <input id="btn_insertar" name="btn_insertar" type="button" class="btn btn-primary" value="Alta B.D.O" onclick="verificar_valores();" />
-                <input id="btn_cancelar" name="btn_cancelar" type="reset" class="btn btn-danger" value="Cancelar" />
-                <input id="btn_volver" name="btn_volver" type="button" class="btn btn-primary" value="Volver" onclick="irMenu();" />
-            </div>
-            </div>
-        </fieldset>
-        <?php echo form_close(); ?>
+
+            </form>
+
+            <?php echo form_close(); ?>
+        </div>
         </div>
     </div>
 </div>
+
 <!-- Modal confirmacion BDO valores distintos -->
 <div id="confirm" class="modal fade" role="dialog">
     <div class="modal-dialog">
@@ -429,8 +425,8 @@
                 El valor estimado es distinto al valor ingresado, esta seguro que desea realizar el ingreso.
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal" id="confirmar">Confirmar</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-outline-success" data-dismiss="modal" id="confirmar">Confirmar</button>
+                <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
             </div>
         </div>
     </div>

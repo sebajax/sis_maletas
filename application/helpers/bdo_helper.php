@@ -17,7 +17,7 @@ if(!function_exists('cargoInformacionExtra')) {
         
         foreach ($result_coments as $row) {
             $table_comments .= '
-                <table class="table table-bordered">
+                <table class="table table-bordered table-light">
                     <tbody>
                         <tr>
                             <td>Fecha</td>
@@ -38,50 +38,50 @@ if(!function_exists('cargoInformacionExtra')) {
         $table = '<table class="table table-hover">
                     <tbody>
                         <tr>
-                            <td>Numero B.D.O</td>
+                            <td class="table-primary">Numero B.D.O</td>
                             <td>'.$numero.'</td>
                         </tr>
                         <tr>
-                            <td>Nombre Pasajero</td>
+                            <td class="table-primary">Nombre Pasajero</td>
                             <td>'.$result->nombre_pasajero.'</td>
                         </tr>
                         <tr>
-                            <td>Aerolinea</td>
+                            <td class="table-primary">Aerolinea</td>
                             <td>'.$result->nombre_aerolinea.'</td>
                         </tr>
                         <tr>
-                            <td>Telefono</td>
+                            <td class="table-primary">Telefono</td>
                             <td>'.$result->telefono.'</td>
                         </tr>
                         <tr>
-                            <td>Direccion</td>
+                            <td class="table-primary">Direccion</td>
                             <td>'.$result->domicilio_direccion.'</td>
                         </tr>
                         <tr>
-                            <td>Region</td>
+                            <td class="table-primary">Region</td>
                             <td>'.regionTransform($result->domicilio_region).'</td>
                         </tr>
                         <tr>
-                            <td>Sector</td>
+                            <td class="table-primary">Sector</td>
                             <td>'.$result->grupo_sector.'</td>
                         </tr>
                         <tr>
-                            <td>Nombre sector</td>
+                            <td class="table-primary">Nombre sector</td>
                             <td>'.$result->lugar.'</td>
                         </tr>  
                         </tr>
                         <tr>
-                            <td>Valor</td>
+                            <td class="table-primary">Valor</td>
                             <td>'.$result->valor.'</td>
                         </tr>                         
                         <tr>
-                            <td>Fecha cierre</td>
+                            <td class="table-primary">Fecha cierre</td>
                             <td>'.$result->fecha_modif_estado.'</td>
                         </tr>                        
                     </tbody>   
                 </table>';
         
-        echo $table.'<hr /> <label> Comentarios </label>'.$table_comments;
+        echo $table.'<hr /> <div class="p-3 mb-2 bg-primary text-white"><label> Comentarios </label></div>'.$table_comments;
     }     
 }
 

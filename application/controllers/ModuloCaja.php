@@ -20,12 +20,13 @@ class ModuloCaja extends CI_Controller {
     public function buscarTransacciones() {
         $fecha_desde     = $this->input->post('fecha_desde');
         $fecha_hasta     = $this->input->post('fecha_hasta');
+        
         $result_ingresos = $this->ModuloCaja_model->IngresosCaja($fecha_desde, $fecha_hasta);
-        if(!empty($result_ingresos)) {
-            $this->session->set_userdata('result_ingresosCaja', $this->funciones->objectToArray($result_ingresos));
-        }
+        if(!empty($result_ingresos)) $this->session->set_userdata('result_ingresosCaja', $this->funciones->objectToArray($result_ingresos));
+        
         $result_salidas = $this->ModuloCaja_model->SalidasCaja($fecha_desde, $fecha_hasta);
-        $this->session->set_userdata('result_salidasCaja', $result_salidas);
+        if (!empty($result_salidas)) $this->session->set_userdata('result_salidasCaja', $this->funciones->objectToArray($result_salidas));
+        
         echo json_encode($this->armoConsulta($this->session->userdata('result_ingresosCaja'), $this->session->userdata('result_salidasCaja')));
     }  
     
@@ -56,6 +57,8 @@ class ModuloCaja extends CI_Controller {
     }
 
     public function armoConsulta($result_ingresosCaja, $result_salidasCaja) {
+        $monto_ingreso = 0;
+        $monto_egreso  = 0;
         
         $content = '<div class="well"><h4 class="text-success">INGRESOS</h4>';
         
@@ -69,21 +72,43 @@ class ModuloCaja extends CI_Controller {
               </thead>
               <tbody id="cuerpo_ingresos">';
         
-        $monto_total = 0;
         foreach ($result_ingresosCaja as $row) {
             $content .= "
                 <tr>
                     <th scope='row'>".$row['aerolinea']."</th>
                     <td>".$row['monto']."</td>
                 </tr>";
-            $monto_total += $row['monto'];
+            $monto_ingreso += $row['monto'];
         }
-        $content .= '<tr class="success" style="text-align: right; border-top: 1px solid #ddd;"><td colspan="2">TOTAL - '.$monto_total.' CLP</td></tr>';
-        $content .= '</tbody></table></div>';        
+        $content .= '<tr class="success" style="text-align: right; border-top: 1px solid #ddd;"><td colspan="2">TOTAL - '.$monto_ingreso.' CLP</td></tr>';
+        $content .= '</tbody></table></div>';
+
         $content .= '<div class="well"><h4 class="text-danger">EGRESOS</h4>';
-        $content .= '<table class="table table-hover" id="egresos"><tbody id="cuerpo_egresos"><tr class="danger" style="text-align: right; border-top: 1px solid #ddd;"><td colspan="2">TOTAL - '.$result_salidasCaja.' CLP</td></tr></tbody></table></div>';
+
+        $content .= '
+            <table class="table table-hover" id="egresos">
+              <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Tipo</th>
+                    <th>Monto</th>
+                </tr>
+              </thead>
+              <tbody id="cuerpo_ingresos">';        
         
-        $flujo_total = $monto_total - $result_salidasCaja;
+        foreach ($result_salidasCaja as $row) {
+            $content .= "
+                <tr>
+                    <th scope='row'>".$row['fecha']."</th>
+                    <td>".$row['tipo_gasto']."</td>
+                    <td>".$row['monto']."</td>
+                </tr>";
+            $monto_egreso += $row['monto'];
+        }
+        $content .= '<tr class="danger" style="text-align: right; border-top: 1px solid #ddd;"><td colspan="3">TOTAL - '.$monto_egreso.' CLP</td></tr>';
+        $content .= '</tbody></table></div>';
+        
+        $flujo_total = $monto_ingreso - $monto_egreso;
         
         if($flujo_total > 0) {
             $content .= '<div class="well" style="background-color: #BCF5A9; float: right !important;"><h3 class="text-success">GANANCIA    '.$flujo_total.'</h3>';

@@ -5,11 +5,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cierre caso</title>
-    <?php require_once "assets/header/header.php"; ?>
-    
-    <style>.top-buffer { margin-top:20px; }</style>
+    <?php require_once "MenuPrincipal_view.php"; ?>
     
     <script type="text/javascript">
+        $(document).ready(function(){
+            $("#menu_bdo").addClass("active");
+        });        
         
         function buscarCierreCaso() {
             var aerolinea = $("#aerolinea").val();
@@ -83,52 +84,48 @@
                 }
             });           
         }  
-        
-        function cancelarComentario() {
-            $('#comentario_bdo').modal('toggle');
-        }            
     </script>
     
 </head>
 <body>
-<div class="container">
-    <div class="row">
-        <ol class="breadcrumb">
-            <li><a href="<?php echo base_url("MenuPrincipal"); ?>">Menu Principal</a></li>
-            <li><a href="<?php echo base_url("MenuBdo"); ?>">Menu B.D.O</a></li>
-            <li class="active">Cierre caso B.D.O</li>
-        </ol>             
+    <div class="p-3 mx-5">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item text-primary">Menu B.D.O</li>
+                <li class="breadcrumb-item active">Cierre caso B.D.O</li>
+            </ol> 
+        </nav>          
+
         <legend>Cierre caso B.D.O</legend>
-        <form class="form-inline">
-          <div class="form-group">
-            <label for="aerolinea">Aerolinea</label>
+
+        <form class="form-inline my-3">
+            <label class="my-2 mr-2" for="aerolinea">Aerolinea</label>
             <?php
-            $attributes = 'class = "form-control" id = "aerolinea"';
+            $attributes = 'class = "custom-select" id = "aerolinea"';
             echo form_dropdown('aerolinea', $aerolinea, set_value('aerolinea'), $attributes);
             ?>
-          </div>
-          <div class="form-group">
-            <label for="numero">Numero</label>
+            <label class="my-2 mr-2 ml-5" for="numero">Numero</label>
             <input id="numero" name="numero" placeholder="numero bdo" type="text" class="form-control" />
-          </div>
-        </form>    
+        </form>   
+
         <div class="row top-buffer"></div>
-        <form class="form-inline">    
-            <button type="button" class="btn btn-primary" onclick="buscarCierreCaso();">Enviar</button>
-            <button type="button" class="btn btn-primary" onclick="exportarExcel();">Exportar Excel</button>
-            <button type="button" class="btn btn-primary" onclick="printDiv();">Imprimir</button>
-            <button type="button" class="btn btn-danger" onclick="irMenu();">Volver</button>
+        <form class="form-inline mt-3">    
+            <button type="button" class="btn btn-outline-success" onclick="buscarCierreCaso();">Enviar</button>
+            <button type="button" class="btn btn-outline-success ml-5" onclick="exportarExcel();">Exportar Excel</button>
+            <button type="button" class="btn btn-outline-success ml-5" onclick="printDiv();">Imprimir</button>
+            <button type="button" class="btn btn-outline-success ml-5" onclick="cerrarTodosCasos();">Cerrar Casos</button>
+            <button type="button" class="btn btn-outline-danger ml-5" onclick="irMenu();">Volver</button>
         </form>         
-        
+
         <div class="form-group">
             <div id="alert_placeholder"></div>
         </div>         
-        
+
         <hr />
-        
+
         <div id="printDiv">
             <table class="table table-hover">
-              <thead>
+                <thead class="thead-dark">
                 <tr>
                   <th>#<span id="th_order"></span></th>
                   <th style="cursor: pointer;" onclick="ordenarBuscar('numero')">Numero BDO</th>
@@ -144,58 +141,57 @@
         </div>    
         <input id="ordenamiento" type="hidden" value=""/>
     </div>
-</div>
-    
-<!-- Modal informacion b.d.o -->
-<div id="informacion_bdo" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">INFORMACION EXTRA B.D.O</h4>
-            </div>
-            <div class="modal-body" id="informacion_extra_bdo"></div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-            </div>
-        </div>
-    </div>
-</div> 
 
-<!-- Agregar comentario modal -->
-<div id="comentario_bdo" class="modal" role="dialog">
-    <div class="modal-dialog">
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Cerrar caso BDO</h4>
+    
+    <!-- Modal informacion b.d.o -->
+    <div id="informacion_bdo" class="modal fade" role="dialog">
+        <div class="modal-dialog" role="document">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">INFORMACION EXTRA B.D.O</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body" id="informacion_extra_bdo"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
             </div>
-            <div class="modal-body" id="comentario_bdo_form">
-                <form>
-                    <div class="form-group">
-                        <label for="numero_comentario" class="control-label">Numero</label>
-                        <input id="numero_comentario" disabled= "disabled" name="numero_comentario" placeholder="numero bdo" type="text" class="form-control"/>
-                    </div>
-                    <div class="form-group">
-                        <label for="nombre_aerolinea_comentario" class="control-label">Aerolinea</label>
-                        <input id="nombre_aerolinea_comentario" disabled= "disabled" name="nombre_aerolinea_comentario" placeholder="aerolinea" type="text" class="form-control"/>
-                        <input id="id_aerolinea_comentario" disabled= "disabled" name="id_aerolinea_comentario" placeholder="aerolinea" type="hidden" class="form-control"/>
-                    </div>                    
-                    <div class="form-group">
-                        <label for="comentario" class="control-label">Comentario</label>
-                        <textarea class="form-control noresize" rows="8" id="comentario" placeholder="comentario"></textarea>
-                    </div>
-                    <input id="btn_comentario" name="btn_comentario" type="button" class="btn btn-primary" value="Cerrar caso" onclick="cerrarCaso();" />
-                    <input id="btn_cancelar" name="btn_cancelar_comentario" type="reset" class="btn btn-danger" value="Cancelar" onclick="cancelarComentario();"/>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        </div>
+    </div> 
+
+    <!-- Agregar comentario modal -->
+    <div id="comentario_bdo" class="modal" role="dialog">
+        <div class="modal-dialog" role="document">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Cerrar Caso BDO</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body" id="comentario_bdo_form">
+                    <form>
+                        <div class="form-group">
+                            <label for="numero_comentario" class="control-label">Numero</label>
+                            <input id="numero_comentario" disabled= "disabled" name="numero_comentario" placeholder="numero bdo" type="text" class="form-control"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="nombre_aerolinea_comentario" class="control-label">Aerolinea</label>
+                            <input id="nombre_aerolinea_comentario" disabled= "disabled" name="nombre_aerolinea_comentario" placeholder="aerolinea" type="text" class="form-control"/>
+                            <input id="id_aerolinea_comentario" disabled= "disabled" name="id_aerolinea_comentario" placeholder="aerolinea" type="hidden" class="form-control"/>
+                        </div>                    
+                        <div class="form-group">
+                            <label for="comentario" class="control-label">Comentario</label>
+                            <textarea class="form-control noresize" rows="8" id="comentario" placeholder="comentario"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <input id="btn_comentario" name="btn_comentario" type="button" class="btn btn-primary" value="Confirmar" onclick="cerrarCaso();" />
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 </body>
 </html>
