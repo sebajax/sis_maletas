@@ -69,7 +69,7 @@
         </div>
     </nav>
    
-    <div id="imagen_principal" class="d-flex justify-content-center" style="padding-top: 240px; font-size: 44px;">
+    <div id="imagen_principal" class="d-flex justify-content-center" style="padding-top: 100px; font-size: 44px;">
         <span class="fas fa-luggage-cart fa-10x" style="opacity: 0.1;"></span>
     </div>
     

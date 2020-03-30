@@ -50,6 +50,7 @@ class EliminarModificarBdo extends CI_Controller {
         $aux_numero       = "'".$numero."'";
         
         $html = '
+            <div class="modal-body">
             <form>
                 <div class="form-group">
                     <label for="numero_new" class="control-label">Numero</label>
@@ -110,10 +111,12 @@ class EliminarModificarBdo extends CI_Controller {
                     <label for="valor_new" class="control-label">Valor</label>
                     <input id="valor_new" name="valor_new" placeholder="valor" type="text" class="form-control" value="'.$info_bdo->valor.'"/>
                 </div> 
-
-                <input id="btn_modificar" name="btn_modificar" type="button" class="btn btn-primary" value="Modificar bdo" onclick="verificar_valores('.$aux_numero.', '.$id_aerolinea.');" />
-                <input id="btn_cancelar" name="btn_cancelar" type="reset" class="btn btn-danger" value="Cancelar" onclick="cancelarModificarBdo();"/>
-            </form>';
+            </form>
+            </div>
+            <div class="modal-footer">
+                <input id="btn_modificar" name="btn_modificar" type="button" class="btn btn-primary" value="Modificar B.D.O" onclick="verificar_valores('.$aux_numero.', '.$id_aerolinea.');" />
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            </div>';
         
         echo $html;
     }
@@ -267,33 +270,40 @@ class EliminarModificarBdo extends CI_Controller {
             }            
             $tbody .= "
                 <tr ".$class.">
-                  <th scope='row'>".($key + 1)."</th>
-                  <td>".$row['numero']."</td>
+                  <td><div class='font-weight-bold'>".$row['numero']."</div></td>
                   <td>".$row['nombre_aerolinea']."</td>
                   <td>".$row['nombre_pasajero']."</td>
-                  <td>".$row['cantidad_maletas']."</td>    
-                  <td>".$row['valor']."</td>
+                  <td> <div class='float-right'>".$row['cantidad_maletas']."</div></td>    
+                  <td> <div class='float-right'>".$row['valor']."</div></td>
                   <td>".$estado."</td>
-                  <td>".$row['fecha_llegada']."</td>
+                  <td> <div class='float-right'>".$row['fecha_llegada']."</div></td>
                   <td>
-                    <button type='button' class='btn btn-default btn-md'>
-                        <span class='glyphicon glyphicon-search' aria-hidden='true' onclick='cargoInformacionExtra(".$aux_numero.", ".$aux_id_aerolinea.")'></span>
-                    </button>   
+                    <div class='d-flex justify-content-center'>
+                        <button type='button' class='btn btn-default btn-md'>
+                            <i aria-hidden='true' class='fas fa-search-plus fa-lg' onclick='cargoInformacionExtra(".$aux_numero.", ".$aux_id_aerolinea.")'></i>
+                        </button>  
+                    </div>
                   </td>
                   <td>
-                    <button type='button' class='btn btn-default btn-md'>
-                        <span class='glyphicon glyphicon-edit' aria-hidden='true' onclick='agregarComentarioForm(".$aux_numero.", ".$aux_id_aerolinea.", ".$aux_nombre_aerolinia.")'></span>
-                    </button>   
+                    <div class='d-flex justify-content-center'>
+                        <button type='button' class='btn btn-default btn-md'>
+                            <i aria-hidden='true' class='fas fa-comments fa-lg' onclick='agregarComentarioForm(".$aux_numero.", ".$aux_id_aerolinea.", ".$aux_nombre_aerolinia.")'></i>
+                        </button>  
+                    </div>
                   </td>                  
                   <td>
-                    <button type='button' class='btn btn-default btn-md'>
-                        <span class='glyphicon glyphicon-pencil' aria-hidden='true' onclick='modificarBdoForm(".$aux_numero.", ".$aux_id_aerolinea.")'></span>
-                    </button>   
+                    <div class='d-flex justify-content-center'>
+                        <button type='button' class='btn btn-default btn-md'>
+                            <i aria-hidden='true' class='fas fa-save fa-lg' onclick='modificarBdoForm(".$aux_numero.", ".$aux_id_aerolinea.")'></i>
+                        </button>  
+                    </div>
                   </td>
                   <td>
-                    <button type='button' class='btn btn-default btn-md'>
-                        <span class='glyphicon glyphicon-trash' aria-hidden='true' onclick='cofirmaEliminar(".$aux_numero.", ".$aux_id_aerolinea.")'></span>
-                    </button>   
+                    <div class='d-flex justify-content-center'>
+                        <button type='button' class='btn btn-default btn-md'>
+                            <i aria-hidden='true' class='fas fa-trash-alt fa-lg' onclick='cofirmaEliminar(".$aux_numero.", ".$aux_id_aerolinea.")'></i>
+                        </button>  
+                    </div>
                   </td>                    
                 </tr>";
         }

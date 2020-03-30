@@ -97,18 +97,19 @@ class ConsultaBdo extends CI_Controller {
             }
             $tbody .= "
                 <tr ".$class.">
-                  <th scope='row'>".($key + 1)."</th>
-                  <td>".$row['numero']."</td>
+                  <td><div class='font-weight-bold'>".$row['numero']."</div></td>
                   <td>".$row['nombre_aerolinea']."</td>
                   <td>".$row['nombre_pasajero']."</td>
-                  <td>".$row['cantidad_maletas']."</td>    
-                  <td>".$row['valor']."</td>
+                  <td> <div class='float-right'>".$row['cantidad_maletas']."</div></td>    
+                  <td> <div class='float-right'>".$row['valor']."</div></td>
                   <td>".$estado."</td>
-                  <td>".$row['fecha_llegada']."</td>
+                  <td> <div class='float-right'>".$row['fecha_llegada']."</div></td>
                   <td>
-                    <button type='button' class='btn btn-default btn-md'>
-                        <span class='glyphicon glyphicon-search' aria-hidden='true' onclick='cargoInformacionExtra(".$aux_numero.", ".$aux_id_aerolinea.")'></span>
-                    </button>   
+                    <div class='d-flex justify-content-center'>
+                        <button type='button' class='btn btn-default'>
+                            <i aria-hidden='true' class='fas fa-search-plus fa-lg' onclick='cargoInformacionExtra(".$aux_numero.", ".$aux_id_aerolinea.")'></i>
+                        </button>   
+                    </div>
                   </td>
                 </tr>";
         }

@@ -99,29 +99,26 @@
 
         <legend>Cierre caso B.D.O</legend>
 
-        <form>
+        <form class="my-3">
             <div class="form-row">
                 <div class="form-group col-2">
-                    <label for="aerolinea">Aerolinea</label>
                     <?php
                     $attributes = 'class = "custom-select" id = "aerolinea"';
                     echo form_dropdown('aerolinea', $aerolinea, set_value('aerolinea'), $attributes);
                     ?>
                 </div>
                 <div class="form-group col-2 ml-5">
-                    <label for="numero">Numero</label>
                     <input id="numero" name="numero" placeholder="numero bdo" type="text" class="form-control" />
                 </div>
             </div>
         </form>   
-
-        <div class="row top-buffer"></div>
+        
         <form class="form-inline mt-3">    
-            <button type="button" class="btn btn-outline-success col-1" onclick="buscarCierreCaso();">Enviar</button>
-            <button type="button" class="btn btn-outline-success ml-5 col-1" onclick="exportarExcel();">Exportar Excel</button>
-            <button type="button" class="btn btn-outline-success ml-5 col-1" onclick="printDiv();">Imprimir</button>
-            <button type="button" class="btn btn-outline-success ml-5 col-1" onclick="cerrarTodosCasos();">Cerrar Casos</button>
-            <button type="button" class="btn btn-outline-danger ml-5 col-1" onclick="irMenu();">Volver</button>
+            <button type="button" class="btn btn-outline-success col-2" onclick="buscarCierreCaso();">Enviar</button>
+            <button type="button" class="btn btn-outline-success ml-5 col-2" onclick="exportarExcel();">Exportar Excel</button>
+            <button type="button" class="btn btn-outline-success ml-5 col-2" onclick="printDiv();">Imprimir</button>
+            <button type="button" class="btn btn-outline-success ml-5 col-2" onclick="cerrarTodosCasos();">Cerrar Casos</button>
+            <button type="button" class="btn btn-outline-danger ml-5 col-2" onclick="irMenu();">Volver</button>
         </form>         
 
         <div class="form-group">
@@ -148,24 +145,9 @@
         </div>    
         <input id="ordenamiento" type="hidden" value=""/>
     </div>
-
     
     <!-- Modal informacion b.d.o -->
-    <div id="informacion_bdo" class="modal fade" role="dialog">
-        <div class="modal-dialog" role="document">
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">INFORMACION EXTRA B.D.O</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="close"><span aria-hidden="true">&times;</span></button>
-                </div>
-                <div class="modal-body" id="informacion_extra_bdo"></div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                </div>
-            </div>
-        </div>
-    </div> 
+    <?php echo cargoModalInformacionExtra(); ?>
 
     <!-- Agregar comentario modal -->
     <div id="comentario_bdo" class="modal" role="dialog">

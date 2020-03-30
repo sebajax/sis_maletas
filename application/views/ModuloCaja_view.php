@@ -7,16 +7,11 @@
     <title>Modulo Caja</title>
     <?php require_once "MenuPrincipal_view.php"; ?>
     
-    <style>
-        .top-buffer { margin-top:20px; }
-    </style>
-    
     <script type="text/javascript">
         $(document).ready(function() {
             $("#menu_caja").addClass("active");
             $("#imagen_principal").remove();
-        });  
-        
+        });
         //load datepicker control onfocus
         $(function() {
             $.datepicker.regional['es'] = {
@@ -163,10 +158,10 @@
         <span id='busqueda_error' class="text-danger"></span>
         
         <form class="form-inline">
-            <button type="button" class="btn btn-outline-success col-1" onclick="buscar();">Enviar</button>
-            <button type="button" class="btn btn-outline-success ml-5 col-1" onclick="exportarExcel();">Exportar Excel</button>
-            <button type="button" class="btn btn-outline-success ml-5 col-1" onclick="printDiv();">Imprimir</button>
-            <button type="button" class="btn btn-outline-danger ml-5 col-1" onclick="irMenu();">Volver</button>
+            <button type="button" class="btn btn-outline-success col-2" onclick="buscar();">Enviar</button>
+            <button type="button" class="btn btn-outline-success ml-5 col-2" onclick="exportarExcel();">Exportar Excel</button>
+            <button type="button" class="btn btn-outline-success ml-5 col-2" onclick="printDiv();">Imprimir</button>
+            <button type="button" class="btn btn-outline-danger ml-5 col-2" onclick="irMenu();">Volver</button>
         </form>  
         
         <div class="form-group">

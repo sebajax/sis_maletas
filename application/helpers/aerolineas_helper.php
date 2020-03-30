@@ -5,5 +5,5 @@ if(!function_exists('cargoAerolinea')) {
         $CI = get_instance();
         $CI->load->model('AltaValores_model');    
         return $CI->AltaValores_model->getAerolineas();
-    } 
+    }
 }

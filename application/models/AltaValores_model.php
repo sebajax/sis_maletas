@@ -17,7 +17,7 @@ class AltaValores_model extends CI_Model {
     
     public function getAerolineas() {
         $aerolineas = array();
-        $aerolineas[0] = '-SELECCIONE-';
+        $aerolineas[0] = '-AEROLINEAS-';
         $query = $this->db->get('aerolineas');
         foreach($query->result() as $row) {
             $aerolineas[$row->id_aerolinea] = $row->nombre_aerolinea;

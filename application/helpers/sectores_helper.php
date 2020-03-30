@@ -5,7 +5,7 @@ if(!function_exists('cargoSector')) {
         $CI = get_instance();
         $CI->load->model('CantidadSectores_model');    
         $cantidad = $CI->CantidadSectores_model->cantidadActual();
-        $sector = array('-SELECCIONE-');
+        $sector = array('-SECTORES-');
         for($i=0; $i < $cantidad; $i++) {
             array_push($sector, ($i+1));
         }
@@ -36,7 +36,7 @@ if(!function_exists('cargoLugares')) {
 if(!function_exists('cargoRegion')) {
     function cargoRegion() {
         $region = array();
-        $region[0] = "-SELECCIONE-";
+        $region[0] = "-REGIONES-";
         $region[1] = "XV - Arica y Parinacota";
         $region[2] = "I - Tarapaca";
         $region[3] = "II - Antofagasta";

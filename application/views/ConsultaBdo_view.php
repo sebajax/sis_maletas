@@ -5,11 +5,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Consulta B.D.O</title>
-    <?php require_once "assets/header/header.php"; ?>
-    
-    <style>.top-buffer { margin-top:20px; }</style>
+    <?php require_once "MenuPrincipal_view.php"; ?>
     
     <script type="text/javascript">
+        $(document).ready(function() {
+            $("#menu_bdo").addClass("active");
+            $("#imagen_principal").remove();
+        });        
         //load datepicker control onfocus
         $(function() {
             $.datepicker.regional['es'] = {
@@ -87,76 +89,95 @@
     
 </head>
 <body>
-<div class="container">
-    <div class="row">
-        <ol class="breadcrumb">
-            <li><a href="<?php echo base_url("MenuPrincipal"); ?>">Menu Principal</a></li>
-            <li><a href="<?php echo base_url("MenuBdo"); ?>">Menu B.D.O</a></li>
-            <li class="active">Consulta B.D.O</li>
-        </ol> 
+
+    <div class="p-3 mx-5">
+        
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item text-primary">Menu B.D.O</li>
+                <li class="breadcrumb-item active">Consulta B.D.O</li>
+            </ol> 
+        </nav>           
+    
         <legend>Consulta B.D.O</legend>
-        <form class="form-inline">
-          <div class="form-group">
-            <label for="aerolinea">Aerolinea</label>
-            <?php
-            $attributes = 'class = "form-control" id = "aerolinea"';
-            echo form_dropdown('aerolinea', $aerolinea, set_value('aerolinea'), $attributes);
-            ?>
-          </div>
-          <div class="form-group">
-            <label for="numero">Numero</label>
-            <input id="numero" name="numero" placeholder="numero bdo" type="text" class="form-control" />
-          </div>
-          <div class="form-group">
-            <label for="pasajero">Pasajero</label>
-            <input id="pasajero" name="pasajero" placeholder="nombre pasajero" type="text" class="form-control" />
-          </div>            
-        </form> 
-        <div class="row top-buffer"></div>
-        <form class="form-inline">
-            <div class="form-group">
-                <label for="fecha_desde">Fecha desde</label>
-                <input id="fecha_desde" name="fecha_desde" placeholder="fecha llegada desde" type="text" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label for="fecha_hasta">Fecha hasta</label>
-                <input id="fecha_hasta" name="fecha_hasta" placeholder="fecha llegada hasta" type="text" class="form-control" />
-            </div>            
-            <div class="form-group">
-                <label for="grupo_sector">Grupo sector</label>
-                <?php
-                $attributes = 'class = "form-control" id = "grupo_sector"';
-                echo form_dropdown('grupo_sector', $grupo_sector, set_value('grupo_sector'), $attributes);
-                ?>
-            </div>
-        </form>    
-        <div class="row top-buffer"></div>
-        <form class="form-inline">
-            <div class="form-group">
-                <label for="estado">Estado</label>
-                <select class = "form-control" id = "estado">
-                    <option value="">-SELECCIONE-</option>
-                    <option value="0">ABIERTO</option>
-                    <option value="1">CERRADO</option>
-                </select>    
-            </div> 
-            <button type="button" class="btn btn-primary" onclick="buscarBdo();">Enviar</button>
-            <button type="button" class="btn btn-primary" onclick="exportarExcel();">Exportar Excel</button>
-            <button type="button" class="btn btn-primary" onclick="printDiv();">Imprimir</button>
-            <button type="button" class="btn btn-danger" onclick="irMenu();">Volver</button>
-        </form>         
+
+        <form class="my-3">
+            
+            <div class="form-row">
+                
+                <div class="form-group col-2">
+                    <input id="numero" name="numero" placeholder="numero bdo" type="text" class="form-control" />
+                </div>
+                
+                <div class="form-group col-2 ml-5">
+                    <?php
+                    $attributes = 'class = "custom-select" id = "aerolinea"';
+                    echo form_dropdown('aerolinea', $aerolinea, set_value('aerolinea'), $attributes);
+                    ?>
+                </div>
+                
+                <div class="form-group col-2 ml-5">
+                    <input id="pasajero" name="pasajero" placeholder="nombre pasajero" type="text" class="form-control" >
+                </div>
+                
+            </div>   
+            
+            <div class="form-row">
+                
+                <div class="form-group col-2">   
+                    <div class="input-group">
+                        <input aria-label="fecha desde" aria-describedby="fecha_desde_addon" id="fecha_desde" name="fecha_desde" placeholder="fecha desde" type="text" class="form-control">
+                        <div class="input-group-append">
+                            <span class="input-group-text far fa-calendar-alt fa-lg pt-2"></span>
+                        </div>
+                    </div>            
+                </div>        
+
+                <div class="form-group col-2 ml-5">       
+                    <div class="input-group">
+                        <input aria-label="fecha hasta" aria-describedby="fecha_hasta_addon" id="fecha_hasta" name="fecha_hasta" placeholder="fecha hasta" type="text" class="form-control">
+                        <div class="input-group-append">
+                            <span class="input-group-text far fa-calendar-alt fa-lg pt-2"></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group col-2 ml-5">
+                    <?php
+                    $attributes = 'class = "form-control" id = "grupo_sector"';
+                    echo form_dropdown('grupo_sector', $grupo_sector, set_value('grupo_sector'), $attributes);
+                    ?>
+                </div>  
+                
+                <div class="form-group col-2 ml-5">
+                    <select class = "form-control" id = "estado">
+                        <option value="">-Estado B.D.O-</option>
+                        <option value="0">ABIERTO</option>
+                        <option value="1">CERRADO</option>
+                    </select>    
+                </div>  
+                
+            </div>  
+            
+        </form>  
+       
+        <form class="form-inline mt-3">      
+            <button type="button" class="btn btn-outline-success col-2" onclick="buscarBdo();">Enviar</button>
+            <button type="button" class="btn btn-outline-success ml-5 col-2" onclick="exportarExcel();">Exportar Excel</button>
+            <button type="button" class="btn btn-outline-success ml-5 col-2" onclick="printDiv();">Imprimir</button>
+            <button type="button" class="btn btn-outline-danger ml-5 col-2" onclick="irMenu();">Volver</button>
+        </form>  
         
         <div class="form-group">
             <div id="alert_placeholder"></div>
-        </div>         
+        </div>          
         
         <hr />
         
         <div id="printDiv">
-            <table class="table table-hover">
-              <thead>
+            <table class="table table-hover table-bordered">
+              <thead class="thead-dark">
                 <tr>
-                  <th>#<span id="th_order"></span></th>
                   <th style="cursor: pointer;" onclick="ordenarBuscar('numero')">Numero BDO</th>
                   <th style="cursor: pointer;" onclick="ordenarBuscar('id_aerolinea')">Aerolinea</th>
                   <th style="cursor: pointer;" onclick="ordenarBuscar('nombre_pasajero')">Pasajero</th>
@@ -170,25 +191,12 @@
               <tbody id="cuerpo"></tbody>
             </table>
         </div>
-        <input id="ordenamiento" type="hidden" value=""/>
-    </div>
-</div>
+        <input id="ordenamiento" type="hidden" value=""/>        
+        
+    </div>        
 
-<!-- Modal informacion b.d.o -->
-<div id="informacion_bdo" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">INFORMACION EXTRA B.D.O</h4>
-            </div>
-            <div class="modal-body" id="informacion_extra_bdo"></div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-            </div>
-        </div>
-    </div>
-</div>
+    <!-- Modal informacion b.d.o -->
+    <?php echo cargoModalInformacionExtra(); ?>
+    
 </body>
 </html>

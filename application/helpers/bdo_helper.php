@@ -83,6 +83,27 @@ if(!function_exists('cargoInformacionExtra')) {
         
         echo $table.'<hr /> <div class="p-3 mb-2 bg-primary text-white"><label> Comentarios </label></div>'.$table_comments;
     }     
+
+    if(!function_exists('cargoModalInformacionExtra')) {    
+        function cargoModalInformacionExtra() {
+            return '
+                <div id="informacion_bdo" class="modal fade" role="dialog">
+                    <div class="modal-dialog" role="document">
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">INFORMACION EXTRA B.D.O</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="close"><span aria-hidden="true">&times;</span></button>
+                            </div>
+                            <div class="modal-body" id="informacion_extra_bdo"></div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>';             
+        }
+    }
 }
 
 

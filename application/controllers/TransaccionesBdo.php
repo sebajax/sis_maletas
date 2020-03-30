@@ -64,19 +64,18 @@ class TransaccionesBdo extends CI_Controller {
         foreach ($result as $row) {
             $tbody .= "
                 <tr>
-                    <th scope='row'>".$row['id_transaccion']."</th>
-                    <td>".$row['numero_bdo']."</td>
+                    <td><div class='font-weight-bold'>".$row['numero_bdo']."</div></td>
                     <td>".$row['nombre_aerolinea']."</td>
                     <td>".$row['nombre_pasajero']."</td>
                     <td>".$row['fecha_llegada']."</td>    
                     <td>".$row['domicilio_direccion']."</td>
                     <td>".$row['grupo_sector']."</td>
                     <td>".$row['lugar']."</td>
-                    <td>".$row['valor']."</td>
+                    <td><div class='float-right font-weight-bold'>$".$row['valor']."</div></td>
                 </tr>";
             $valor_total += $row['valor'];
         }
-        $tbody .= '<tr class="success" style="text-align: right; border-top: 1px solid #ddd;"><td colspan="9">TOTAL - '.$valor_total.' CLP</td></tr>';
+        $tbody .= '<tr class="table-primary font-weight-bold" style="text-align: right; border-top: 1px solid #ddd;"><td colspan="8">TOTAL - $'.$valor_total.'</td></tr>';
         return array('tbody' => $tbody, 'valor_total' => $valor_total);
     }
 }
