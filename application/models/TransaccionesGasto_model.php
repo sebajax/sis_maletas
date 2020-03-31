@@ -26,7 +26,7 @@ class TransaccionesGasto_model extends CI_Model {
         $this->db->from('gastos');
         $this->db->join('tipos_gasto', 'tipos_gasto.id_tipo_gasto = gastos.id_tipo_gasto');
         $this->db->where($where);
-        $this->db->order_by('tipo_gasto', 'ASC');
+        $this->db->order_by('fecha', 'DESC');
         $query = $this->db->get(); 
         return $query->result();
     }

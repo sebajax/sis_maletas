@@ -89,10 +89,6 @@
             });
         }
         
-        function irMenu() {
-            window.location.href = "<?php echo base_url("MenuBdo"); ?>";
-        } 
-        
         function exportarExcel() {
             window.location.href = "<?php echo base_url("TransaccionesBdo/exportarExcel"); ?>";
         }  

@@ -67,15 +67,15 @@ class TransaccionesBdo extends CI_Controller {
                     <td><div class='font-weight-bold'>".$row['numero_bdo']."</div></td>
                     <td>".$row['nombre_aerolinea']."</td>
                     <td>".$row['nombre_pasajero']."</td>
-                    <td>".$row['fecha_llegada']."</td>    
+                    <td><div class='float-right'>".$row['fecha_llegada']."</div></td>    
                     <td>".$row['domicilio_direccion']."</td>
-                    <td>".$row['grupo_sector']."</td>
+                    <td><div class='float-right'>".$row['grupo_sector']."</div></td>
                     <td>".$row['lugar']."</td>
                     <td><div class='float-right font-weight-bold'>$".number_format($row['valor'])." CLP</div></td>
                 </tr>";
             $valor_total += $row['valor'];
         }
-        $tbody .= '<tr class="table-primary font-weight-bold" style="text-align: right; border-top: 1px solid #ddd;"><td colspan="8">TOTAL - $'.number_format($valor_total).' CLP</td></tr>';
+        $tbody .= '<tr class="table-primary font-weight-bold" style="text-align: right; border-top: 1px solid #ddd;"><td colspan="8">TOTAL: $'.number_format($valor_total).' CLP</td></tr>';
         return array('tbody' => $tbody, 'valor_total' => $valor_total);
     }
 }

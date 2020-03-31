@@ -63,16 +63,15 @@ class TransaccionesGasto extends CI_Controller {
             foreach ($result as $row) {
                 $tbody .= "
                     <tr>
-                        <th scope='row'>".$row['id_gasto']."</th>
                         <td>".$row['tipo_gasto']."</td>
-                        <td>".$row['fecha']."</td>
+                        <td><div class='float-right'>".$row['fecha']."</div></td>
                         <td>".$row['comentario']."</td>
-                        <td>".$row['monto']."</td>    
+                        <td><div class='float-right font-weight-bold'>$".number_format($row['monto'])." CLP</div></td>    
                     </tr>";
                 $monto_total += $row['monto'];
             }
         }
-        $tbody .= '<tr class="danger" style="text-align: right; border-top: 1px solid #ddd;"><td colspan="9">TOTAL - '.$monto_total.' CLP</td></tr>';
+        $tbody .= '<tr class="table-danger font-weight-bold" style="text-align: right; border-top: 1px solid #ddd;"><td colspan="4">TOTAL GASTOS: $'.number_format($monto_total).' CLP</td></tr>';
         return array('tbody' => $tbody, 'monto_total' => $monto_total);
     }
 }

@@ -17,12 +17,12 @@ class AltaTipoGasto_model extends CI_Model {
     
     public function getTipoGasto() {
         $tipos_gasto = array();
-        $tipos_gasto[0] = '-SELECCIONE-';
+        $tipos_gasto[0] = '-TIPO DE GASTO-';
         $query = $this->db->get('tipos_gasto');
         foreach($query->result() as $row) {
             $tipos_gasto[$row->id_tipo_gasto] = $row->tipo_gasto;
         }
-        return $tipos_gasto;        
+        return $tipos_gasto;
     }
     
 }

@@ -300,7 +300,7 @@ class EliminarModificarBdo extends CI_Controller {
             }            
             
             if($this->ConsultaBdo_model->countComentarios($row['numero'], $row['id_aerolinea']) > 0) {
-                $class="class='warning'";
+                $class="class='table-warning'";
             }            
             $tbody .= "
                 <tr ".$class.">

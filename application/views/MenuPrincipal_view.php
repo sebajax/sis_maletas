@@ -10,7 +10,10 @@
     <script type="text/javascript">
         function irModuloCaja() {
             window.location.href = "<?php echo base_url("ModuloCaja"); ?>";
-        }   
+        }
+        /*
+         * INICIO: MENU BDO
+         */
         function irAltaBdo() {
             window.location.href = "<?php echo base_url("AltaBdo"); ?>";
         }
@@ -25,7 +28,34 @@
         }  
         function irTransaccionesBdo() {
             window.location.href = "<?php echo base_url("TransaccionesBdo"); ?>";
-        }         
+        }
+        /*
+         * FIN: MENU BDO
+         */   
+        
+        /*
+         * INICIO: MENU GASTO
+         */        
+        function irAltaGasto() {
+            window.location.href = "<?php echo base_url("AltaGasto"); ?>";
+        }   
+        function irAltaTipoGasto() {
+            window.location.href = "<?php echo base_url("AltaTipoGasto"); ?>";
+        }
+        function irConsultarEliminarTipoGasto() {
+            window.location.href = "<?php echo base_url("EliminarModificarTipoGasto"); ?>";
+        }
+        function irConsultarEliminarGasto() {
+            window.location.href = "<?php echo base_url("EliminarModificarGasto"); ?>";
+        }   
+        function irTransaccionesGasto() {
+            window.location.href = "<?php echo base_url("TransaccionesGasto"); ?>";
+        }
+        /*
+         * FIN: MENU GASTO
+         */   
+        
+        
         function irMenuPrincipal() {
             window.location.href = "<?php echo base_url("MenuPrincipal"); ?>";
         }            
@@ -59,11 +89,21 @@
                     </div>
                 </li> 
                 
+                <li class="nav-item dropdown px-3" id="menu_gasto">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Menu Gasto</a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#" onclick="irAltaGasto();">INGRESAR GASTO</a>
+                        <a class="dropdown-item" href="#" onclick="irAltaTipoGasto();">INGRESAR TIPO DE GASTO</a>
+                        <a class="dropdown-item" href="#" onclick="irTransaccionesGasto();">TRANSACCIONES GASTO</a>
+                        <a class="dropdown-item" href="#" onclick="irConsultarEliminarGasto();">CONSULTAR ELIMINAR MODIFICAR GASTO</a>
+                        <a class="dropdown-item" href="#" onclick="irConsultarEliminarTipoGasto();">CONSULTAR ELIMINAR MODIFICAR TIPO DE GASTO</a>
+                    </div>
+                </li> 
+                
+                <li class="nav-item px-3"><a id="menu_caja" class="nav-link" href="<?php echo base_url("ModuloCaja"); ?>">Caja</a></li>
                 <li class="nav-item px-3"><a id="menu_sector" class="nav-link" href="<?php echo base_url("MenuSector"); ?>">Sector</a></li>
                 <li class="nav-item px-3"><a id="menu_aerolinea" class="nav-link" href="<?php echo base_url("MenuAerolinea"); ?>">Aerolinea</a></li>
                 <li class="nav-item px-3"><a id="menu_valor" class="nav-link" href="<?php echo base_url("MenuValor"); ?>">Valor</a></li>
-                <li class="nav-item px-3"><a id="menu_gasto" class="nav-link" href="<?php echo base_url("MenuGasto"); ?>">Gasto</a></li>
-                <li class="nav-item px-3"><a id="menu_caja" class="nav-link" href="<?php echo base_url("ModuloCaja"); ?>">Caja</a></li>
             </ul>    
             <a class="nav-link d-inline-flex flex-row-reverse text-white" href="<?php echo base_url("Login"); ?>">Salir</a>
         </div>

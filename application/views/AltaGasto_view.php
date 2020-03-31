@@ -5,9 +5,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alta Gasto</title>
-    <?php require_once "assets/header/header.php"; ?>
+    <?php require_once "MenuPrincipal_view.php"; ?>
     
     <script type="text/javascript">
+        $(document).ready(function(){
+            $("#menu_gasto").addClass("active");
+            $("#imagen_principal").remove();
+        });
+        
         //load datepicker control onfocus
         $(function() {
             $.datepicker.regional['es'] = {
@@ -99,10 +104,6 @@
             });
         }
         
-        function irMenu() {
-            window.location.href = "<?php echo base_url("MenuGasto"); ?>";
-        }  
-        
         function verificar_gasto() {
             $('#confirm').modal({
                 backdrop: 'static',
@@ -122,92 +123,88 @@
     
 </head>
 <body>
-<div class="container">
+    
+<div class="container p-3">
     <div class="row">
-        <ol class="breadcrumb">
-            <li><a href="<?php echo base_url("MenuPrincipal"); ?>">Menu Principal</a></li>
-            <li><a href="<?php echo base_url("MenuGasto"); ?>">Menu Gasto</a></li>
-            <li class="active">Alta Gasto</li>
-        </ol>         
-        <div class="col-sm-offset-3 col-lg-6 col-sm-6 well">
-        <legend>Alta Gasto</legend>
-        <?php 
-        $attributes = array("class" => "form-horizontal", "id" => "altagastoform", "name" => "altagastoform");
-        echo form_open("AltaGasto/index", $attributes);
-        ?>
-        
-        <fieldset>
+        <div class="col-sm">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item text-primary">Menu Gasto</li>
+                    <li class="breadcrumb-item active">Alta Gasto</li>
+                </ol> 
+            </nav>      
             
-            <div class="form-group">
-                <div class="row colbox">
-                    <div class="col-lg-4 col-sm-4">
-                        <label for="tipo_gasto" class="control-label">Tipo Gasto</label>
+            <div class="jumbotron w-100 p-3 mx-auto">
+
+                <legend>Alta Gasto</legend>
+
+                <form>
+
+                    <div class="form-group">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend w-25">
+                                <span class="input-group-text bg-primary text-white w-100" id="tipo_gasto">Tipo Gasto</span>
+                            </div>                    
+                            <?php
+                            $attributes = 'class = "form-control" id = "tipo_gasto" aria-label="tipo_gasto" aria-describedby="tipo_gasto_addon"';
+                            echo form_dropdown('tipo_gasto', $tipo_gasto, set_value('tipo_gasto'), $attributes);
+                            ?>
+                        </div>
+                        <span id="tipo_gasto_error" class="text-danger"></span>
                     </div>
-                    <div class="col-lg-8 col-sm-8">
-                        <?php
-                        $attributes = 'class = "form-control" id = "tipo_gasto"';
-                        echo form_dropdown('tipo_gasto', $tipo_gasto, set_value('tipo_gasto'), $attributes);
-                        ?>
-                        <span id='tipo_gasto_error' class="text-danger"></span>
-                    </div>
-                </div>
-            </div>            
-            
-            <div class="form-group">
-                <div class="row colbox">
-                    <div class="col-lg-4 col-sm-4">
-                        <label for="fecha" class="control-label">Fecha</label>
-                    </div>
-                    <div class="col-lg-8 col-sm-8">
-                        <input id="fecha" name="fecha" placeholder="fecha" type="text" class="form-control" />
+
+                    <div class="form-group">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend w-25">
+                                <span class="input-group-text bg-primary text-white w-100" id="fecha_addon">Fecha</span>
+                            </div>                    
+                            <input aria-label="fecha" aria-describedby="fecha_addon" id="fecha" name="fecha" placeholder="fecha" type="text" class="form-control">
+                            <div class="input-group-append">
+                                <span class="input-group-text far fa-calendar-alt fa-lg pt-2"></span>
+                            </div>
+                        </div>
                         <span id='fecha_error' class="text-danger"></span>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="form-group">
-                <div class="row colbox">
-                    <div class="col-lg-4 col-sm-4">
-                        <label for="comentario" class="control-label">Comentario</label>
-                    </div>
-                    <div class="col-lg-8 col-sm-8">
-                        <textarea class="form-control noresize" rows="5" id="comentario" placeholder="comentario"></textarea>
+                    </div>   
+                   
+                    <div class="form-group">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend w-25">
+                                <span class="input-group-text bg-primary text-white w-100" id="dureccion_addon">Comentario</span>
+                            </div>
+                            <textarea class="form-control noresize" rows="5" id="comentario" placeholder="comentario" aria-label="comentario" aria-describedby="comentario_addon"></textarea>
+                        </div>
                         <span id='comentario_error' class="text-danger"></span>
-                    </div>
-                </div>
-            </div>             
-            
-            <div class="form-group">
-                <div class="row colbox">
-                    <div class="col-lg-4 col-sm-4">
-                        <label for="monto" class="control-label">Monto</label>
-                    </div>
-                    <div class="col-lg-8 col-sm-8">
-                        <div class="input-group">
-                            <div class="input-group-addon">CLP</div>
-                            <input id="monto" name="monto" placeholder="monto" type="text" class="form-control" />
+                    </div>                      
+                   
+                    <div class="form-group">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend w-25">
+                                <span class="input-group-text bg-primary text-white w-100" id="monto_addon">Monto</span>
+                                <span class="input-group-text" id="monto_addon">$</span>
+                            </div>
+                            <input id="monto" name="monto" placeholder="monto" type="text" class="form-control" aria-label="monto" aria-describedby="monto_addon">
                         </div>
                         <span id='monto_error' class="text-danger"></span>
                     </div>
-                </div>
-            </div>  
-            
-            <div class="form-group">
-                <div id="alert_placeholder"></div>
+                    
+                    <div class="form-group">
+                        <div id="alert_placeholder"></div>
+                    </div> 
+                    
+                    <div class="form-group">
+                        <div class="d-flex flex-row-reverse">
+                            <div class="p-2"><input id="btn_insertar" name="btn_insertar" type="button" class="btn btn-outline-success" value="Alta Gasto" onclick="verificar_gasto();"></div> 
+                            <div class="p-2"><input id="btn_cancelar" name="btn_cancelar" type="reset" class="btn btn-outline-danger" value="Cancelar"></div>
+                        </div>
+                    </div>                    
+                   
+                </form>
             </div>            
-            
-            <div class="form-group">
-            <div class="col-sm-offset-4 col-lg-8 col-sm-8 text-left">
-                <input id="btn_insertar" name="btn_insertar" type="button" class="btn btn-primary" value="Alta Gasto" onclick="verificar_gasto();" />
-                <input id="btn_cancelar" name="btn_cancelar" type="reset" class="btn btn-danger" value="Cancelar" />
-                <input id="btn_volver" name="btn_volver" type="button" class="btn btn-primary" value="Volver" onclick="irMenu();" />
-            </div>
-            </div>
-        </fieldset>
-        <?php echo form_close(); ?>
         </div>
+        <?php echo form_close(); ?>
     </div>
 </div>
+    
 <!-- Modal confirmacion -->
 <div id="confirm" class="modal fade" role="dialog">
     <div class="modal-dialog">

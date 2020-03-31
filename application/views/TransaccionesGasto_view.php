@@ -5,13 +5,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Transacciones Gasto</title>
-    <?php require_once "assets/header/header.php"; ?>
-    
-    <style>
-        .top-buffer { margin-top:20px; }
-    </style>
+    <?php require_once "MenuPrincipal_view.php"; ?>
     
     <script type="text/javascript">
+        $(document).ready(function() {
+            $("#menu_gasto").addClass("active");
+            $("#imagen_principal").remove();
+        });         
+        
         //load datepicker control onfocus
         $(function() {
             $.datepicker.regional['es'] = {
@@ -92,10 +93,6 @@
             });
         }
         
-        function irMenu() {
-            window.location.href = "<?php echo base_url("MenuGasto"); ?>";
-        } 
-        
         function exportarExcel() {
             window.location.href = "<?php echo base_url("TransaccionesGasto/exportarExcel"); ?>";
         }  
@@ -103,51 +100,71 @@
     
 </head>
 <body>
-<div class="container">
-    <div class="row">
-        <ol class="breadcrumb">
-            <li><a href="<?php echo base_url("MenuPrincipal"); ?>">Menu Principal</a></li>
-            <li><a href="<?php echo base_url("MenuGasto"); ?>">Menu Gasto</a></li>
-            <li class="active">Transacciones Gasto</li>
-        </ol> 
-        <legend>Transacciones Gasto</legend>
-        <form class="form-inline">
-            <div class="form-group">
-                <label for="tipo_gasto">Tipo gasto</label>
-                <?php
-                $attributes = 'class = "form-control" id = "tipo_gasto"';
-                echo form_dropdown('tipo_gasto', $tipo_gasto, set_value('tipo_gasto'), $attributes);
-                ?>
-            </div>
-            <div class="form-group">
-                <label for="fecha_desde">Fecha desde</label>
-                <input id="fecha_desde" name="fecha_desde" placeholder="fecha desde" type="text" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label for="fecha_hasta">Fecha hasta</label>
-                <input id="fecha_hasta" name="fecha_hasta" placeholder="fecha hasta" type="text" class="form-control" />
-            </div>   
-        </form> 
-        <div class="row top-buffer"></div>
-        <span id='busqueda_error' class="text-danger"></span>
-        <form class="form-inline">
-            <button type="button" class="btn btn-primary" onclick="buscarGasto();">Enviar</button>
-            <button type="button" class="btn btn-primary" onclick="exportarExcel();">Exportar Excel</button>
-            <button type="button" class="btn btn-primary" onclick="printDiv();">Imprimir</button>
-            <button type="button" class="btn btn-danger" onclick="irMenu();">Volver</button>
-        </form>         
+    
+    <div class="p-3 mx-5">
         
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item text-primary">Menu Gasto</li>
+                <li class="breadcrumb-item active">Transacciones Gasto</li>
+            </ol> 
+        </nav>
+        
+        <legend>Transacciones Gasto</legend>
+        
+        
+        <form class="my-3">
+            
+            <div class="form-row">
+            
+            
+                <div class="form-group col-2">
+                    <?php
+                    $attributes = 'class="custom-select" id="tipo_gasto"';
+                    echo form_dropdown('tipo_gasto', $tipo_gasto, set_value('tipo_gasto'), $attributes);
+                    ?>
+                </div>
+                
+                <div class="form-group col-2 ml-5">   
+                    <div class="input-group">
+                        <input aria-label="fecha desde" aria-describedby="fecha_desde_addon" id="fecha_desde" name="fecha_desde" placeholder="fecha desde" type="text" class="form-control">
+                        <div class="input-group-append">
+                            <span class="input-group-text far fa-calendar-alt fa-lg pt-2"></span>
+                        </div>
+                    </div>            
+                </div>        
+
+                <div class="form-group col-2 ml-5">       
+                    <div class="input-group">
+                        <input aria-label="fecha hasta" aria-describedby="fecha_hasta_addon" id="fecha_hasta" name="fecha_hasta" placeholder="fecha hasta" type="text" class="form-control">
+                        <div class="input-group-append">
+                            <span class="input-group-text far fa-calendar-alt fa-lg pt-2"></span>
+                        </div>
+                    </div>
+                </div> 
+                
+            </div>
+                
+        </form>
+        
+        <span id='busqueda_error' class="text-danger"></span>
+        <form class="form-inline mt-3">      
+            <button type="button" class="btn btn-outline-success col-2" onclick="buscarGasto();">Enviar</button>
+            <button type="button" class="btn btn-outline-success ml-5 col-2" onclick="exportarExcel();">Exportar Excel</button>
+            <button type="button" class="btn btn-outline-success ml-5 col-2" onclick="printDiv();">Imprimir</button>
+            <button type="button" class="btn btn-outline-danger ml-5 col-2" onclick="irMenu();">Volver</button>
+        </form>  
+
         <div class="form-group">
             <div id="alert_placeholder"></div>
-        </div>         
-        
-        <hr />
-        
+        </div>          
+
+        <hr />           
+
         <div id="printDiv">
-            <table class="table table-hover" id="transacciones">
-              <thead>
+            <table class="table table-hover table-bordered" id="transacciones">
+              <thead class="thead-dark">
                 <tr>
-                    <th>#<span id="th_order"></span></th>
                     <th>Tipo Gasto</th>
                     <th>Fecha</th>
                     <th>Comentario</th>
@@ -159,6 +176,5 @@
         </div>
         <input id="ordenamiento" type="hidden" value=""/>
     </div>
-</div>
 </body>
 </html>
