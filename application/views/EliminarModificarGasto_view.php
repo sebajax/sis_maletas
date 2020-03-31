@@ -45,7 +45,7 @@
             $.ajax({
                 method: "POST",
                 url: "<?php echo base_url("EliminarModificarGasto/buscarGasto"); ?>",
-                data: { tipo_gasto: tipo_gasto, fecha_desde: fecha_desde, fechas_hasta: fecha_hasta }
+                data: { tipo_gasto: tipo_gasto, fecha_desde: fecha_desde, fecha_hasta: fecha_hasta }
             }).done(function(data) {
                 $("#cuerpo").html(data);
             });
@@ -211,7 +211,6 @@
        
         <form class="form-inline mt-3">
             <button type="button" class="btn btn-outline-success col-2" onclick="buscarGasto()" id="btnenviar">Enviar</button>
-            <button type="button" class="btn btn-outline-danger ml-5 col-2" onclick="irAMenu()" id="btnvolver">Volver</button>
         </form>        
         
         <div class="form-group mt-2">

@@ -139,7 +139,6 @@
             <button type="button" class="btn btn-outline-success ml-5 col-2" onclick="exportarExcel();">Exportar Excel</button>
             <button type="button" class="btn btn-outline-success ml-5 col-2" onclick="printDiv();">Imprimir</button>
             <button type="button" class="btn btn-outline-success ml-5 col-2" onclick="cerrarCasos();">Cerrar Casos</button>
-            <button type="button" class="btn btn-outline-danger ml-5 col-2" onclick="irMenu();">Volver</button>
         </form>         
 
         <div class="form-group mt-2">

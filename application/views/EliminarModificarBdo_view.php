@@ -400,7 +400,6 @@
        
         <form class="form-inline mt-3">
             <button type="button" class="btn btn-outline-success col-2" onclick="buscarBdo()" id="btnenviar">Enviar</button>
-            <button type="button" class="btn btn-outline-danger ml-5 col-2" onclick="irAMenu()" id="btnvolver">Volver</button>
         </form>        
         
         <div class="form-group mt-2">

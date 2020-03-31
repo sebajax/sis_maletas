@@ -21,10 +21,10 @@ class EliminarModificarGasto extends CI_Controller {
     }  
     
     public function buscarGasto() {
+        $this->session->unset_userdata('result_buscarGasto');
         $tipo_gasto  = $this->input->post('tipo_gasto');
         $fecha_desde = $this->input->post('fecha_desde');
         $fecha_hasta = $this->input->post('fecha_hasta');
-        
         $result = $this->EliminarModificarGasto_model->buscarGasto($tipo_gasto, $fecha_desde, $fecha_hasta);
         $this->session->set_userdata('result_buscarGasto', $this->funciones->objectToArray($result));
         echo $this->armoConsulta($this->session->userdata('result_buscarGasto'));
