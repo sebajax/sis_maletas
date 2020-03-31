@@ -8,6 +8,10 @@
     <?php require_once "assets/header/header.php"; ?>
     
     <script type="text/javascript">
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        });
+        
         function irModuloCaja() {
             window.location.href = "<?php echo base_url("ModuloCaja"); ?>";
         }
@@ -58,7 +62,8 @@
         
         function irMenuPrincipal() {
             window.location.href = "<?php echo base_url("MenuPrincipal"); ?>";
-        }            
+        } 
+        
         function cerrarSession() {
             $.ajax({
                 method: "POST",
@@ -104,8 +109,15 @@
                 <li class="nav-item px-3"><a id="menu_sector" class="nav-link" href="<?php echo base_url("MenuSector"); ?>">Sector</a></li>
                 <li class="nav-item px-3"><a id="menu_aerolinea" class="nav-link" href="<?php echo base_url("MenuAerolinea"); ?>">Aerolinea</a></li>
                 <li class="nav-item px-3"><a id="menu_valor" class="nav-link" href="<?php echo base_url("MenuValor"); ?>">Valor</a></li>
-            </ul>    
-            <a class="nav-link d-inline-flex flex-row-reverse text-white" href="<?php echo base_url("Login"); ?>">Salir</a>
+            </ul> 
+            
+            <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="<?php echo strtoupper($this->session->usuario); ?>">
+                <i class="text-white nav-link d-inline-flex flex-row-reverse fas fa-user fa-2x" style="opacity: 0.5;"></i>
+            </button>
+            
+            <button onclick="cerrarSession()" type='button' class='btn btn-default'>
+                <i class="text-white nav-link d-inline-flex flex-row-reverse fas fa-sign-out-alt fa-2x" style="opacity: 0.5;"></i>
+            </button>
         </div>
     </nav>
    
