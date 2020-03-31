@@ -106,6 +106,11 @@ class EliminarModificarBdo extends CI_Controller {
                     <label for="valor_estimado_new" class="control-label">Estimado</label>
                     <input id="valor_estimado_new" name="valor_estimado_new" placeholder="valor" type="text" class="form-control" readonly/>
                 </div>
+                
+                <div class="form-group">
+                    <label for="iva_new" class="control-label">IVA</label>
+                    <input id="iva_new" name="iva_new" placeholder="iva" type="text" class="form-control" readonly/>
+                </div>
 
                 <div class="form-group">
                     <label for="valor_new" class="control-label">Valor</label>

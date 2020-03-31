@@ -239,6 +239,8 @@
             var aerolinea    = $("#aerolinea_new").val();
             var grupo_sector = $("#grupo_sector_new").val();
             var cantidad_maletas = $("#cantidad_maletas_new").val();
+            var iva = 0;
+            var total = 0;            
             
             if(aerolinea == 0 || grupo_sector == 0 || cantidad_maletas == 0) { return false; }
             
@@ -247,8 +249,11 @@
                 url: "<?php echo base_url("AltaBdo/cargoValor"); ?>",
                 data: { aerolinea: aerolinea, grupo_sector: grupo_sector, cantidad_maletas: cantidad_maletas}
             }).done(function(data) {
+                iva = eval(data) * 0.19;
+                total = eval(iva) + eval(data);                
                 $("#valor_estimado_new").val(data);
-                $("#valor_new").val(data);
+                $("#iva_new").val(iva);
+                $("#valor_new").val(total);
             });            
         }
         
@@ -256,6 +261,7 @@
             var aerolinea    = $("#aerolinea_new").val();
             var grupo_sector = $("#grupo_sector_new").val();
             var cantidad_maletas = $("#cantidad_maletas_new").val();
+            var iva = 0;
             
             if(aerolinea == 0 || grupo_sector == 0 || cantidad_maletas == 0) { return false; }
             
@@ -264,6 +270,8 @@
                 url: "<?php echo base_url("AltaBdo/cargoValor"); ?>",
                 data: { aerolinea: aerolinea, grupo_sector: grupo_sector, cantidad_maletas: cantidad_maletas}
             }).done(function(data) {
+                iva = eval(data) * 0.19;
+                $("#iva_new").val(iva);
                 $("#valor_estimado_new").val(data);
             });            
         }        
