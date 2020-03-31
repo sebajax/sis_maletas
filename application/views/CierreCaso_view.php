@@ -85,6 +85,27 @@
                 }
             });           
         }  
+        
+        function cerrarCasos() {
+            if($('#seleccionBdo:checkbox:checked').length > 0) {
+                $.ajax({
+                    method: "POST",
+                    url: "<?php echo base_url("CierreCaso/cerrarCasos"); ?>",
+                    data: {seleccionBdo: JSON.stringify($('[name="seleccionBdo[]"]').serializeArray()) }
+                }).done(function(data) {
+                    if(data == "OK") {
+                        mostrarMensaje("Se cerraron los casos seleccionados correctamente", "alert-success");
+                        setTimeout(function(){
+                            buscarCierreCaso();
+                        }, 2000);
+                    }else {
+                        mostrarMensaje("Hubo un problema al procesar su solicitud", "alert-danger");
+                    }
+                });
+            }else {
+                mostrarMensaje("Para usar esta funcion debe seleccionar al menos una BDO", "alert-danger");
+            }
+        }
     </script>
     
 </head>
@@ -117,11 +138,11 @@
             <button type="button" class="btn btn-outline-success col-2" onclick="buscarCierreCaso();">Enviar</button>
             <button type="button" class="btn btn-outline-success ml-5 col-2" onclick="exportarExcel();">Exportar Excel</button>
             <button type="button" class="btn btn-outline-success ml-5 col-2" onclick="printDiv();">Imprimir</button>
-            <button type="button" class="btn btn-outline-success ml-5 col-2" onclick="cerrarTodosCasos();">Cerrar Casos</button>
+            <button type="button" class="btn btn-outline-success ml-5 col-2" onclick="cerrarCasos();">Cerrar Casos</button>
             <button type="button" class="btn btn-outline-danger ml-5 col-2" onclick="irMenu();">Volver</button>
         </form>         
 
-        <div class="form-group">
+        <div class="form-group mt-2">
             <div id="alert_placeholder"></div>
         </div>         
 

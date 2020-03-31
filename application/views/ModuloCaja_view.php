@@ -178,7 +178,7 @@
             <div id="alert_placeholder"></div>
         </div>         
 
-        <div class="row justify-content-end"><div id="monto_inicialDiv" class="col-3"></div></div>
+        <div class="row justify-content-end"><div id="monto_inicialDiv" class="col-4"></div></div>
 
         <hr>
         

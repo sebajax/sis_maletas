@@ -80,6 +80,30 @@ class CierreCaso extends CI_Controller {
         echo "OK";
         return true;        
     }
+    
+    public function cerrarCasos() {
+        $seleccionBdo = json_decode($this->input->post('seleccionBdo'));
+        
+        if(empty($seleccionBdo)) {
+            echo "ERROR";
+            return false;
+        }
+        
+        foreach($seleccionBdo as $row) {
+            $value = explode("|", $row->value);
+            
+            $data = array(
+                "numero" => $value[0],
+                "id_aerolinea" => $value[1],
+                "comentario" => "OK -> Se cerro en modulo cascada (Cierre de Multiples BDO)",
+                "usuario" => $this->session->userdata('usuario')
+            );
+
+            $this->CierreCaso_model->cerrarCaso($data);  
+        }
+        echo "OK";
+        return true;        
+    }    
 
     public function cargoInformacionExtra() {
         echo cargoInformacionExtra($this->input->post('numero'),$this->input->post('aerolinea'));
@@ -87,7 +111,7 @@ class CierreCaso extends CI_Controller {
     
     private function armoConsulta($result) {
         $tbody = '';
-        foreach ($result as $key => $row) {
+        foreach ($result as $row) {
             $class = "class='table-light'";
             //Parametros para funcion cerrarCaso JS
             $env_numero = "'".$row['numero']."'";
@@ -95,10 +119,14 @@ class CierreCaso extends CI_Controller {
             $env_nombre_aerolinea = "'".$row['nombre_aerolinea']."'";
             if($this->ConsultaBdo_model->countComentarios($row['numero'], $row['id_aerolinea']) > 0) {
                 $class="class='table-warning'";
-            }            
+            }
+            
+            //value del checkbox PK => (numbero_bdo, id_aerolinea)
+            $seleccionBdo = implode("|", array($row['numero'], $row['id_aerolinea']));
+           
             $tbody .= '
                 <tr '.$class.'>
-                  <td><input type="checkbox"></td>
+                  <td><div class="form-check"><input id="seleccionBdo" class="form-check-input" type="checkbox" name="seleccionBdo[]" value="'.$seleccionBdo.'"></div></td>
                   <td>'.$row['numero'].'</td>
                   <td>'.$row['nombre_aerolinea'].'</td>
                   <td>'.$row['nombre_pasajero'].'</td>

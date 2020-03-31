@@ -395,7 +395,7 @@
             <button type="button" class="btn btn-outline-danger ml-5 col-2" onclick="irAMenu()" id="btnvolver">Volver</button>
         </form>        
         
-        <div class="form-group">
+        <div class="form-group mt-2">
             <div id="alert_placeholder"></div>
         </div>         
         
