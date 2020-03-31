@@ -11,10 +11,14 @@ class EliminarModificarBdo_model extends CI_Model {
         $this->load->database();
     }
 
-    public function buscarBdo($numero, $id_aerolinea, $nombre_pasajero, $fecha_desde, $fecha_hasta, $grupo_sector) {
+    public function buscarBdo($numero, $id_aerolinea, $nombre_pasajero, $fecha_desde, $fecha_hasta, $grupo_sector, $estado) {
         $where = array();
         
-        $where['estado'] = 0;
+        if(empty($estado)) {
+            $estado = 0;
+        }
+            
+        $where['estado'] = $estado;
         
         if(!empty($numero)) {
             $where['bdo.numero'] = $numero;
@@ -43,7 +47,7 @@ class EliminarModificarBdo_model extends CI_Model {
     
     public function verificoEstadoBdo($numero, $id_aerolinea) {
         $where = array(
-            'numero' => $numero, 
+            'numero'       => $numero, 
             'id_aerolinea' => $id_aerolinea
         );
         
@@ -51,12 +55,35 @@ class EliminarModificarBdo_model extends CI_Model {
         $this->db->from('bdo');
         $this->db->where($where);
         $query = $this->db->get();   
-        return $query->row()->estado;        
+        return $query->row()->estado;   
     }
     
-    public function eliminarBdo($numero, $id_aerolinea) {
-        $this->db->delete('bdo', array('numero' => $numero, 'id_aerolinea' => $id_aerolinea));
+    public function eliminarBdoAbierta($numero, $id_aerolinea) {
+        $data = array(
+            'numero'       => $numero, 
+            'id_aerolinea' => $id_aerolinea
+        );
+        $this->db->delete('bdo', $data);
+        $this->db->delete("comentarios_bdo", $data);
     }  
+    
+    public function eliminarBdoCerrada($numero, $id_aerolinea) {
+        $data = array(
+            'numero'       => $numero, 
+            'id_aerolinea' => $id_aerolinea
+        );
+        $data_trans = array(
+            'numero_bdo'       => $numero, 
+            'id_aerolinea' => $id_aerolinea
+        );        
+        $this->db->trans_start();
+        $this->db->delete("cierre_caso", $data);
+        $this->db->delete("comentarios_bdo", $data);
+        $this->db->delete("ingresos_caja", $data);
+        $this->db->delete("transacciones_bdo_cerradas", $data_trans); 
+        $this->db->delete('bdo', $data);
+        $this->db->trans_complete();
+    }      
     
     public function modificarBdo($data) {
         $where = array(

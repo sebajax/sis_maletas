@@ -48,11 +48,12 @@
             var fecha_desde  = $("#fecha_desde").val();
             var fecha_hasta  = $("#fecha_hasta").val();
             var grupo_sector = $("#grupo_sector").val();
+            var estado       = $("#estado").val();
             
             $.ajax({
                 method: "POST",
                 url: "<?php echo base_url("EliminarModificarBdo/buscarBdo"); ?>",
-                data: { aerolinea: aerolinea, numero: numero, pasajero: pasajero, fecha_desde: fecha_desde, fecha_hasta: fecha_hasta, grupo_sector: grupo_sector }
+                data: { aerolinea: aerolinea, numero: numero, pasajero: pasajero, fecha_desde: fecha_desde, fecha_hasta: fecha_hasta, grupo_sector: grupo_sector, estado: estado }
             }).done(function(data) {
                 $("#cuerpo").html(data);
             });
@@ -90,16 +91,16 @@
         }        
         
         function modificarBdo(numero, id_aerolinea) {
-            var fecha_llegada_new = $("#fecha_llegada_new").val();
-            var nombre_pasajero_new = $("#nombre_pasajero_new").val();
+            var fecha_llegada_new    = $("#fecha_llegada_new").val();
+            var nombre_pasajero_new  = $("#nombre_pasajero_new").val();
             var cantidad_maletas_new = $("#cantidad_maletas_new").val();
-            var region_new = $("#region_new").val();
-            var direccion_new = $("#direccion_new").val();
-            var telefono_new = $("#telefono_new").val();
-            var grupo_sector_new = $("#grupo_sector_new").val();
-            var lugar_sector_new = $("#lugar_sector_new").val();
-            var valor_new = $("#valor_new").val();            
-        
+            var region_new           = $("#region_new").val();
+            var direccion_new        = $("#direccion_new").val();
+            var telefono_new         = $("#telefono_new").val();
+            var grupo_sector_new     = $("#grupo_sector_new").val();
+            var lugar_sector_new     = $("#lugar_sector_new").val();
+            var valor_new            = $("#valor_new").val();            
+            
             /*
              * VERIFICO ELEMENTOS VACIOS 
              */
@@ -209,12 +210,12 @@
             }
         }        
         
-        function eliminarBdo(numero, id_aerolinea) {
+        function eliminarBdo(numero, id_aerolinea, estado) {
             $.ajax({
                 method: "POST",
                 dataType: "json",
                 url: "<?php echo base_url("EliminarModificarBdo/eliminarBdo"); ?>",
-                data: { numero: numero, id_aerolinea: id_aerolinea }
+                data: { numero: numero, id_aerolinea: id_aerolinea, estado: estado }
             }).done(function(data) {
                 if(data['estado'] == "1") {
                     mostrarMensaje(data['mensaje'], "alert-success");
@@ -291,10 +292,10 @@
             window.location.href = "<?php echo base_url("EliminarModificarBdo/exportarExcel"); ?>";
         }    
         
-        function cofirmaEliminar(numero, id_aerolinea) {
+        function cofirmaEliminar(numero, id_aerolinea, estado) {
             $('#confirm').modal({ backdrop: 'static', keyboard: false })
                 .one('click', '#delete', function () {
-                    eliminarBdo(numero, id_aerolinea);
+                    eliminarBdo(numero, id_aerolinea, estado);
             });        
         }  
         
@@ -386,6 +387,13 @@
                     echo form_dropdown('grupo_sector', $grupo_sector, set_value('grupo_sector'), $attributes);
                     ?>
                 </div>                 
+                
+                <div class="form-group col-2 ml-5">
+                    <select class = "form-control" id = "estado">
+                        <option value="0" selected="selected">ABIERTO</option>
+                        <option value="1">CERRADO</option>
+                    </select>    
+                </div>
                 
             </div>        
         </form> 

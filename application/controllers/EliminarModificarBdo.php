@@ -22,13 +22,14 @@ class EliminarModificarBdo extends CI_Controller {
     }  
     
     public function buscarBdo() {
-        $numero       = $this->input->post('numero');
-        $id_aerolinea = $this->input->post('aerolinea');
+        $numero          = $this->input->post('numero');
+        $id_aerolinea    = $this->input->post('aerolinea');
         $nombre_pasajero = $this->input->post('pasajero');
-        $fecha_desde = $this->input->post('fecha_desde');
-        $fecha_hasta = $this->input->post('fecha_hasta');
-        $grupo_sector = $this->input->post('grupo_sector');
-        $result = $this->EliminarModificarBdo_model->buscarBdo($numero, $id_aerolinea, $nombre_pasajero, $fecha_desde, $fecha_hasta, $grupo_sector);
+        $fecha_desde     = $this->input->post('fecha_desde');
+        $fecha_hasta     = $this->input->post('fecha_hasta');
+        $grupo_sector    = $this->input->post('grupo_sector');
+        $estado          = $this->input->post('estado');
+        $result          = $this->EliminarModificarBdo_model->buscarBdo($numero, $id_aerolinea, $nombre_pasajero, $fecha_desde, $fecha_hasta, $grupo_sector, $estado);
         $this->session->set_userdata('result_buscarBdo', $this->funciones->objectToArray($result));
         echo $this->armoConsulta($this->session->userdata('result_buscarBdo'));
     }  
@@ -167,11 +168,12 @@ class EliminarModificarBdo extends CI_Controller {
     }
     
     public function eliminarBdo() {
-        $numero = $this->input->post('numero');
+        $numero       = $this->input->post('numero');
         $id_aerolinea = $this->input->post('id_aerolinea');
+        $estado       = $this->input->post('estado');
         
         $error = array(
-            'estado' => 0,
+            'estado'  => 0,
             'mensaje' => "ERROR GENERICO"
         );
         
@@ -181,17 +183,30 @@ class EliminarModificarBdo extends CI_Controller {
             return false;
         }
         
-        if($this->EliminarModificarBdo_model->verificoEstadoBdo($numero, $id_aerolinea) != 0) {
-            $error['mensaje'] = "ERROR para poder eliminar una bdo, esta tiene que ser un caso abierto.";
+        if($this->EliminarModificarBdo_model->verificoEstadoBdo($numero, $id_aerolinea) != $estado ) {
+            $error['mensaje'] = "ERROR al eliminar BDO estados incorrectos";
             echo json_encode($error);
-            return false;
+            return false;            
         }
         
-        $this->EliminarModificarBdo_model->eliminarBdo($numero, $id_aerolinea);
-        $error['mensaje'] = "CORRECTO bdo eliminada correctamente";
-        $error['estado'] = 1;
-        echo json_encode($error);
-        return true;
+        if($estado == 0) {
+            $this->EliminarModificarBdo_model->eliminarBdoAbierta($numero, $id_aerolinea);
+            $error['mensaje'] = "CORRECTO (abierta) bdo eliminada correctamente";
+            $error['estado'] = 1;
+            echo json_encode($error);
+            return true;            
+        }else if($estado == 1) {
+            $this->EliminarModificarBdo_model->eliminarBdoCerrada($numero, $id_aerolinea);
+            $error['mensaje'] = "CORRECTO (cerrada) bdo eliminada correctamente";
+            $error['estado'] = 1;
+            echo json_encode($error);   
+            return true;
+        }else {
+            $error['mensaje'] = "ERROR al eliminar BDO estados incorrectos";
+            echo json_encode($error);
+            return false;             
+        }
+        return false;
     } 
     
     public function agregarComentario() {
@@ -262,14 +277,28 @@ class EliminarModificarBdo extends CI_Controller {
         $tbody = "";
         foreach ($result as $key => $row) {
             $class = "";
+            $aux_numero           = '"'.$row['numero'].'"';
+            $aux_id_aerolinea     = '"'.$row['id_aerolinea'].'"';
+            $aux_nombre_aerolinia = '"'.$row['nombre_aerolinea'].'"';
+            $aux_estado           = '"'.$row['estado'].'"';
+            
             if($row['estado'] == 1) {
                 $estado = "CERRADO";
+                $html_estado_coment = "";
+                $html_estado_modif = "";
             }else {
                 $estado = "ABIERTO";
-            }
-            $aux_numero       = '"'.$row['numero'].'"';
-            $aux_id_aerolinea = '"'.$row['id_aerolinea'].'"';
-            $aux_nombre_aerolinia = '"'.$row['nombre_aerolinea'].'"';
+                $html_estado_coment = "
+                    <button type='button' class='btn btn-default btn-md'>
+                        <i aria-hidden='true' class='fas fa-comments fa-lg' onclick='agregarComentarioForm(".$aux_numero.", ".$aux_id_aerolinea.", ".$aux_nombre_aerolinia.")'></i>
+                    </button>";
+                        
+                $html_estado_modif = "
+                    <button type='button' class='btn btn-default btn-md'>
+                        <i aria-hidden='true' class='fas fa-save fa-lg' onclick='modificarBdoForm(".$aux_numero.", ".$aux_id_aerolinea.")'></i>
+                    </button>";                
+            }            
+            
             if($this->ConsultaBdo_model->countComentarios($row['numero'], $row['id_aerolinea']) > 0) {
                 $class="class='warning'";
             }            
@@ -291,22 +320,18 @@ class EliminarModificarBdo extends CI_Controller {
                   </td>
                   <td>
                     <div class='d-flex justify-content-center'>
-                        <button type='button' class='btn btn-default btn-md'>
-                            <i aria-hidden='true' class='fas fa-comments fa-lg' onclick='agregarComentarioForm(".$aux_numero.", ".$aux_id_aerolinea.", ".$aux_nombre_aerolinia.")'></i>
-                        </button>  
+                        ".$html_estado_coment."
                     </div>
                   </td>                  
                   <td>
                     <div class='d-flex justify-content-center'>
-                        <button type='button' class='btn btn-default btn-md'>
-                            <i aria-hidden='true' class='fas fa-save fa-lg' onclick='modificarBdoForm(".$aux_numero.", ".$aux_id_aerolinea.")'></i>
-                        </button>  
+                        ".$html_estado_modif."
                     </div>
                   </td>
                   <td>
                     <div class='d-flex justify-content-center'>
                         <button type='button' class='btn btn-default btn-md'>
-                            <i aria-hidden='true' class='fas fa-trash-alt fa-lg' onclick='cofirmaEliminar(".$aux_numero.", ".$aux_id_aerolinea.")'></i>
+                            <i aria-hidden='true' class='fas fa-trash-alt fa-lg' onclick='cofirmaEliminar(".$aux_numero.", ".$aux_id_aerolinea.", ".$aux_estado.")'></i>
                         </button>  
                     </div>
                   </td>                    
