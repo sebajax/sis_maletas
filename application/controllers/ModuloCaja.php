@@ -17,21 +17,30 @@ class ModuloCaja extends CI_Controller {
         $this->load->view('ModuloCaja_view');
     }  
     
+    public function montoInicial() {
+        $flujo_total = $this->ModuloCaja_model->montoInicial();
+        if($flujo_total > 0) {
+            echo json_encode('<div class="w-auto bg-success card-header rounded"><h4 class="mb-0 text-white text-center">TOTAL EN CAJA $'.number_format($flujo_total).' CLP</h4></div>');
+        }else {
+            echo json_encode('<div class="w-auto bg-danger card-header rounded"><h4 class="mb-0 text-white text-center">TOTAL EN CAJA $'.number_format($flujo_total).' CLP</h4></div>');
+        }
+    }
+    
     public function buscarTransacciones() {
         $mes             = $this->input->post('mes');
         $fecha_desde     = $this->input->post('fecha_desde');
         $fecha_hasta     = $this->input->post('fecha_hasta');
         
         if(!empty($mes)) {
-            $fecha_desde = "2017/".$mes."/01"; 
+            $fecha_desde = date("Y")."/01/01";
             $fecha_hasta = date("Y")."/".$mes."/31";
         }        
         
         $result_ingresos = $this->ModuloCaja_model->IngresosCaja($fecha_desde, $fecha_hasta);
-        if(!empty($result_ingresos)) $this->session->set_userdata('result_ingresosCaja', $this->funciones->objectToArray($result_ingresos));
+        $this->session->set_userdata('result_ingresosCaja', $this->funciones->objectToArray($result_ingresos));
         
         $result_salidas = $this->ModuloCaja_model->SalidasCaja($fecha_desde, $fecha_hasta);
-        if(!empty($result_salidas)) $this->session->set_userdata('result_salidasCaja', $this->funciones->objectToArray($result_salidas));
+        $this->session->set_userdata('result_salidasCaja', $this->funciones->objectToArray($result_salidas));
         
         echo json_encode($this->armoConsulta($this->session->userdata('result_ingresosCaja'), $this->session->userdata('result_salidasCaja')));
     }  
@@ -79,7 +88,7 @@ class ModuloCaja extends CI_Controller {
         }        
         
         $content = '<div class="accordion my-2 w-100" id="accordionCajaIngreso"><div class="card"><div style="cursor: pointer;" class="bg-primary card-header" data-toggle="collapse" data-target="#collapseIngresos" aria-expanded="true" aria-controls="collapseIngresos">';
-        $content .= '<h4 class="mb-0 text-white float-left">INGRESOS</h4><h4 class="mb-0 text-white float-right">TOTAL $'.$monto_ingreso.' CLP</h4></div>';
+        $content .= '<h4 class="mb-0 text-white float-left">INGRESOS</h4><h4 class="mb-0 text-white float-right">TOTAL $'.number_format($monto_ingreso).' CLP</h4></div>';
         
         $content .= '
             <div id="collapseIngresos" class="collapse" aria-labelledby="headingOne" data-parent="#accordionCajaIngreso">
@@ -111,7 +120,7 @@ class ModuloCaja extends CI_Controller {
         
         $content .= '<div class="form-group my-5"></div>';
         $content .= '<div class="accordion" id="accordionCajaEgreso"><div class="card"><div style="cursor: pointer;" class="bg-primary card-header" data-toggle="collapse" data-target="#collapseEgresos" aria-expanded="true" aria-controls="collapseEgresos">';
-        $content .= '<h4 class="mb-0 text-white float-left">EGRESOS</h4><h4 class="mb-0 text-white float-right">TOTAL $'.$monto_egreso.' CLP</h4></div>';
+        $content .= '<h4 class="mb-0 text-white float-left">EGRESOS</h4><h4 class="mb-0 text-white float-right">TOTAL $'.number_format($monto_egreso).' CLP</h4></div>';
        
         $content .= '
             <div id="collapseEgresos" class="collapse" aria-labelledby="headingOne" data-parent="#accordionCajaEgreso">
@@ -133,9 +142,9 @@ class ModuloCaja extends CI_Controller {
         $flujo_total = $monto_ingreso - $monto_egreso;
         
         if($flujo_total > 0) {
-            $content .= '<div class="my-5 w-auto bg-success card-header float-right rounded"><h4 class="mb-0 text-white float-right">GANANCIA $'.$flujo_total.'</h4></div>';
+            $content .= '<div class="my-5 w-auto bg-success card-header float-right rounded"><h4 class="mb-0 text-white float-right">GANANCIA $'.number_format($flujo_total).' CLP</h4></div>';
         }else {
-            $content .= '<div class="my-5 w-auto bg-danger card-header float-right rounded"><h4 class="mb-0 text-white float-right">PERDIDA $'.$flujo_total.'</h4></div>';
+            $content .= '<div class="my-5 w-auto bg-danger card-header float-right rounded"><h4 class="mb-0 text-white float-right">PERDIDA $'.number_format($flujo_total).' CLP</h4></div>';
         }
         return array('content' => $content);
     }

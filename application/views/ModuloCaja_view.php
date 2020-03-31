@@ -11,6 +11,15 @@
         $(document).ready(function() {
             $("#menu_caja").addClass("active");
             $("#imagen_principal").remove();
+            $("#monto_inicialDiv").html("");
+            
+            $.ajax({
+                method: "POST",
+                dataType: "json",
+                url: "<?php echo base_url("ModuloCaja/montoInicial"); ?>"
+            }).done(function(data) {
+                $("#monto_inicialDiv").html(data);
+            });       
         });
         //load datepicker control onfocus
         $(function() {
@@ -48,7 +57,7 @@
              * VERIFICO ELEMENTOS VACIOS 
             */ 
             
-            if(!mes) {
+            if(!mes || mes == 0) {
                 if(!fecha_desde) {
                     $("#busqueda_error").html(manejoMensajes("vacio", "fecha_desde"));
                     $("#fecha_desde").focus();
@@ -100,6 +109,7 @@
 <body>
 
     <div class="p-3 mx-5">
+        
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item active">Modulo caja</li>
@@ -167,11 +177,13 @@
         <div class="form-group">
             <div id="alert_placeholder"></div>
         </div>         
-        
-        <div class="form-group"><hr></div>
+
+        <div class="row justify-content-end"><div id="monto_inicialDiv" class="col-3"></div></div>
+
+        <hr>
         
         <div id="printDiv"></div>
-        
+            
     </div>
 </body>
 </html>

@@ -71,11 +71,11 @@ class TransaccionesBdo extends CI_Controller {
                     <td>".$row['domicilio_direccion']."</td>
                     <td>".$row['grupo_sector']."</td>
                     <td>".$row['lugar']."</td>
-                    <td><div class='float-right font-weight-bold'>$".$row['valor']."</div></td>
+                    <td><div class='float-right font-weight-bold'>$".number_format($row['valor'])." CLP</div></td>
                 </tr>";
             $valor_total += $row['valor'];
         }
-        $tbody .= '<tr class="table-primary font-weight-bold" style="text-align: right; border-top: 1px solid #ddd;"><td colspan="8">TOTAL - $'.$valor_total.'</td></tr>';
+        $tbody .= '<tr class="table-primary font-weight-bold" style="text-align: right; border-top: 1px solid #ddd;"><td colspan="8">TOTAL - $'.number_format($valor_total).' CLP</td></tr>';
         return array('tbody' => $tbody, 'valor_total' => $valor_total);
     }
 }

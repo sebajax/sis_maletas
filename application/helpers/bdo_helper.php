@@ -72,7 +72,7 @@ if(!function_exists('cargoInformacionExtra')) {
                         </tr>
                         <tr>
                             <td class="table-primary">Valor</td>
-                            <td>'.$result->valor.'</td>
+                            <td>$'.$result->valor.' CLP</td>
                         </tr>                         
                         <tr>
                             <td class="table-primary">Fecha cierre</td>

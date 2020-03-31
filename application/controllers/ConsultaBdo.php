@@ -101,7 +101,7 @@ class ConsultaBdo extends CI_Controller {
                   <td>".$row['nombre_aerolinea']."</td>
                   <td>".$row['nombre_pasajero']."</td>
                   <td> <div class='float-right'>".$row['cantidad_maletas']."</div></td>    
-                  <td> <div class='float-right'>".$row['valor']."</div></td>
+                  <td> <div class='float-right'>$".$row['valor']."</div></td>
                   <td>".$estado."</td>
                   <td> <div class='float-right'>".$row['fecha_llegada']."</div></td>
                   <td>
