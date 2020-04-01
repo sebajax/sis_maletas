@@ -12,4 +12,4 @@
 <!--load jquery ui js file-->
 <script src="<?php echo base_url('assets/jquery-ui/jquery-ui.min.js'); ?>"></script>
 <!--link the fontawesome css file-->
-<link href="<?php echo base_url("assets/fontawesome/css/all.css"); ?>" rel="stylesheet" type="text/css" />
+<link href="<?php echo base_url("assets/fontawesome/css/all.min.css"); ?>" rel="stylesheet" type="text/css" />
