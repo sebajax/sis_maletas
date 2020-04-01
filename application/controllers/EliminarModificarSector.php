@@ -29,19 +29,22 @@ class EliminarModificarSector extends CI_Controller {
         foreach ($result as $key => $row) {
             $tbody .= "
                 <tr>
-                    <th scope='row'>".($key + 1)."</th>
                     <td>".$row->id_sector."</td>
                     <td>".$row->grupo_sector."</td>
                     <td>".$row->lugar."</td>
                     <td>
-                        <button type='button' class='btn btn-default btn-md'>
-                            <span class='glyphicon glyphicon-pencil' aria-hidden='true' onclick='modificarSectorForm(".$row->id_sector.")'></span>
-                        </button>   
+                        <div class='d-flex justify-content-center'>
+                            <button type='button' class='btn btn-default btn-md'>
+                                <i aria-hidden='true' class='fas fa-save fa-lg' onclick='modificarSectorForm(".$row->id_sector.")'></i>
+                            </button>
+                        </div>                    
                     </td>
                     <td>
-                        <button type='button' class='btn btn-default btn-md'>
-                            <span class='glyphicon glyphicon-trash' aria-hidden='true' onclick='cofirmaEliminar(".$row->id_sector.")'></span>
-                        </button>   
+                        <div class='d-flex justify-content-center'>
+                            <button type='button' class='btn btn-default btn-md'>
+                                <i aria-hidden='true' class='fas fa-trash-alt fa-lg' onclick='cofirmaEliminar(".$row->id_sector.")'></i>
+                            </button>
+                        </div>                    
                     </td>                    
                 </tr>";
         }
@@ -54,6 +57,7 @@ class EliminarModificarSector extends CI_Controller {
         $row = $this->EliminarModificarSector_model->obtengoInformacionSector($id_sector);
         $attributes = 'class = "form-control" id = "grupo_sector_new"';
         $html = '
+            <div class="modal-body">
             <form>
                 <div class="form-group">
                     <label for="grupo_sector_new" class="control-label">Grupo</label> 
@@ -63,9 +67,12 @@ class EliminarModificarSector extends CI_Controller {
                     <label for="lugar_new" class="control-label">Lugar</label>
                     <input id="lugar_new" name="lugar_new" placeholder="nombre del lugar" type="text" class="form-control" value="'.$row->lugar.'"/>
                 </div>     
-                <input id="btn_modificar" name="btn_modificar" type="button" class="btn btn-primary" value="Modificar sector" onclick="modificarSector('.$id_sector.');" />
-                <input id="btn_cancelar" name="btn_cancelar" type="reset" class="btn btn-danger" value="Cancelar" onclick="cancelarModificarSector();"/>
-            </form>';
+            </form>
+            </div>    
+            <div class="modal-footer">
+                <input id="btn_modificar" name="btn_modificar" type="button" class="btn btn-primary" value="Modificar Sector" onclick="modificarSector('.$id_sector.');" />
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            </div>'; 
         
         echo $html;
     }

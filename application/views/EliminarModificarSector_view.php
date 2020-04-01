@@ -5,11 +5,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Eliminar Modificar Sectores</title>
-    <?php require_once "assets/header/header.php"; ?>
+    <?php require_once "MenuPrincipal_view.php"; ?>
   
-    <style>.top-buffer { margin-top:20px; }</style>
-    
     <script type="text/javascript">
+        $(document).ready(function() {
+            $("#menu_sector").addClass("active");
+            $("#imagen_principal").remove();
+        });            
 
         function buscarSector() {
             var lugar        = $("#lugar").val();
@@ -75,10 +77,6 @@
             });            
         }            
         
-        function irMenu() {
-            window.location.href = "<?php echo base_url("MenuSector"); ?>";
-        } 
-        
         function cofirmaEliminar(id_sector) {
             $('#confirm').modal({ backdrop: 'static', keyboard: false })
                 .one('click', '#delete', function () {
@@ -89,42 +87,50 @@
     
 </head>
 <body>
-<div class="container">
-    <div class="row">
-        <ol class="breadcrumb">
-            <li><a href="<?php echo base_url("MenuPrincipal"); ?>">Menu Principal</a></li>
-            <li><a href="<?php echo base_url("MenuSector"); ?>">Menu Sector</a></li>
-            <li class="active">Eliminar Modificar Sectores</li>
-        </ol>         
-        <legend>Eliminar Modificar Sectores</legend>
-        <form class="form-inline">
-            <div class="form-group">
-                <label for="grupo_sector">Grupo sector</label>
-                <?php
-                $attributes = 'class = "form-control" id = "grupo_sector"';
-                echo form_dropdown('grupo_sector', $grupo_sector, set_value('grupo_sector'), $attributes);
-                ?>
-            </div>   
-            <div class="form-group">
-                <label for="lugar">Lugar</label>
-                <input id="lugar" name="lugar" placeholder="nombre del lugar" type="text" class="form-control" />
-            </div>
-            <button type="button" class="btn btn-primary" onclick="buscarSector();">Enviar</button>
-            <button type="button" class="btn btn-primary" onclick="printDiv();">Imprimir</button>
-            <button type="button" class="btn btn-danger" onclick="irMenu();">Volver</button>
-        </form>         
+    
+    <div class="p-3 mx-5">
         
-        <div class="form-group">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item text-primary">Menu Sector</li>
+                <li class="breadcrumb-item active">Eliminar Modificar Sectores</li>
+            </ol> 
+        </nav>         
+        
+        <legend>Eliminar Modificar Sectores</legend>
+        
+        <form class="my-3">
+            
+            <div class="form-row">
+                <div class="form-group col-2">
+                    <?php
+                    $attributes = 'class="custom-select" id="grupo_sector" aria-label="grupo_sector" aria-describedby="grupo_sector_addon"';
+                    echo form_dropdown('grupo_sector', $grupo_sector, set_value('grupo_sector'), $attributes);
+                    ?>
+                </div>
+                
+                <div class="form-group col-2 ml-5">   
+                    <input aria-label="lugar" aria-describedby="lugar_addon" id="lugar" name="lugar" placeholder="nombre del lugar" type="text" class="form-control">
+                </div>                   
+            </div>
+            
+        </form>        
+        
+        <form class="form-inline mt-3">
+            <button type="button" class="btn btn-outline-success col-2" onclick="buscarSector()" id="btnenviar">Enviar</button>
+            <button type="button" class="btn btn-outline-success col-2 ml-5" onclick="printDiv()" id="btnenviar">Imprimir</button>
+        </form>        
+        
+        <div class="form-group mt-2">
             <div id="alert_placeholder"></div>
         </div>         
         
-        <hr />
+        <hr />        
         
         <div id="printDiv">
-            <table class="table table-hover">
-                <thead>
+            <table class="table table-hover table-bordered">
+                <thead class="thead-dark">
                     <tr>
-                        <th>#</th>
                         <th>Id</th>
                         <th>Grupo</th>
                         <th>Lugar</th>
@@ -134,40 +140,37 @@
                 </thead>
                 <tbody id="cuerpo"></tbody>
             </table>
-        </div>  
-    </div>
-</div>
+        </div>          
+        
+    </div>    
 
-<!-- Modal modificar aerolinea -->
-<div id="modificar_sector" class="modal" role="dialog">
-    <div class="modal-dialog">
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">MODIFICAR SECTOR</h4>
-            </div>
-            <div class="modal-body" id="modificar_sector_form"></div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+    <!-- Modal modificar aerolinea -->
+    <div id="modificar_sector" class="modal" role="dialog">
+        <div class="modal-dialog" role="document">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">MODIFICAR SECTOR</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div id="modificar_sector_form"></div>
             </div>
         </div>
     </div>
-</div>
 
-<div id="confirm" class="modal" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-body">
-               ¿ Seguro quieres eliminar el registro ?
-            </div>
-            <div class="modal-footer">
-                <button type="button" data-dismiss="modal" class="btn btn-primary" id="delete">Borrar</button>
-                <button type="button" data-dismiss="modal" class="btn">Cancelar</button>
-            </div>
-        </div>   
-    </div>    
-</div>
+    <div id="confirm" class="modal" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                   ¿ Seguro quieres eliminar el registro ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" data-dismiss="modal" class="btn btn-danger" id="delete">ELIMINAR</button>
+                    <button type="button" data-dismiss="modal" class="btn btn-secondary">Cancelar</button>
+                </div>
+            </div>   
+        </div>    
+    </div>
 
 </body>
 </html>

@@ -5,11 +5,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Eliminar Modificar Valores</title>
-    <?php require_once "assets/header/header.php"; ?>
-    
-    <style>.top-buffer { margin-top:20px; }</style>
+    <?php require_once "MenuPrincipal_view.php"; ?>
     
     <script type="text/javascript">
+        $(document).ready(function() {
+            $("#menu_valores").addClass("active");
+            $("#imagen_principal").remove();
+        });           
        
         function buscarValor() {
             var aerolinea    = $("#aerolinea").val();
@@ -73,10 +75,6 @@
             });            
         }       
         
-        function irMenu() {
-            window.location.href = "<?php echo base_url("MenuValor"); ?>";
-        } 
-        
         function cofirmaEliminar(id_aerolinea, grupo_sector) {
             $('#confirm').modal({ backdrop: 'static', keyboard: false })
                 .one('click', '#delete', function () {
@@ -87,87 +85,93 @@
     
 </head>
 <body>
-<div class="container">
-    <div class="row">
-        <ol class="breadcrumb">
-            <li><a href="<?php echo base_url("MenuPrincipal"); ?>">Menu Principal</a></li>
-            <li><a href="<?php echo base_url("MenuValor"); ?>">Menu Valor</a></li>
-            <li class="active">Eliminar Modificar Valores</li>
-        </ol>        
+    
+    <div class="p-3 mx-5">
+        
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item text-primary">Menu Valores</li>
+                <li class="breadcrumb-item active">Eliminar Modificar Valores</li>
+            </ol> 
+        </nav>         
+        
         <legend>Eliminar Modificar Valores</legend>
-        <form class="form-inline">
-            <div class="form-group">
-                <label for="aerolinea">Aerolinea</label>
-                <?php
-                $attributes = 'class = "form-control" id = "aerolinea"';
-                echo form_dropdown('aerolinea', $aerolinea, set_value('aerolinea'), $attributes);
-                ?>
+        
+        <form class="my-3">
+            
+            <div class="form-row">
+                <div class="form-group col-2">
+                    <?php
+                    $attributes = 'class="custom-select" id="aerolinea" aria-label="aerolinea" aria-describedby="aerolinea_addon"';
+                    echo form_dropdown('aerolinea', $aerolinea, set_value('aerolinea'), $attributes);
+                    ?>
+                </div>
+                
+                <div class="form-group col-2 ml-5">
+                    <?php
+                    $attributes = 'class="custom-select" id="grupo_sector" aria-label="grupo_sector" aria-describedby="grupo_sector_addon"';
+                    echo form_dropdown('grupo_sector', $grupo_sector, set_value('grupo_sector'), $attributes);
+                    ?>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="grupo_sector">Grupo sector</label>
-                <?php
-                $attributes = 'class = "form-control" id = "grupo_sector"';
-                echo form_dropdown('grupo_sector', $grupo_sector, set_value('grupo_sector'), $attributes);
-                ?>
-            </div>             
-            <button type="button" class="btn btn-primary" onclick="buscarValor();">Enviar</button>
-            <button type="button" class="btn btn-primary" onclick="printDiv();">Imprimir</button>
-            <button type="button" class="btn btn-danger" onclick="irMenu();">Volver</button>           
-        </form> 
-        <div class="form-group">
+            
+        </form>        
+        
+        <form class="form-inline mt-3">
+            <button type="button" class="btn btn-outline-success col-2" onclick="buscarValor()" id="btnenviar">Enviar</button>
+            <button type="button" class="btn btn-outline-success col-2 ml-5" onclick="printDiv()" id="btnenviar">Imprimir</button>
+        </form>        
+        
+        <div class="form-group mt-2">
             <div id="alert_placeholder"></div>
         </div>         
         
-        <hr />
+        <hr />        
         
         <div id="printDiv">
-            <table class="table table-hover">
-                <thead>
+            <table class="table table-hover table-bordered">
+                <thead class="thead-dark">
                     <tr>
-                    <th>#</th>
-                    <th>Aerolinea</th>
-                    <th>Grupo sector</th>
-                    <th>Valor</th>
-                    <th>Modif</th>
-                    <th>Eliminar</th>
+                        <th>Aerolinea</th>
+                        <th>Grupo sector</th>
+                        <th>Valor</th>
+                        <th>Modif</th>
+                        <th>Eliminar</th>
                     </tr>
                 </thead>
                 <tbody id="cuerpo"></tbody>
             </table>
-        </div>    
-    </div>
-</div>
+        </div>         
+           
+    </div>    
 
-<!-- Modal modificar aerolinea -->
-<div id="modificar_valor" class="modal" role="dialog">
-    <div class="modal-dialog">
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">MODIFICAR VALOR</h4>
-            </div>
-            <div class="modal-body" id="modificar_valor_form"></div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+    <!-- Modal modificar aerolinea -->
+    <div id="modificar_valor" class="modal" role="dialog">
+        <div class="modal-dialog" role="document">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">MODIFICAR VALOR</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div id="modificar_valor_form"></div>
             </div>
         </div>
     </div>
-</div>
 
-<div id="confirm" class="modal" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-body">
-               ¿ Seguro quieres eliminar el registro ?
-            </div>
-            <div class="modal-footer">
-                <button type="button" data-dismiss="modal" class="btn btn-primary" id="delete">Borrar</button>
-                <button type="button" data-dismiss="modal" class="btn">Cancelar</button>
-            </div>
-        </div>   
-    </div>    
-</div>
+    <div id="confirm" class="modal" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                   ¿ Seguro quieres eliminar el registro ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" data-dismiss="modal" class="btn btn-danger" id="delete">ELIMINAR</button>
+                    <button type="button" data-dismiss="modal" class="btn btn-secondary">Cancelar</button>
+                </div>
+            </div>   
+        </div>    
+    </div>
 
 </body>
 </html>

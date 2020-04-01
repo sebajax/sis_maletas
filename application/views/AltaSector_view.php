@@ -5,9 +5,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ingresar sector</title>
-    <?php require_once "assets/header/header.php"; ?>
+    <?php require_once "MenuPrincipal_view.php"; ?>
     
     <script type="text/javascript">
+        $(document).ready(function(){
+            $("#menu_sector").addClass("active");
+            $("#imagen_principal").remove();
+        });        
         
         function altaSector() {
             $("span.text-danger").html('');
@@ -45,70 +49,64 @@
                 }
             });
         } 
-        
-        function irMenu() {
-            window.location.href = "<?php echo base_url("MenuSector"); ?>";
-        }        
     </script>
     
 </head>
 <body>
-<div class="container">
+    
+<div class="container p-3">
     <div class="row">
-        <ol class="breadcrumb">
-            <li><a href="<?php echo base_url("MenuPrincipal"); ?>">Menu Principal</a></li>
-            <li><a href="<?php echo base_url("MenuSector"); ?>">Menu Sector</a></li>
-            <li class="active">Alta sector</li>
-        </ol>         
-        <div class="col-sm-offset-3 col-lg-6 col-sm-6 well">
-        <legend>Alta sector</legend>
-        <?php 
-        $attributes = array("class" => "form-horizontal", "id" => "altasectorform", "name" => "altasectorform");
-        echo form_open("AltaSector/index", $attributes);
-        ?>
-        
-        <fieldset>
-            <div class="form-group">
-                <div class="row colbox">
-                    <div class="col-lg-4 col-sm-4">
-                        <label for="grupo_sector" class="control-label">Grupo</label>
-                    </div>
-                    <div class="col-lg-8 col-sm-8">
-                        <?php
-                        $attributes = 'class = "form-control" id = "grupo_sector"';
-                        echo form_dropdown('grupo_sector', $grupo_sector, set_value('grupo_sector'), $attributes);
-                        ?>
-                        <span id='grupo_sector_error' class="text-danger"></span>
-                    </div>
-                </div>
-            </div>            
+        <div class="col-sm">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item text-primary">Menu Sector</li>
+                    <li class="breadcrumb-item active">Alta Sector</li>
+                </ol> 
+            </nav>      
             
-            <div class="form-group">
-                <div class="row colbox">
-                    <div class="col-lg-4 col-sm-4">
-                        <label for="lugar" class="control-label">Lugar</label>
-                    </div>
-                    <div class="col-lg-8 col-sm-8">
-                        <input id="lugar" name="lugar" placeholder="nombre del lugar" type="text" class="form-control" />
-                        <span id='lugar_error' class="text-danger"></span>
-                    </div>
-                </div>
-            </div>            
+            <div class="jumbotron w-100 p-3 mx-auto">
+                <legend>Alta Sector</legend>
+                
+                <form>
+                    <div class="form-group">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend w-25">
+                                <span class="input-group-text bg-primary text-white w-100" id="grupo_sector_addon">Grupo</span>
+                            </div>                    
+                            <?php
+                            $attributes = 'class = "form-control" id="grupo_sector" aria-label="grupo_sector" aria-describedby="grupo_sector_addon"';
+                            echo form_dropdown('grupo_sector', $grupo_sector, set_value('grupo_sector'), $attributes);
+                            ?>
+                        </div>
+                        <span id="grupo_sector_error" class="text-danger"></span>
+                    </div>                
 
-            <div class="form-group">
-                <div id="alert_placeholder"></div>
-            </div>            
-            
-            <div class="form-group">
-            <div class="col-sm-offset-4 col-lg-8 col-sm-8 text-left">
-                <input id="btn_insertar" name="btn_insertar" type="button" class="btn btn-primary" value="Alta sector" onclick="altaSector();" />
-                <input id="btn_cancelar" name="btn_cancelar" type="reset" class="btn btn-danger" value="Cancelar" />
-                <input id="btn_volver" name="btn_volver" type="button" class="btn btn-primary" value="Volver" onclick="irMenu();" />
-            </div>
-            </div>
-        </fieldset>
-        <?php echo form_close(); ?>
+                    <div class="form-group">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend w-25">
+                                <span class="input-group-text bg-primary text-white w-100" id="lugar_addon">Lugar</span>
+                            </div>
+                            <input id="lugar" name="lugar" placeholder="nombre del sector" type="text" class="form-control" aria-label="lugar" aria-describedby="lugar_addon">
+                        </div>
+                        <span id='lugar_error' class="text-danger"></span>
+                    </div>                    
+                    
+                    <div class="form-group">
+                        <div id="alert_placeholder"></div>
+                    </div> 
+                    
+                    <div class="form-group">
+                        <div class="d-flex flex-row-reverse">
+                            <div class="p-2"><input id="btn_insertar" name="btn_insertar" type="button" class="btn btn-outline-success" value="Alta Sector" onclick="altaSector();"></div> 
+                            <div class="p-2"><input id="btn_cancelar" name="btn_cancelar" type="reset" class="btn btn-outline-danger" value="Cancelar"></div>
+                        </div>
+                    </div>                       
+                    
+                </form>
+                
+            </div>        
         </div>
+        <?php echo form_close(); ?>
     </div>
 </div>
 </body>

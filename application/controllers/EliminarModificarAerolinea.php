@@ -31,15 +31,19 @@ class EliminarModificarAerolinea extends CI_Controller {
         $id_aerolinea = $this->input->post('id_aerolinea');
         $nombre_aerolinea = $this->EliminarModificarAerolinea_model->obtengoNombreAerolinea($id_aerolinea);
         $html = '
+            <div class="modal-body">
             <form>
                 <div class="form-group">
                     <label for="aerolinea_modificada">Aerolinea</label>
                     <input type="text" class="form-control" id="aerolinea_modificada" placeholder="nombre aerolinea" value="'.$nombre_aerolinea.'">
                 </div>
-                <input id="btn_modificar" name="btn_modificar" type="button" class="btn btn-primary" value="Modificar aerolinea" onclick="modificarAerolinea('.$id_aerolinea.');" />
-                <input id="btn_cancelar" name="btn_cancelar" type="reset" class="btn btn-danger" value="Cancelar" onclick="cancelarModificarAerolinea();"/>
-            </form>';
-        
+            </form>
+            </div>    
+            <div class="modal-footer">
+                <input id="btn_modificar" name="btn_modificar" type="button" class="btn btn-primary" value="Modificar Aerolinea" onclick="modificarAerolinea('.$id_aerolinea.');" />
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            </div>';            
+
         echo $html;
     }
     
@@ -115,18 +119,21 @@ class EliminarModificarAerolinea extends CI_Controller {
         foreach ($result as $key => $row) {
             $tbody .= "
                 <tr>
-                    <th scope='row'>".($key + 1)."</th>
                     <td>".$row['id_aerolinea']."</td>
                     <td>".$row['nombre_aerolinea']."</td>
                     <td>
-                        <button type='button' class='btn btn-default btn-md'>
-                            <span class='glyphicon glyphicon-pencil' aria-hidden='true' onclick='modificarAerolineaForm(".$row['id_aerolinea'].")'></span>
-                        </button>   
+                        <div class='d-flex justify-content-center'>
+                            <button type='button' class='btn btn-default btn-md'>
+                                <i aria-hidden='true' class='fas fa-save fa-lg' onclick='modificarAerolineaForm(".$row['id_aerolinea'].")'></i>
+                            </button>
+                        </div>                    
                     </td>
                     <td>
-                        <button type='button' class='btn btn-default btn-md'>
-                            <span class='glyphicon glyphicon-trash' aria-hidden='true' onclick='cofirmaEliminar(".$row['id_aerolinea'].")'></span>
-                        </button>   
+                        <div class='d-flex justify-content-center'>
+                            <button type='button' class='btn btn-default btn-md'>
+                                <i aria-hidden='true' class='fas fa-trash-alt fa-lg' onclick='cofirmaEliminar(".$row['id_aerolinea'].")'></i>
+                            </button>
+                        </div>                    
                     </td>                    
                 </tr>";
         }

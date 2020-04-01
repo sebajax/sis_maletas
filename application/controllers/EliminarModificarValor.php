@@ -30,19 +30,22 @@ class EliminarModificarValor extends CI_Controller {
         foreach ($result as $key => $row) {
             $tbody .= "
                 <tr>
-                    <th scope='row'>".($key + 1)."</th>
                     <td>".$row->nombre_aerolinea."</td>
-                    <td>".$row->grupo_sector."</td>
-                    <td>".$row->valor."</td>
+                    <td><div class='float-right'>".$row->grupo_sector."</div></td>
+                    <td><div class='float-right'>$".number_format($row->valor)."</div></td>
                     <td>
-                        <button type='button' class='btn btn-default btn-md'>
-                            <span class='glyphicon glyphicon-pencil' aria-hidden='true' onclick='modificarValorForm(".$row->id_aerolinea.", ".$row->grupo_sector.")'></span>
-                        </button>   
+                        <div class='d-flex justify-content-center'>
+                            <button type='button' class='btn btn-default btn-md'>
+                                <i aria-hidden='true' class='fas fa-save fa-lg' onclick='modificarValorForm(".$row->id_aerolinea.", ".$row->grupo_sector.")'></i>
+                            </button>
+                        </div>                     
                     </td>
                     <td>
-                        <button type='button' class='btn btn-default btn-md'>
-                            <span class='glyphicon glyphicon-trash' aria-hidden='true' onclick='cofirmaEliminar(".$row->id_aerolinea.", ".$row->grupo_sector.")'></span>
-                        </button>   
+                        <div class='d-flex justify-content-center'>
+                            <button type='button' class='btn btn-default btn-md'>
+                                <i aria-hidden='true' class='fas fa-trash-alt fa-lg' onclick='cofirmaEliminar(".$row->id_aerolinea.", ".$row->grupo_sector.")'></i>
+                            </button>
+                        </div>                      
                     </td>                    
                 </tr>";
         }
@@ -59,6 +62,7 @@ class EliminarModificarValor extends CI_Controller {
         $attributes_grupo_sector = 'class = "form-control" id = "grupo_sector_new" disabled= "disabled"';
         
         $html = '
+            <div class="modal-body">
             <form>
                 <div class="form-group">
                     <label for="aerolinea" class="control-label">Aerolinea</label>
@@ -74,10 +78,12 @@ class EliminarModificarValor extends CI_Controller {
                     <label for="valor_new" class="control-label">Valor</label>
                     <input id="valor_new" name="valor_new" placeholder="valor" type="text" class="form-control" value="'.$row->valor.'" />
                 </div>  
-                
-                <input id="btn_modificar" name="btn_modificar" type="button" class="btn btn-primary" value="Modificar valor" onclick="modificarValor('.$id_aerolinea.', '.$grupo_sector.');" />
-                <input id="btn_cancelar" name="btn_cancelar" type="reset" class="btn btn-danger" value="Cancelar" onclick="cancelarModificarValor();"/>
-            </form>';
+            </form>
+            </div>    
+            <div class="modal-footer">
+                <input id="btn_modificar" name="btn_modificar" type="button" class="btn btn-primary" value="Modificar Valor" onclick="modificarValor('.$id_aerolinea.', '.$grupo_sector.');" />
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            </div>'; 
         
         echo $html;
     }

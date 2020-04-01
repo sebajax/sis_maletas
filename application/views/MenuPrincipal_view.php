@@ -108,11 +108,7 @@
         /*
          * FIN: MENU AUDITORIA
          */           
-        
-        function irMenuPrincipal() {
-            window.location.href = "<?php echo base_url("MenuPrincipal"); ?>";
-        } 
-        
+
         function cerrarSession() {
             $.ajax({
                 method: "POST",
@@ -155,9 +151,33 @@
                 </li> 
                 
                 <li class="nav-item px-3"><a id="menu_caja" class="nav-link" href="<?php echo base_url("ModuloCaja"); ?>">Caja</a></li>
-                <li class="nav-item px-3"><a id="menu_sector" class="nav-link" href="<?php echo base_url("MenuSector"); ?>">Sector</a></li>
-                <li class="nav-item px-3"><a id="menu_aerolinea" class="nav-link" href="<?php echo base_url("MenuAerolinea"); ?>">Aerolinea</a></li>
-                <li class="nav-item px-3"><a id="menu_valor" class="nav-link" href="<?php echo base_url("MenuValor"); ?>">Valor</a></li>
+                
+                <li class="nav-item dropdown px-3" id="menu_sector">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Menu Sector</a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#" onclick="irAltaSectores();">INGRESAR SECTOR</a>
+                        <a class="dropdown-item" href="#" onclick="irConsultarEliminarSectores();">CONSULTAR MODIFICAR ELIMINAR SECTORES</a>
+                        <a class="dropdown-item" href="#" onclick="irCantidadSectores();">CANTIDAD SECTORES</a>
+                    </div>
+                </li> 
+                
+                <li class="nav-item dropdown px-3" id="menu_aerolinea">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Menu Aerolinea</a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#" onclick="irAltaAerolineas();">INGRESAR AEROLINEA</a>
+                        <a class="dropdown-item" href="#" onclick="irConsultarEliminarAerolineas();">CONSULTAR ELIMINAR MODIFICAR AEROLINEAS</a>
+                    </div>
+                </li>      
+                
+                <li class="nav-item dropdown px-3" id="menu_valores">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Menu Valores</a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#" onclick="irAltaValores();">INGRESAR VALORES</a>
+                        <a class="dropdown-item" href="#" onclick="irConsultarEliminarValores();">CONSULTAR MODIFICAR ELIMINAR VALORES</a>
+                    </div>
+                </li>                 
+
+                <li class="nav-item px-3"><a id="menu_caja" class="nav-link" href="<?php echo base_url("ModuloCaja"); ?>">Auditoria</a></li>
             </ul> 
             
             <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="<?php echo strtoupper($this->session->usuario); ?>">

@@ -5,9 +5,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alta valores</title>
-    <?php require_once "assets/header/header.php"; ?>
+    <?php require_once "MenuPrincipal_view.php"; ?>
     
     <script type="text/javascript">
+        $(document).ready(function(){
+            $("#menu_valores").addClass("active");
+            $("#imagen_principal").remove();
+        });        
+        
         function altaValores() {
             $("span.text-danger").html('');
             
@@ -60,85 +65,78 @@
                 }
             });
         }       
-        
-        function irMenu() {
-            window.location.href = "<?php echo base_url("MenuValor"); ?>";
-        }        
     </script>
     
 </head>
 <body>
-<div class="container">
+    
+<div class="container p-3">
     <div class="row">
-        <ol class="breadcrumb">
-            <li><a href="<?php echo base_url("MenuPrincipal"); ?>">Menu Principal</a></li>
-            <li><a href="<?php echo base_url("MenuValor"); ?>">Menu Valor</a></li>
-            <li class="active">Alta valores</li>
-        </ol>        
-        <div class="col-sm-offset-3 col-lg-6 col-sm-6 well">
-        <legend>Alta valores</legend>
-        <?php 
-        $attributes = array("class" => "form-horizontal", "id" => "altavaloresform", "name" => "altavaloresform");
-        echo form_open("AltaValores/index", $attributes);
-        ?>
-        
-        <fieldset>
-            <div class="form-group">
-                <div class="row colbox">
-                    <div class="col-lg-4 col-sm-4">
-                        <label for="aerolinea" class="control-label">Aerolinea</label>
-                    </div>
-                    <div class="col-lg-8 col-sm-8">
-                        <?php
-                        $attributes = 'class = "form-control" id = "aerolinea"';
-                        echo form_dropdown('aerolinea', $aerolinea, set_value('aerolinea'), $attributes);
-                        ?>
-                        <span id='aerolinea_error' class="text-danger"></span>
-                    </div>
-                </div>
-            </div>            
-
-            <div class="form-group">
-                <div class="row colbox">
-                    <div class="col-lg-4 col-sm-4">
-                        <label for="grupo_sector" class="control-label">Grupo sector</label>
-                    </div>
-                    <div class="col-lg-8 col-sm-8">
-                        <?php
-                        $attributes = 'class = "form-control" id = "grupo_sector"';
-                        echo form_dropdown('grupo_sector', $grupo_sector, set_value('grupo_sector'), $attributes);
-                        ?>
-                        <span id='grupo_sector_error' class="text-danger"></span>
-                    </div>
-                </div>
-            </div>    
+        <div class="col-sm">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item text-primary">Menu Valores</li>
+                    <li class="breadcrumb-item active">Alta Valor</li>
+                </ol> 
+            </nav>      
             
-            <div class="form-group">
-                <div class="row colbox">
-                    <div class="col-lg-4 col-sm-4">
-                        <label for="valor" class="control-label">Valor</label>
-                    </div>
-                    <div class="col-lg-8 col-sm-8">
-                        <input id="valor" name="valor" placeholder="valor" type="text" class="form-control" />
+            <div class="jumbotron w-100 p-3 mx-auto">
+                <legend>Alta Valores</legend>
+                
+                <form>
+                    <div class="form-group">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend w-25">
+                                <span class="input-group-text bg-primary text-white w-100" id="aerolinea_addon">Aerolinea</span>
+                            </div>                    
+                            <?php
+                            $attributes = 'class = "form-control" id="aerolinea" aria-label="aerolinea" aria-describedby="aerolinea_addon"';
+                            echo form_dropdown('aerolinea', $aerolinea, set_value('aerolinea'), $attributes);
+                            ?>
+                        </div>
+                        <span id="aerolinea_error" class="text-danger"></span>
+                    </div>                     
+                    
+                    <div class="form-group">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend w-25">
+                                <span class="input-group-text bg-primary text-white w-100" id="grupo_sector_addon">Grupo Sector</span>
+                            </div>                    
+                            <?php
+                            $attributes = 'class = "form-control" id="grupo_sector" aria-label="grupo_sector" aria-describedby="grupo_sector_addon"';
+                            echo form_dropdown('grupo_sector', $grupo_sector, set_value('grupo_sector'), $attributes);
+                            ?>
+                        </div>
+                        <span id="grupo_sector_error" class="text-danger"></span>
+                    </div> 
+                    
+                    <div class="form-group">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend w-25">
+                                <span class="input-group-text bg-primary text-white w-100" id="valor_addon">Valor</span>
+                                <span class="input-group-text" id="valor_addon">$</span>
+                            </div>
+                            <input id="valor" name="valor" placeholder="valor" type="text" class="form-control" aria-label="valor" aria-describedby="valor_addon">
+                        </div>
                         <span id='valor_error' class="text-danger"></span>
-                    </div>
-                </div>
-            </div>  
-            
-            <div class="form-group">
-                <div id="alert_placeholder"></div>
-            </div>            
-            
-            <div class="form-group">
-            <div class="col-sm-offset-4 col-lg-8 col-sm-8 text-left">
-                <input id="btn_insertar" name="btn_insertar" type="button" class="btn btn-primary" value="Alta valor" onclick="altaValores();" />
-                <input id="btn_cancelar" name="btn_cancelar" type="reset" class="btn btn-danger" value="Cancelar" />
-                <input id="btn_volver" name="btn_volver" type="button" class="btn btn-primary" value="Volver" onclick="irMenu();" />
+                    </div>                    
+                    
+                    <div class="form-group">
+                        <div id="alert_placeholder"></div>
+                    </div> 
+                    
+                    <div class="form-group">
+                        <div class="d-flex flex-row-reverse">
+                            <div class="p-2"><input id="btn_insertar" name="btn_insertar" type="button" class="btn btn-outline-success" value="Alta Valor" onclick="altaValores();"></div> 
+                            <div class="p-2"><input id="btn_cancelar" name="btn_cancelar" type="reset" class="btn btn-outline-danger" value="Cancelar"></div>
+                        </div>
+                    </div>                      
+                    
+                </form>
+                
             </div>
-            </div>
-        </fieldset>
-        <?php echo form_close(); ?>
         </div>
+        <?php echo form_close(); ?>
     </div>
 </div>
 </body>
