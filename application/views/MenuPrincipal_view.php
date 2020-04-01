@@ -59,6 +59,55 @@
          * FIN: MENU GASTO
          */   
         
+        /*
+         * INICIO: MENU SECTOR
+         */   
+        function irAltaSectores() {
+            window.location.href = "<?php echo base_url("AltaSector"); ?>";
+        }
+        function irConsultarEliminarSectores() {
+            window.location.href = "<?php echo base_url("EliminarModificarSector"); ?>";
+        }
+        function irCantidadSectores() {
+            window.location.href = "<?php echo base_url("CantidadSectores"); ?>";
+        }            
+        /*
+         * FIN: MENU SECTOR
+         */
+        
+        /*
+         * INICIO: MENU AEROLINEA
+         */ 
+        function irAltaAerolineas() {
+            window.location.href = "<?php echo base_url("AltaAerolinea"); ?>";
+        }
+        function irConsultarEliminarAerolineas() {
+            window.location.href = "<?php echo base_url("EliminarModificarAerolinea"); ?>";
+        }        
+        /*
+         * FIN: MENU AEROLINEA
+         */
+        
+        /*
+         * INICIO: MENU VALOR
+         */         
+        function irAltaValores() {
+            window.location.href = "<?php echo base_url("AltaValores"); ?>";
+        }
+        function irConsultarEliminarValores() {
+            window.location.href = "<?php echo base_url("EliminarModificarValor"); ?>";
+        }        
+        /*
+         * FIN: MENU VALOR
+         */  
+        
+        /*
+         * INICIO: MENU AUDITORIA
+         */         
+        
+        /*
+         * FIN: MENU AUDITORIA
+         */           
         
         function irMenuPrincipal() {
             window.location.href = "<?php echo base_url("MenuPrincipal"); ?>";

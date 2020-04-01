@@ -143,7 +143,7 @@
                     <div class="form-group">
                         <div class="input-group mb-3">
                             <div class="input-group-prepend w-25">
-                                <span class="input-group-text bg-primary text-white w-100" id="tipo_gasto">Tipo Gasto</span>
+                                <span class="input-group-text bg-primary text-white w-100" id="tipo_gasto_addon">Tipo Gasto</span>
                             </div>                    
                             <?php
                             $attributes = 'class = "form-control" id = "tipo_gasto" aria-label="tipo_gasto" aria-describedby="tipo_gasto_addon"';
