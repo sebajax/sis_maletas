@@ -8,7 +8,7 @@ class AltaAerolinea extends CI_Controller {
 
     function __construct() {
         parent::__construct();
-        $this->load->model('AltaAerolinea_model');
+        $this->load->model(array('AltaAerolinea_model', 'Auditoria_model'));
         $this->load->library(array('validation', 'perms'));
         if(!$this->perms->verifico()) { die("USTED NO TIENE PERMISOS PARA ACCEDER A ESTE SITIO."); }
     }
@@ -27,6 +27,7 @@ class AltaAerolinea extends CI_Controller {
         
         if(!$errorEmpty ) {
             $this->AltaAerolinea_model->insert($data);
+            $this->Auditoria_model->insert($data, "insert", "aerolineas", $this->db->last_query());
             echo "OK";    
             return true;
         }else {

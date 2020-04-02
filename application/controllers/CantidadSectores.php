@@ -8,7 +8,7 @@ class CantidadSectores extends CI_Controller {
 
     function __construct() {
         parent::__construct();
-        $this->load->model('CantidadSectores_model');
+        $this->load->model(array('CantidadSectores_model', 'Auditoria_model'));
         $this->load->library(array('validation', 'perms'));
         if(!$this->perms->verifico()) { die("USTED NO TIENE PERMISOS PARA ACCEDER A ESTE SITIO."); }
     }
@@ -27,6 +27,7 @@ class CantidadSectores extends CI_Controller {
         
         if(!$errorEmpty ) {
             $this->CantidadSectores_model->update($data);
+            $this->Auditoria_model->insert($data, "update", "cantidad_sectores", $this->db->last_query());
             echo "OK";    
             return true;
         }else {

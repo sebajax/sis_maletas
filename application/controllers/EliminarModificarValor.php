@@ -8,7 +8,7 @@ class EliminarModificarValor extends CI_Controller {
     
     function __construct() {
         parent::__construct();
-        $this->load->model(array('EliminarModificarValor_model'));
+        $this->load->model(array('EliminarModificarValor_model', 'Auditoria_model'));
         $this->load->library(array('validation', 'perms'));
         $this->load->helper(array('sectores_helper', 'aerolineas_helper'));
         if(!$this->perms->verifico()) { die("USTED NO TIENE PERMISOS PARA ACCEDER A ESTE SITIO."); }
@@ -94,6 +94,7 @@ class EliminarModificarValor extends CI_Controller {
         $valor_new    = $this->input->post('valor_new');
         if(!empty($id_aerolinea) && !empty($grupo_sector) && !empty($valor_new)) {
             $this->EliminarModificarValor_model->modificarValor($id_aerolinea, $grupo_sector, $valor_new);
+            $this->Auditoria_model->insert(array("id_aerolinea" => $id_aerolinea, "grupo_sector" => $grupo_sector, "valor" => $valor_new), "update", "valores", $this->db->last_query());
             echo "OK";
             return true;
         }else {
@@ -124,6 +125,7 @@ class EliminarModificarValor extends CI_Controller {
         }       
         
         $this->EliminarModificarValor_model->eliminarValor($id_aerolinea, $grupo_sector);
+        $this->Auditoria_model->insert(array("id_aerolinea" => $id_aerolinea, "grupo_sector" => $grupo_sector), "delete", "valores", $this->db->last_query());
         $error['mensaje'] = "CORRECTO valor eliminada correctamente";
         $error['estado'] = 1;
         echo json_encode($error);

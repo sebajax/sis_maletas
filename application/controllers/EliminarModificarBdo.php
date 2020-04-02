@@ -8,7 +8,7 @@ class EliminarModificarBdo extends CI_Controller {
     
     function __construct() {
         parent::__construct();
-        $this->load->model(array('EliminarModificarBdo_model', 'AltaValores_model', 'ConsultaBdo_model'));
+        $this->load->model(array('EliminarModificarBdo_model', 'AltaValores_model', 'ConsultaBdo_model', 'Auditoria_model'));
         $this->load->library(array('validation', 'excel', 'session', 'funciones', 'perms'));
         $this->load->helper(array('sectores_helper', 'aerolineas_helper', 'bdo_helper'));
         if(!$this->perms->verifico()) { die("USTED NO TIENE PERMISOS PARA ACCEDER A ESTE SITIO."); }
@@ -159,6 +159,7 @@ class EliminarModificarBdo extends CI_Controller {
         
         if(!$errorEmpty && !$errorDate && !$errorEstado) {
             $this->EliminarModificarBdo_model->modificarBdo($data);
+            $this->Auditoria_model->insert($data, "update", "bdo", $this->db->last_query());
             echo "OK";    
             return true;
         }else {
@@ -191,12 +192,15 @@ class EliminarModificarBdo extends CI_Controller {
         
         if($estado == 0) {
             $this->EliminarModificarBdo_model->eliminarBdoAbierta($numero, $id_aerolinea);
+            $this->Auditoria_model->insert(array("numero" => $numero, "id_aerolinea" => $id_aerolinea), "delete", "bdo", $this->db->last_query());
             $error['mensaje'] = "CORRECTO (abierta) bdo eliminada correctamente";
             $error['estado'] = 1;
             echo json_encode($error);
             return true;            
         }else if($estado == 1) {
             $this->EliminarModificarBdo_model->eliminarBdoCerrada($numero, $id_aerolinea);
+            $this->Auditoria_model->insert(array("numero" => $numero, "id_aerolinea" => $id_aerolinea), "delete", "bdo", $this->db->last_query());
+            $this->Auditoria_model->insert(array("numero" => $numero, "id_aerolinea" => $id_aerolinea), "delete", "cierre_caso", $this->db->last_query());
             $error['mensaje'] = "CORRECTO (cerrada) bdo eliminada correctamente";
             $error['estado'] = 1;
             echo json_encode($error);   

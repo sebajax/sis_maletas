@@ -8,7 +8,7 @@ class AltaGasto extends CI_Controller {
 
     function __construct() {
         parent::__construct();
-        $this->load->model(array('AltaGasto_model'));
+        $this->load->model(array('AltaGasto_model', 'Auditoria_model'));
         $this->load->library(array('validation', 'perms', 'session'));
         $this->load->helper(array('tipo_gasto_helper'));
         if(!$this->perms->verifico()) { die("USTED NO TIENE PERMISOS PARA ACCEDER A ESTE SITIO."); }
@@ -38,6 +38,7 @@ class AltaGasto extends CI_Controller {
         
         if(!$errorEmpty && !$errorDate) {
             $this->AltaGasto_model->insert($data);
+            $this->Auditoria_model->insert($data, "insert", "gastos", $this->db->last_query());
             echo "OK";    
             return true;
         }else {

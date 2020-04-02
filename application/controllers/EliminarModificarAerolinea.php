@@ -8,7 +8,7 @@ class EliminarModificarAerolinea extends CI_Controller {
     
     function __construct() {
         parent::__construct();
-        $this->load->model(array('EliminarModificarAerolinea_model'));
+        $this->load->model(array('EliminarModificarAerolinea_model', 'Auditoria_model'));
         $this->load->library(array('validation', 'excel', 'session', 'funciones', 'perms'));
         $this->load->helper(array('aerolineas_helper'));
         if(!$this->perms->verifico()) { die("USTED NO TIENE PERMISOS PARA ACCEDER A ESTE SITIO."); }
@@ -52,6 +52,7 @@ class EliminarModificarAerolinea extends CI_Controller {
         $nombre_aerolinea = $this->input->post('nombre_aerolinea_new');
         if(!empty($id_aerolinea) && !empty($nombre_aerolinea)) {
             $this->EliminarModificarAerolinea_model->modificarAerolinea($id_aerolinea, $nombre_aerolinea);
+            $this->Auditoria_model->insert(array("id_aerolinea" => $id_aerolinea, "nombre_aerolinea" => $nombre_aerolinea), "update", "aerolineas", $this->db->last_query());
             echo "OK";
             return true;
         }else {
@@ -81,6 +82,7 @@ class EliminarModificarAerolinea extends CI_Controller {
         }
         
         $this->EliminarModificarAerolinea_model->eliminarAerolinea($id_aerolinea);
+        $this->Auditoria_model->insert(array("id_aerolinea" => $id_aerolinea), "delete", "aerolineas", $this->db->last_query());
         $error['mensaje'] = "CORRECTO aerolinea eliminada correctamente";
         $error['estado'] = 1;
         echo json_encode($error);

@@ -8,7 +8,7 @@ class EliminarModificarTipoGasto extends CI_Controller {
     
     function __construct() {
         parent::__construct();
-        $this->load->model(array('EliminarModificarTipoGasto_model'));
+        $this->load->model(array('EliminarModificarTipoGasto_model', 'Auditoria_model'));
         $this->load->library(array('validation', 'perms', 'session', 'funciones'));
         if(!$this->perms->verifico()) { die("USTED NO TIENE PERMISOS PARA ACCEDER A ESTE SITIO."); }
     }
@@ -59,6 +59,7 @@ class EliminarModificarTipoGasto extends CI_Controller {
         
         if(!$errorEmpty) {
             $this->EliminarModificarTipoGasto_model->modificarTipoGasto($data);
+            $this->Auditoria_model->insert($data, "update", "tipos_gasto", $this->db->last_query());
             echo "OK";
             return true;
         }else {
@@ -88,6 +89,7 @@ class EliminarModificarTipoGasto extends CI_Controller {
         }        
         
         $this->EliminarModificarTipoGasto_model->eliminarTipoGasto($id_tipo_gasto);
+        $this->Auditoria_model->insert(array("id_tipo_gasto" => $id_tipo_gasto), "delete", "tipos_gasto", $this->db->last_query());
         $error['mensaje'] = "CORRECTO tipo gasto eliminado correctamente";
         $error['estado'] = 1;
         echo json_encode($error);

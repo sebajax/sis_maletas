@@ -63,8 +63,8 @@ class EliminarModificarBdo_model extends CI_Model {
             'numero'       => $numero, 
             'id_aerolinea' => $id_aerolinea
         );
-        $this->db->delete('bdo', $data);
         $this->db->delete("comentarios_bdo", $data);
+        $this->db->delete('bdo', $data);
     }  
     
     public function eliminarBdoCerrada($numero, $id_aerolinea) {

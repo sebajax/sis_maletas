@@ -102,9 +102,11 @@
          */  
         
         /*
-         * INICIO: MENU AUDITORIA
+         * INICIO: MENU ADMINISTRADOR
          */         
-        
+        function irAuditoria() {
+            window.location.href = "<?php echo base_url("Auditoria"); ?>";
+        }        
         /*
          * FIN: MENU AUDITORIA
          */           
@@ -175,9 +177,14 @@
                         <a class="dropdown-item" href="#" onclick="irAltaValores();">INGRESAR VALORES</a>
                         <a class="dropdown-item" href="#" onclick="irConsultarEliminarValores();">CONSULTAR MODIFICAR ELIMINAR VALORES</a>
                     </div>
-                </li>                 
-
-                <li class="nav-item px-3"><a id="menu_caja" class="nav-link" href="<?php echo base_url("ModuloCaja"); ?>">Auditoria</a></li>
+                </li>   
+                
+                <li class="nav-item dropdown px-3" id="menu_admin">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Menu Admin</a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#" onclick="irAuditoria();">AUDITORIA</a>
+                    </div>
+                </li>                   
             </ul> 
             
             <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="<?php echo strtoupper($this->session->usuario); ?>">

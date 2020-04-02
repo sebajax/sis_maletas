@@ -8,7 +8,7 @@ class EliminarModificarSector extends CI_Controller {
     
     function __construct() {
         parent::__construct();
-        $this->load->model('EliminarModificarSector_model');
+        $this->load->model(array('EliminarModificarSector_model', 'Auditoria_model'));
         $this->load->library(array('validation', 'perms'));
         $this->load->helper(array('sectores_helper'));
         if(!$this->perms->verifico()) { die("USTED NO TIENE PERMISOS PARA ACCEDER A ESTE SITIO."); }
@@ -84,6 +84,7 @@ class EliminarModificarSector extends CI_Controller {
         
         if(!empty($id_sector) && !empty($grupo_sector_new) && !empty($lugar_new)) {
             $this->EliminarModificarSector_model->modificarSector($id_sector, $grupo_sector_new, $lugar_new);
+            $this->Auditoria_model->insert(array("id_sector" => $id_sector, "grupo_sector" => $grupo_sector_new, "lugar" => $lugar_new), "update", "sectores", $this->db->last_query());
             echo "OK";
             return true;
         }else {
@@ -113,6 +114,7 @@ class EliminarModificarSector extends CI_Controller {
         }
         
         $this->EliminarModificarSector_model->eliminarSector($id_sector);
+        $this->Auditoria_model->insert(array("id_sector" => $id_sector), "delete", "sectores", $this->db->last_query());
         $error['mensaje'] = "CORRECTO sector eliminado correctamente";
         $error['estado'] = 1;
         echo json_encode($error);

@@ -8,7 +8,7 @@ class CierreCaso extends CI_Controller {
     
     function __construct() {
         parent::__construct();
-        $this->load->model(array('CierreCaso_model', 'ConsultaBdo_model', 'EliminarModificarSector_model'));
+        $this->load->model(array('CierreCaso_model', 'ConsultaBdo_model', 'EliminarModificarSector_model', 'Auditoria_model'));
         $this->load->library(array('validation', 'excel', 'session', 'funciones', 'perms'));
         $this->load->helper(array('aerolineas_helper', 'bdo_helper'));
         if(!$this->perms->verifico()) { die("USTED NO TIENE PERMISOS PARA ACCEDER A ESTE SITIO."); }
@@ -77,6 +77,7 @@ class CierreCaso extends CI_Controller {
         );
         
         $this->CierreCaso_model->cerrarCaso($data);
+        $this->Auditoria_model->insert($data, "insert", "cierre_caso", $this->db->last_query());
         echo "OK";
         return true;        
     }
@@ -100,6 +101,7 @@ class CierreCaso extends CI_Controller {
             );
 
             $this->CierreCaso_model->cerrarCaso($data);  
+            $this->Auditoria_model->insert($data, "insert", "cierre_caso", $this->db->last_query());
         }
         echo "OK";
         return true;        

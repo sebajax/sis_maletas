@@ -8,7 +8,7 @@ class EliminarModificarGasto extends CI_Controller {
     
     function __construct() {
         parent::__construct();
-        $this->load->model(array('EliminarModificarGasto_model'));
+        $this->load->model(array('EliminarModificarGasto_model', 'Auditoria_model'));
         $this->load->library(array('validation', 'perms', 'session', 'funciones'));
         $this->load->helper(array('tipo_gasto_helper'));
         if(!$this->perms->verifico()) { die("USTED NO TIENE PERMISOS PARA ACCEDER A ESTE SITIO."); }
@@ -92,6 +92,7 @@ class EliminarModificarGasto extends CI_Controller {
         
         if(!$errorEmpty && !$errorDate) {
             $this->EliminarModificarGasto_model->modificarGasto($data);
+            $this->Auditoria_model->insert($data, "update", "gastos", $this->db->last_query());
             echo "OK";
             return true;
         }else {
@@ -114,6 +115,7 @@ class EliminarModificarGasto extends CI_Controller {
             return false;
         }
         $this->EliminarModificarGasto_model->eliminarGasto($id_gasto);
+        $this->Auditoria_model->insert(array("id_gasto" => $id_gasto), "delete", "gastos", $this->db->last_query());
         $error['mensaje'] = "CORRECTO gasto eliminado correctamente";
         $error['estado'] = 1;
         echo json_encode($error);

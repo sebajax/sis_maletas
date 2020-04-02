@@ -8,7 +8,7 @@ class AltaTipoGasto extends CI_Controller {
 
     function __construct() {
         parent::__construct();
-        $this->load->model('AltaTipoGasto_model');
+        $this->load->model('AltaTipoGasto_model', 'Auditoria_model');
         $this->load->library(array('validation', 'perms'));
         if(!$this->perms->verifico()) { die("USTED NO TIENE PERMISOS PARA ACCEDER A ESTE SITIO."); }
     }
@@ -27,6 +27,7 @@ class AltaTipoGasto extends CI_Controller {
         
         if(!$errorEmpty ) {
             $this->AltaTipoGasto_model->insert($data);
+            $this->Auditoria_model->insert($data, "insert", "tipos_gasto", $this->db->last_query());
             echo "OK";    
             return true;
         }else {

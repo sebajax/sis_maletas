@@ -8,7 +8,7 @@ class AltaValores extends CI_Controller {
 
     function __construct() {
         parent::__construct();
-        $this->load->model('AltaValores_model');
+        $this->load->model(array('AltaValores_model', 'Auditoria_model'));
         $this->load->library(array('validation', 'perms'));
         $this->load->helper(array('sectores_helper', 'aerolineas_helper'));
         if(!$this->perms->verifico()) { die("USTED NO TIENE PERMISOS PARA ACCEDER A ESTE SITIO."); }
@@ -47,6 +47,7 @@ class AltaValores extends CI_Controller {
         
         if(!$errorEmpty) {
             $this->AltaValores_model->insert($data);
+            $this->Auditoria_model->insert($data, "insert", "valores", $this->db->last_query());
             echo "OK";    
             return true;
         }else {

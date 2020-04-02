@@ -37,8 +37,6 @@ class CierreCaso_model extends CI_Model {
             $this->db->set('fecha_modif_estado', date("Y-m-d H:i:s"));
             $this->db->where(array('numero' => $data['numero'], 'id_aerolinea' => $data['id_aerolinea'], 'estado' => 0));
             $this->db->update('bdo');
-            $this->db->insert("cierre_caso", $data);
-            $this->db->insert("comentarios_bdo", $data);
             $informacionBdo = $this->informacionBDO($data['numero'], $data['id_aerolinea']);
             $sector = $this->EliminarModificarSector_model->obtengoInformacionSector($informacionBdo->id_sector);
             $data_ingreso_caja = array(
@@ -58,6 +56,8 @@ class CierreCaso_model extends CI_Model {
             );
             $this->db->insert("ingresos_caja", $data_ingreso_caja);
             $this->db->insert("transacciones_bdo_cerradas", $data_trans);
+            $this->db->insert("comentarios_bdo", $data);
+            $this->db->insert("cierre_caso", $data);
             $this->db->trans_complete();
         }
     }
