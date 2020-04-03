@@ -125,6 +125,7 @@
                             <option value="aerolineas">AEROLINEAS</option>
                             <option value="sectores">SECTORES</option>
                             <option value="valores">VALORES</option>
+                            <option value="usuarios">USUARIOS</option>
                         </select>                        
                     </div>
                 </div>                

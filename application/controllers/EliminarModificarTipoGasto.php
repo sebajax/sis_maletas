@@ -103,7 +103,7 @@ class EliminarModificarTipoGasto extends CI_Controller {
             $aux_id_tipo_gasto = '"'.$row['id_tipo_gasto'].'"';
             $tbody .= "
                 <tr>
-                  <td>".$row['tipo_gasto']."</div></td>
+                  <td>".$row['tipo_gasto']."</td>
                   <td>
                     <div class='d-flex justify-content-center'>
                         <button type='button' class='btn btn-default btn-md'>

@@ -109,7 +109,10 @@
         }   
         function irAltaUsuario() {
             window.location.href = "<?php echo base_url("AltaUsuario"); ?>";
-        }          
+        }  
+        function irConsultarEliminarUsuario() {
+            window.location.href = "<?php echo base_url("EliminarModificarUsuario"); ?>";
+        }         
         /*
          * FIN: MENU AUDITORIA
          */           
@@ -187,6 +190,7 @@
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="#" onclick="irAuditoria();">AUDITORIA</a>
                         <a class="dropdown-item" href="#" onclick="irAltaUsuario();">ALTA USUARIO</a>
+                        <a class="dropdown-item" href="#" onclick="irConsultarEliminarUsuario();">CONSULTAR MODIFICAR ELIMINAR USUARIO</a>
                     </div>
                 </li>                   
             </ul> 
