@@ -11,6 +11,7 @@ class EliminarModificarTipoGasto extends CI_Controller {
         $this->load->model(array('EliminarModificarTipoGasto_model', 'Auditoria_model'));
         $this->load->library(array('validation', 'perms', 'session', 'funciones'));
         if(!$this->perms->verifico()) { die("USTED NO TIENE PERMISOS PARA ACCEDER A ESTE SITIO."); }
+        if(!$this->perms->verificoPerfil(2)) { die("USTED NO TIENE PERMISOS PARA ACCEDER A ESTE SITIO."); }
     }
     
     function index() {

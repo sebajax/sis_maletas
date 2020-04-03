@@ -10,6 +10,7 @@ class MenuPrincipal extends CI_Controller {
         parent::__construct();
         $this->load->library(array('perms', 'session'));
         if(!$this->perms->verifico()) { die("USTED NO TIENE PERMISOS PARA ACCEDER A ESTE SITIO."); }
+        if(!$this->perms->verificoPerfil(3)) { die("USTED NO TIENE PERMISOS PARA ACCEDER A ESTE SITIO."); }
     }
     
     function index() {

@@ -11,6 +11,7 @@ class ModuloCaja extends CI_Controller {
         $this->load->model(array('ModuloCaja_model'));
         $this->load->library(array('validation', 'excel', 'session', 'funciones', 'perms'));
         if(!$this->perms->verifico()) { die("USTED NO TIENE PERMISOS PARA ACCEDER A ESTE SITIO."); }
+        if(!$this->perms->verificoPerfil(2)) { die("USTED NO TIENE PERMISOS PARA ACCEDER A ESTE SITIO."); }
     }
     
     function index() {

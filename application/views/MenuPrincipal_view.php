@@ -136,6 +136,7 @@
 
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <?php if($this->perms->verificoPerfil(2)) { ?>
                 <li class="nav-item dropdown px-3" id="menu_bdo">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Menu BDO</a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -184,7 +185,9 @@
                         <a class="dropdown-item" href="#" onclick="irConsultarEliminarValores();">CONSULTAR MODIFICAR ELIMINAR VALORES</a>
                     </div>
                 </li>   
+                <?php } ?>
                 
+                <?php if($this->perms->verificoPerfil(1)) { ?>
                 <li class="nav-item dropdown px-3" id="menu_admin">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Menu Admin</a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -192,7 +195,8 @@
                         <a class="dropdown-item" href="#" onclick="irAltaUsuario();">ALTA USUARIO</a>
                         <a class="dropdown-item" href="#" onclick="irConsultarEliminarUsuario();">CONSULTAR MODIFICAR ELIMINAR USUARIO</a>
                     </div>
-                </li>                   
+                </li>
+                <?php } ?>
             </ul> 
             
             <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="<?php echo strtoupper($this->session->usuario); ?>">

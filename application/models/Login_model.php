@@ -27,14 +27,17 @@ class Login_model extends CI_Model {
         $this->db->select('*');
         $this->db->from('usuarios');
         $this->db->where($where);
+        $query = $this->db->get(); 
+        $dataUsuario = $query->row();
         if($this->db->count_all_results() == 1) {
             $usuario['intento'] = 1;
+            $usuario['id_perfil'] = $dataUsuario->id_perfil;
         }else {
             $usuario['intento'] = 0;
         }
         $this->insertLogin($usuario);
         $this->db->trans_complete();
-        return $usuario['intento'];
+        return $usuario;
     }     
     
 }

@@ -11,6 +11,7 @@ class AltaTipoGasto extends CI_Controller {
         $this->load->model('AltaTipoGasto_model', 'Auditoria_model');
         $this->load->library(array('validation', 'perms'));
         if(!$this->perms->verifico()) { die("USTED NO TIENE PERMISOS PARA ACCEDER A ESTE SITIO."); }
+        if(!$this->perms->verificoPerfil(2)) { die("USTED NO TIENE PERMISOS PARA ACCEDER A ESTE SITIO."); }
     }
     
     function index() {

@@ -11,6 +11,7 @@ class AltaUsuario extends CI_Controller {
         $this->load->model(array('AltaUsuario_model', 'Auditoria_model'));
         $this->load->library(array('validation', 'perms'));
         if(!$this->perms->verifico()) { die("USTED NO TIENE PERMISOS PARA ACCEDER A ESTE SITIO."); }
+        if(!$this->perms->verificoPerfil(1)) { die("USTED NO TIENE PERMISOS PARA ACCEDER A ESTE SITIO."); }
     }
     
     function index() {

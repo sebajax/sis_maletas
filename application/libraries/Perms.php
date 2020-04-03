@@ -23,6 +23,11 @@ class Perms {
             $CI->session->sess_destroy();
             return false;
         }
+        
+        if(!$CI->session->has_userdata('id_perfil')) {
+            $CI->session->sess_destroy();
+            return false;
+        }        
 
         if(!$CI->session->has_userdata('is_logged')) {
             $CI->session->sess_destroy();
@@ -36,6 +41,21 @@ class Perms {
         
         if($CI->session->userdata('is_logged') == 1) {
             return true;
+        }
+    }
+    
+    public function verificoPerfil($perfilModulo) {
+        $CI = get_instance();
+        $CI->load->library("session");      
+        
+        if($CI->session->userdata('is_logged') == 1) {
+            if($CI->session->userdata('id_perfil') <= $perfilModulo) {
+                return true;
+            }else {
+                return false;
+            }
+        }else {
+            return false;
         }
     }
 }

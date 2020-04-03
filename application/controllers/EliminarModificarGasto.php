@@ -12,6 +12,7 @@ class EliminarModificarGasto extends CI_Controller {
         $this->load->library(array('validation', 'perms', 'session', 'funciones'));
         $this->load->helper(array('tipo_gasto_helper'));
         if(!$this->perms->verifico()) { die("USTED NO TIENE PERMISOS PARA ACCEDER A ESTE SITIO."); }
+        if(!$this->perms->verificoPerfil(2)) { die("USTED NO TIENE PERMISOS PARA ACCEDER A ESTE SITIO."); }
     }
     
     function index() {

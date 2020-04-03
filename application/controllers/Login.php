@@ -27,8 +27,10 @@ class Login extends CI_Controller {
             "usuario"     => $this->input->post('usuario'),
             "clave"       => $this->input->post('clave'),
         );
-        if($this->Login_model->validate($usuario) == 1) {
+        $response = $this->Login_model->validate($usuario);
+        if($response['intento'] == 1) {
             $this->session->set_userdata('is_logged', 1);
+            $this->session->set_userdata('id_perfil', $response['id_perfil']);
             $mensaje = "OK";
         }
         $this->session->set_userdata('ip_address', $this->input->ip_address());
