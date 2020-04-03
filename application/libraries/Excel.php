@@ -1,51 +1,90 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-require_once APPPATH."/third_party/phpexcel/PHPExcel.php";
+
+require 'vendor/autoload.php';
+
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+
 /**
  * Description of Excel
  *
  * @author sebastian.ituarte@gmail.com
  */
-class Excel extends PHPExcel {
 
-    public function __construct() {
-        parent::__construct();
-    }
-    
-    /*
-     * $header array(letra, info)
-     * $body array(array(info))
-     * $title string titulo excel
-     */
+class Excel {
+
+    /*    
+         * $header array(letra, info)
+         * $body array(array(info))
+         * $title string titulo excel
+    */     
     public function crearExcel($header, $body, $title) {
-        $objPHPExcel = new excel();
-        //activate worksheet number 1
-        $objPHPExcel->setActiveSheetIndex(0);        
-        //name the worksheet
-        $objPHPExcel->getActiveSheet()->setTitle($title);
-        //header
+        $spreadsheet = new Spreadsheet();
+        
+        //Header Styles Array
+        $styleArrayFirstRow = [
+            'font' => [
+                'bold' => true,
+            ]
+        ];    
+        
+        //Row Styles Array
+        $styleArrayAllRow = [
+            'alignment' => [
+                'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT,
+            ],
+        ];          
+        
+        // Set document properties
+        $spreadsheet->getProperties()->setCreator('Sistema Maletas - version'.VERSION)
+            ->setLastModifiedBy('Sistema Maletas - version'.VERSION)
+            ->setTitle('XLS '.$title)
+            ->setSubject('XLS '.$title)
+            ->setDescription('Documento excel generado por'. 'Sistema Maletas - version'.VERSION);
+ 
+        //Header
         foreach($header as $key => $row) {
-            $objPHPExcel->getActiveSheet()->setCellValue($this->letraExcel($key)."1", $row);
+            $spreadsheet->setActiveSheetIndex(0)->setCellValue($this->letraExcel($key)."1", $row);
         }
-        //body
+        
+        //Body
         $i = 2;
         foreach ($body as $result) {
             foreach($result as $key => $row) {
                 $letra = $this->letraExcel($key);
-                $objPHPExcel->getActiveSheet()->setCellValue($letra.$i, $row);
+                $spreadsheet->setActiveSheetIndex(0)->setCellValue($letra.$i, $row);
             }
             $i++;
         }
         
+        //Retrieve Highest Column / Row (e.g AE)
+        $highestColumn = $spreadsheet->getActiveSheet()->getHighestColumn();        
+        $highestRow    = $i-1;
+        
+        //Autosizing columns
+        foreach(range('A', $highestColumn) as $columnID) {
+            $spreadsheet->getActiveSheet()->getColumnDimension($columnID)->setAutoSize(true);
+        }
+
+        //Rename worksheet
+        $spreadsheet->getActiveSheet()->setTitle($title);
+        
+        //set first row bold
+        $spreadsheet->getActiveSheet()->getStyle('A1:'.$highestColumn.'1')->applyFromArray($styleArrayFirstRow);
+        
+        //align left data on spreadsheet
+        $spreadsheet->getActiveSheet()->getStyle('A1:'.$highestColumn.$highestRow)->applyFromArray($styleArrayAllRow);
+        
+        //Set active sheet index to the first sheet, so Excel opens this as the first sheet
+        $spreadsheet->setActiveSheetIndex(0);        
+        
+        //Redirect output to a client’s web browser (Xls)
         $filename=$title.date('YmdHis').".xls"; //save our workbook as this file name
         header('Content-Type: application/vnd.ms-excel'); //mime type
         header('Content-Disposition: attachment;filename="'.$filename.'"'); //tell browser what's the file name
         header('Cache-Control: max-age=0'); //no cache        
-        //save it to Excel5 format (excel 2003 .XLS file), change this to 'Excel2007' (and adjust the filename extension, also the header mime type)
-        //if you want to save it as .XLSX Excel 2007 format
-        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5'); 
-        ob_end_clean();
-        //force user to download the Excel file without writing it to server's HD
-        $objWriter->save('php://output');
+        $writer = IOFactory::createWriter($spreadsheet, 'Xls');
+        $writer->save('php://output');     
         exit();
     }
     

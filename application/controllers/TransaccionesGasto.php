@@ -35,7 +35,7 @@ class TransaccionesGasto extends CI_Controller {
     }  
     
     public function exportarExcel() {
-        $title = "transacciones_bdo";    
+        $title = "transacciones_gasto";    
         $header = array();
         $header[] = "ID GASTO";
         $header[] = "TIPO GASTO";

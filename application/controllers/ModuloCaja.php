@@ -50,7 +50,7 @@ class ModuloCaja extends CI_Controller {
      * TO DO
      */
     public function exportarExcel() {
-        $title = "transacciones_bdo";    
+        $title = "modulo_caja";    
         $header = array();
         $header[] = "ID GASTO";
         $header[] = "TIPO GASTO";
