@@ -110,7 +110,7 @@
                 <span class="fas fa-luggage-cart fa-2x" style="opacity: 0.1;"></span>
             </div>    
             <div class="form-group row d-flex justify-content-center">
-                <h6 style="opacity: 0.3;">Sistema de Gestion de Maletas - Version 1.1</h6>
+                <h6 style="opacity: 0.3;">Sistema de Gestion de Maletas - Version <?php echo VERSION; ?></h6>
             </div>
         </form>         
         

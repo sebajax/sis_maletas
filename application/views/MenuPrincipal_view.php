@@ -208,9 +208,12 @@
             </button>
         </div>
     </nav>
-   
+    
     <div id="imagen_principal" class="d-flex justify-content-center" style="padding-top: 70px; font-size: 34px;">
         <span class="fas fa-luggage-cart fa-10x" style="opacity: 0.1;"></span>
+    </div>
+    <div class="form-group row d-flex justify-content-center my-5">
+        <h6 style="opacity: 0.3;">Sistema de Gestion de Maletas - Version <?php echo VERSION; ?></h6>
     </div>
     
 </body>
