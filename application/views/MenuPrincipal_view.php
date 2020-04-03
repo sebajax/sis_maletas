@@ -117,6 +117,44 @@
          * FIN: MENU AUDITORIA
          */           
 
+        function cambiarClaveModal() {
+            $("#cambiar_clave").modal("show");
+        }
+        
+        function cambiarClave() {
+            var clave  = $("#clave").val();
+            var clave2 = $("#clave2").val();
+            
+            if(!clave) {
+                alert("ERROR: Clave ingresada no puede ser vacia.");
+                return false;
+            }
+            
+            if(clave.length < 6) {
+                alert("ERROR: La nueva clave debe contener al menos 6 digitos.");
+                return false;                
+            }
+            
+            if(clave != clave2) {
+                alert("ERROR: Claves no coinciden.");
+                return false;
+            }
+            
+            $.ajax({
+                method: "POST",
+                url: "<?php echo base_url("MenuPrincipal/cambiarClave"); ?>",
+                data: { clave: clave, clave2: clave }
+            }).done(function(data) {
+                if(data == 1) {
+                    alert("Clave actualizada correctamente!.");
+                    $("#clave").val("");
+                    $("#clave2").val("");
+                }else {
+                    alert("ERROR: no se pudo modificar la clave.");
+                }
+            });           
+        }
+
         function cerrarSession() {
             $.ajax({
                 method: "POST",
@@ -199,7 +237,7 @@
                 <?php } ?>
             </ul> 
             
-            <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="<?php echo strtoupper($this->session->usuario); ?>">
+            <button onclick="cambiarClaveModal()" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="<?php echo strtoupper($this->session->usuario); ?>">
                 <i class="text-white nav-link d-inline-flex flex-row-reverse fas fa-user fa-2x" style="opacity: 0.5;"></i>
             </button>
             
@@ -209,12 +247,43 @@
         </div>
     </nav>
     
-    <div id="imagen_principal" class="d-flex justify-content-center" style="padding-top: 70px; font-size: 34px;">
-        <span class="fas fa-luggage-cart fa-10x" style="opacity: 0.1;"></span>
-    </div>
-    <div class="form-group row d-flex justify-content-center my-5">
-        <h6 style="opacity: 0.3;">Sistema de Gestion de Maletas - Version <?php echo VERSION; ?></h6>
-    </div>
+    <form id="imagen_principal">
+        <div class="d-flex justify-content-center" style="padding-top: 70px; font-size: 34px;">
+            <span class="fas fa-luggage-cart fa-10x" style="opacity: 0.1;"></span>
+        </div>
+        <div class="form-group row d-flex justify-content-center my-5">
+            <h6 style="opacity: 0.3;">Sistema de Gestion de Maletas - Version <?php echo VERSION; ?></h6>
+        </div>
+    </form>
+    
+    <!-- Cambiar Clave modal -->
+    <div id="cambiar_clave" class="modal" role="dialog">
+        <div class="modal-dialog" role="document">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Cambiar Contraseña - <?php echo strtoupper($this->session->usuario); ?></h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body" id="cambiar_clave_form">
+                    <form>
+                        <div class="form-group">
+                            <label for="clave" class="control-label">Constraseña</label>
+                            <input id="clave" name="clave" placeholder="contraseña nueva" type="password" class="form-control"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="clave2" class="control-label">Re-Escribir</label>
+                            <input id="clave2" name="clave2" placeholder="re-escribir contraseña" type="password" class="form-control"/>
+                        </div>                   
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <input id="btn_cambiar_clave" name="btn_cambiar_clave" type="button" class="btn btn-primary" value="Confirmar" onclick="cambiarClave();" />
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>    
     
 </body>
 </html>

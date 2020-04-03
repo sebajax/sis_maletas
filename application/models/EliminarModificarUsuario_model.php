@@ -42,6 +42,20 @@ class EliminarModificarUsuario_model extends CI_Model {
         $this->db->update('usuarios', $data_update);
     } 
     
+    public function cambiarClave($clave) {
+        $where = array(
+            'usuario' => $this->session->usuario
+        );
+       
+        $data_update = array(
+            "clave" => sha1($clave)
+        );
+        
+        $this->db->where($where);
+        $this->db->update('usuarios', $data_update);
+        log_message("debug", $this->db->last_query());
+    }     
+    
     public function limpiarClave($usuario) {
         $where = array(
             'usuario' => $usuario
