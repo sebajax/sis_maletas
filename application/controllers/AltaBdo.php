@@ -24,9 +24,17 @@ class AltaBdo extends CI_Controller {
     }
     
     public function cargoValor() {
-        $aerolinea = $this->input->post('aerolinea');
-        $cantidad = $this->input->post('cantidad_maletas');
-        $valor = $this->AltaValores_model->getValor($this->input->post('aerolinea'), $this->input->post('grupo_sector'));
+        $aerolinea     = $this->input->post('aerolinea');
+        $cantidad      = $this->input->post('cantidad_maletas');
+        $grupo_sector  = $this->input->post('grupo_sector');
+        $lugar_sector  = $this->input->post('lugar_sector');
+        $fecha_llegada = $this->input->post('fecha_llegada');
+        
+        //obtener id_sector
+        $id_sector = getSector($grupo_sector, $lugar_sector);   
+        //obtengo valor
+        $valor = $this->AltaValores_model->getValor($aerolinea, $grupo_sector);
+        
         switch($aerolinea) {
             case 1: //AIRFRANCE 
             case 2: //KLM   
@@ -35,7 +43,7 @@ class AltaBdo extends CI_Controller {
                 }
                 break;
             case 3: //UNITED AIRLINES
-                $valor = $valor;
+                $valor = $this->calculoValorUnited($valor, $id_sector, $fecha_llegada);
                 break;
             case 4: //ALITALIA
                 $valor = $valor;
@@ -98,5 +106,13 @@ class AltaBdo extends CI_Controller {
         $valor_extra = $valor * 0.5;
         $cantidad_extra = $cantidad - 2;
         return ($valor + ($valor_extra * $cantidad_extra));        
+    }
+    
+    private function calculoValorUnited($valor, $id_sector, $fecha_llegada) {
+        if($this->AltaBdo_model->countUnited($id_sector, $fecha_llegada) > 0) {
+            return ($valor / 2);
+        }else {
+            return $valor;
+        }
     }
 }

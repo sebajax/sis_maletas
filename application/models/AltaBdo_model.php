@@ -22,4 +22,14 @@ class AltaBdo_model extends CI_Model {
         $this->db->from('bdo');
         return $this->db->count_all_results();
     } 
+    
+    public function countUnited($id_sector, $fecha_llegada) {
+        $this->db->select('*');
+        $where = array('id_aerolinea' => 3, 'id_sector' => $id_sector);
+        $where['fecha_llegada >='] = $fecha_llegada;
+        $where['fecha_llegada <='] = $fecha_llegada.' 23:59:59';
+        $this->db->where($where);
+        $this->db->from('bdo');
+        return $this->db->count_all_results();    
+    }
 }

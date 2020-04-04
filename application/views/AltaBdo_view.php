@@ -36,9 +36,17 @@
             
             $("#fecha_llegada").datepicker();
             
+            $("#fecha_llegada").on("change", function() {
+                cargoValor();
+            });            
+            
             $("#grupo_sector").on("change", function() {
                 cargoValor();
                 cargoLugares(this.value);
+            });
+            
+            $("#lugar_sector").on("change", function() {
+                cargoValor();
             });
             
             $("#aerolinea").on("change", function() {
@@ -185,18 +193,27 @@
         }  
         
         function cargoValor() {
-            var aerolinea    = $("#aerolinea").val();
-            var grupo_sector = $("#grupo_sector").val();
+            var aerolinea        = $("#aerolinea").val();
+            var grupo_sector     = $("#grupo_sector").val();
             var cantidad_maletas = $("#cantidad_maletas").val();
+            var lugar_sector     = $("#lugar_sector").val();
+            var fecha_llegada    = $("#fecha_llegada").val();
             var iva = 0;
             var total = 0;
             
-            if(aerolinea == 0 || grupo_sector == 0 || cantidad_maletas == 0) { return false; }
+            if(aerolinea == 0 || grupo_sector == 0 || cantidad_maletas == 0 || lugar_sector == 0 || fecha_llegada == 0 || !lugar_sector) { return false; }
+            
+            /*
+             * VERIFICO FECHAS
+             */
+            if(!isValidDate(fecha_llegada)) {
+                return false;                
+            }              
             
             $.ajax({
                 method: "POST",
                 url: "<?php echo base_url("AltaBdo/cargoValor"); ?>",
-                data: { aerolinea: aerolinea, grupo_sector: grupo_sector, cantidad_maletas: cantidad_maletas}
+                data: { aerolinea: aerolinea, grupo_sector: grupo_sector, cantidad_maletas: cantidad_maletas, lugar_sector: lugar_sector, fecha_llegada: fecha_llegada }
             }).done(function(data) {
                 iva = eval(data) * 0.19;
                 total = eval(iva) + eval(data);

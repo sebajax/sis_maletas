@@ -18,7 +18,7 @@ if(!function_exists('cargoLugares')) {
         $CI = get_instance();
         $CI->load->model('AltaValores_model');
         
-        $html = "<option> </option>";
+        $html = "<option value=''> </option>";
         
         if(empty($grupo_sector)) {
             return $html;
