@@ -9,7 +9,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Version of the system
 |
 */
-defined('VERSION') OR define('VERSION', "1.2");
+defined('SYSTEM_TITLE') OR define('SYSTEM_TITLE', "Sistema de Gestion de Maletas");
+defined('VERSION') OR define('VERSION', "1.31");
+defined('DEVELOPER_NAME') OR define('DEVELOPER_NAME', "Ing. Sebastian Ituarte");
 
 /*
 |--------------------------------------------------------------------------
