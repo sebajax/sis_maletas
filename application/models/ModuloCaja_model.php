@@ -14,14 +14,14 @@ class ModuloCaja_model extends CI_Model {
     public function montoInicial() {
         //ganancia
         $this->db->select_sum('transacciones_bdo_cerradas.valor');
-        $this->db->where('transacciones_bdo_cerradas.fecha_transaccion <=', date('Y/m/d 00:00:00'));
+        $this->db->where('transacciones_bdo_cerradas.fecha_transaccion <=', date('Y/m/d 23:59:59'));
         $query = $this->db->get('transacciones_bdo_cerradas');
         $row = $query->row();
         $total = $row->valor;
         
         //gastos
         $this->db->select_sum('gastos.monto');
-        $this->db->where('gastos.fecha <=', date('Y/m/d 00:00:00'));
+        $this->db->where('gastos.fecha <=', date('Y/m/d 23:59:59'));
         $query = $this->db->get('gastos');
         $row = $query->row();
         

@@ -38,7 +38,7 @@ class ModuloCaja extends CI_Controller {
         }
         
         $fecha_desde = date($fecha_desde." 00:00:00");
-        $fecha_hasta = date($fecha_hasta." 00:00:00");
+        $fecha_hasta = date($fecha_hasta." 23:59:59");
         
         $result_ingresos = $this->ModuloCaja_model->IngresosCaja($fecha_desde, $fecha_hasta);
         $this->session->set_userdata('result_ingresosCaja', $this->funciones->objectToArray($result_ingresos));
