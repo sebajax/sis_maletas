@@ -35,7 +35,10 @@ class ModuloCaja extends CI_Controller {
         if(!empty($mes)) {
             $fecha_desde = date("Y")."/01/01";
             $fecha_hasta = date("Y")."/".$mes."/31";
-        }        
+        }
+        
+        $fecha_desde = date($fecha_desde." 00:00:00");
+        $fecha_hasta = date($fecha_hasta." 00:00:00");
         
         $result_ingresos = $this->ModuloCaja_model->IngresosCaja($fecha_desde, $fecha_hasta);
         $this->session->set_userdata('result_ingresosCaja', $this->funciones->objectToArray($result_ingresos));
