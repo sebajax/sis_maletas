@@ -34,4 +34,20 @@ class IngresoCaja_model extends CI_Model {
         $this->db->insert("transacciones_bdo_cerradas", $data_trans);
         $this->db->trans_complete();
     }
+    
+    public function nextBdoNumber($id_aerolinea) {
+        $this->db->select_max('numero');
+        $where['id_aerolinea'] = $id_aerolinea;
+        $this->db->where($where);
+        $query = $this->db->get('bdo');
+        $row = $query->row();   
+        return $row->numero + 1;
+    }
+    
+    public function firstIdSector() {
+        $this->db->select_min('id_sector');
+        $query = $this->db->get('sectores');
+        $row = $query->row(); 
+        return $row->id_sector;
+    }
 }
