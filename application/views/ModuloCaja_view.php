@@ -112,7 +112,8 @@
         
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item active">Modulo caja</li>
+                <li class="breadcrumb-item text-primary">Menu Caja</li>
+                <li class="breadcrumb-item active">Modulo Caja</li>
             </ol> 
         </nav>  
     

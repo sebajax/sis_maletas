@@ -4,12 +4,12 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alta Gasto</title>
+    <title>Ingreso Caja</title>
     <?php require_once "MenuPrincipal_view.php"; ?>
     
     <script type="text/javascript">
         $(document).ready(function(){
-            $("#menu_gasto").addClass("active");
+            $("#menu_caja").addClass("active");
             $("#imagen_principal").remove();
         });
         
@@ -37,20 +37,20 @@
             $("#fecha").datepicker();
         });
         
-        function altaGasto() {
+        function ingresoCaja() {
             $("span.text-danger").html('');
             
-            var tipo_gasto = $("#tipo_gasto").val();
-            var fecha      = $("#fecha").val();
-            var comentario = $("#comentario").val();
-            var monto      = $("#monto").val();
+            var tipo_ingreso = $("#tipo_ingreso").val();
+            var fecha        = $("#fecha").val();
+            var comentario   = $("#comentario").val();
+            var monto        = $("#monto").val();
             
             /*
              * VERIFICO ELEMENTOS VACIOS 
              */
-            if(!tipo_gasto) {
-                $("#tipo_gasto_error").html(manejoMensajes("vacio", "tipo_gasto"));
-                $("#tipo_gasto").focus();
+            if(!tipo_ingreso) {
+                $("#tipo_ingreso_error").html(manejoMensajes("vacio", "tipo_ingreso"));
+                $("#tipo_ingreso").focus();
                 return false;
             }
             
@@ -92,29 +92,31 @@
             
             $.ajax({
                 method: "POST",
-                url: "<?php echo base_url("AltaGasto/altaGasto"); ?>",
-                data: { tipo_gasto: tipo_gasto, fecha: fecha, comentario: comentario, monto: monto }
+                url: "<?php echo base_url("IngresoCaja/ingresoCaja"); ?>",
+                data: { tipo_ingreso: tipo_ingreso, fecha: fecha, comentario: comentario, monto: monto }
             }).done(function(data) {
-                if(data == "OK") {
+                if(data != "ERROR") {
                     mostrarMensaje("Datos almacenados correctamente.", "alert-success");
-                    resetear_gasto();
+                    resetear_ingreso();
+                    $("#saldo_inicial").html(data);
                 }else {
                     mostrarMensaje("Datos erroneos favor verifique.", "alert-danger");
                 }
             });
         }
         
-        function verificar_gasto() {
+        function verificar_ingreso() {
             $('#confirm').modal({
                 backdrop: 'static',
                 keyboard: false
             })
             .one('click', '#confirmar', function() {
-                altaGasto();
+                ingresoCaja();
             });                
         }
         
-        function resetear_gasto() {
+        function resetear_ingreso() {
+            $("#tipo_ingreso").val("");
             $("#fecha").val("");
             $("#comentario").val("");
             $("#monto").val("");
@@ -129,28 +131,27 @@
         <div class="col-sm">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item text-primary">Menu Gasto</li>
-                    <li class="breadcrumb-item active">Alta Gasto</li>
+                    <li class="breadcrumb-item text-primary">Menu Caja</li>
+                    <li class="breadcrumb-item active">Ingreso Caja</li>
                 </ol> 
             </nav>      
             
             <div class="jumbotron w-100 p-3 mx-auto">
 
-                <legend>Alta Gasto</legend>
+                <legend>Ingreso Caja</legend>
 
                 <form>
-
+                    
+                    <div class="mb-3" id="saldo_inicial"><?php echo $saldo_inicial; ?></div>
+                    
                     <div class="form-group">
                         <div class="input-group mb-3">
                             <div class="input-group-prepend w-25">
-                                <span class="input-group-text bg-primary text-white w-100" id="tipo_gasto_addon">Tipo Gasto</span>
+                                <span class="input-group-text bg-primary text-white w-100" id="tipo_ingreso_addon">Tipo Ingreso</span>
                             </div>                    
-                            <?php
-                            $attributes = 'class = "form-control" id = "tipo_gasto" aria-label="tipo_gasto" aria-describedby="tipo_gasto_addon"';
-                            echo form_dropdown('tipo_gasto', $tipo_gasto, set_value('tipo_gasto'), $attributes);
-                            ?>
+                            <input aria-label="tipo ingreso" aria-describedby="tipo_ingreso_addon" id="tipo_ingreso" name="tipo_ingreso" placeholder="tipo ingreso" type="text" class="form-control">
                         </div>
-                        <span id="tipo_gasto_error" class="text-danger"></span>
+                        <span id="tipo_ingreso_error" class="text-danger"></span>
                     </div>
 
                     <div class="form-group">
@@ -193,7 +194,7 @@
                     
                     <div class="form-group">
                         <div class="d-flex flex-row-reverse">
-                            <div class="p-2"><input id="btn_insertar" name="btn_insertar" type="button" class="btn btn-outline-success" value="Alta Gasto" onclick="verificar_gasto();"></div> 
+                            <div class="p-2"><input id="btn_insertar" name="btn_insertar" type="button" class="btn btn-outline-success" value="Ingreso Caja" onclick="verificar_ingreso();"></div> 
                             <div class="p-2"><input id="btn_cancelar" name="btn_cancelar" type="reset" class="btn btn-outline-danger" value="Cancelar"></div>
                         </div>
                     </div>                    
@@ -211,7 +212,7 @@
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-body">
-                Esta seguro desea ingresar este gasto ?. 
+                Esta seguro desea ingresar el monto a caja ?. 
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-dismiss="modal" id="confirmar">Confirmar</button>

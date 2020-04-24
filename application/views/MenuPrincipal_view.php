@@ -60,6 +60,19 @@
          */   
         
         /*
+         * INICIO: MENU CAJA
+         */ 
+        function irModuloCaja() {
+            window.location.href = "<?php echo base_url("ModuloCaja"); ?>";
+        }
+        function irIngresoCaja() {
+            window.location.href = "<?php echo base_url("IngresoCaja"); ?>";
+        }        
+        /*
+         * FIN: MENU CAJA
+         */        
+        
+        /*
          * INICIO: MENU SECTOR
          */   
         function irAltaSectores() {
@@ -102,6 +115,25 @@
          */  
         
         /*
+         * INICIO: MENU SIMULADO
+         */         
+        function irIngresoCajaSimulado() {
+            window.location.href = "<?php echo base_url(""); ?>";
+        }
+        function irGastoSimulado() {
+            window.location.href = "<?php echo base_url(""); ?>";
+        }   
+        function irConsultarSimulado() {
+            window.location.href = "<?php echo base_url(""); ?>";
+        }  
+        function irReiniciarSimulado() {
+            window.location.href = "<?php echo base_url(""); ?>";
+        }  
+        /*
+         * FIN: MENU SIMULADO
+         */          
+        
+        /*
          * INICIO: MENU ADMINISTRADOR
          */         
         function irAuditoria() {
@@ -114,7 +146,7 @@
             window.location.href = "<?php echo base_url("EliminarModificarUsuario"); ?>";
         }         
         /*
-         * FIN: MENU AUDITORIA
+         * FIN: MENU ADMINISTRADOR
          */           
 
         function cambiarClaveModal() {
@@ -176,7 +208,7 @@
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                 <?php if($this->perms->verificoPerfil(2)) { ?>
                 <li class="nav-item dropdown px-3" id="menu_bdo">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Menu BDO</a>
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">BDO</a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="#" onclick="irAltaBdo();">INGRESAR B.D.O</a>
                         <a class="dropdown-item" href="#" onclick="irCierreCaso();">CIERRE CASO</a>
@@ -187,7 +219,7 @@
                 </li> 
                 
                 <li class="nav-item dropdown px-3" id="menu_gasto">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Menu Gasto</a>
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Gasto</a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="#" onclick="irAltaGasto();">INGRESAR GASTO</a>
                         <a class="dropdown-item" href="#" onclick="irAltaTipoGasto();">INGRESAR TIPO DE GASTO</a>
@@ -197,10 +229,16 @@
                     </div>
                 </li> 
                 
-                <li class="nav-item px-3"><a id="menu_caja" class="nav-link" href="<?php echo base_url("ModuloCaja"); ?>">Caja</a></li>
+                <li class="nav-item dropdown px-3" id="menu_caja">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Caja</a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#" onclick="irModuloCaja();">MODULO CAJA</a>
+                        <a class="dropdown-item" href="#" onclick="irIngresoCaja();">INGRESO CAJA</a>
+                    </div>
+                </li>                 
                 
                 <li class="nav-item dropdown px-3" id="menu_sector">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Menu Sector</a>
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sector</a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="#" onclick="irAltaSectores();">INGRESAR SECTOR</a>
                         <a class="dropdown-item" href="#" onclick="irConsultarEliminarSectores();">CONSULTAR MODIFICAR ELIMINAR SECTORES</a>
@@ -209,25 +247,33 @@
                 </li> 
                 
                 <li class="nav-item dropdown px-3" id="menu_aerolinea">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Menu Aerolinea</a>
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Aerolinea</a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="#" onclick="irAltaAerolineas();">INGRESAR AEROLINEA</a>
                         <a class="dropdown-item" href="#" onclick="irConsultarEliminarAerolineas();">CONSULTAR ELIMINAR MODIFICAR AEROLINEAS</a>
                     </div>
                 </li>      
                 
-                <li class="nav-item dropdown px-3" id="menu_valores">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Menu Valores</a>
+                <li class="nav-item dropdown px-3" id="menu_valor">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Valor</a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="#" onclick="irAltaValores();">INGRESAR VALORES</a>
                         <a class="dropdown-item" href="#" onclick="irConsultarEliminarValores();">CONSULTAR MODIFICAR ELIMINAR VALORES</a>
                     </div>
                 </li>   
+                
+                <li class="nav-item dropdown px-3" id="menu_simulado">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Simulado</a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#" onclick="irAltaValores();">INGRESAR VALORES</a>
+                        <a class="dropdown-item" href="#" onclick="irConsultarEliminarValores();">CONSULTAR MODIFICAR ELIMINAR VALORES</a>
+                    </div>
+                </li>                 
                 <?php } ?>
                 
                 <?php if($this->perms->verificoPerfil(1)) { ?>
                 <li class="nav-item dropdown px-3" id="menu_admin">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Menu Admin</a>
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Admin</a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="#" onclick="irAuditoria();">AUDITORIA</a>
                         <a class="dropdown-item" href="#" onclick="irAltaUsuario();">ALTA USUARIO</a>

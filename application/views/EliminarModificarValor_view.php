@@ -9,7 +9,7 @@
     
     <script type="text/javascript">
         $(document).ready(function() {
-            $("#menu_valores").addClass("active");
+            $("#menu_valor").addClass("active");
             $("#imagen_principal").remove();
         });           
        
@@ -90,7 +90,7 @@
         
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item text-primary">Menu Valores</li>
+                <li class="breadcrumb-item text-primary">Menu Valor</li>
                 <li class="breadcrumb-item active">Eliminar Modificar Valores</li>
             </ol> 
         </nav>         
