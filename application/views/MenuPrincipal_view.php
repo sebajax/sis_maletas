@@ -117,13 +117,13 @@
         /*
          * INICIO: MENU SIMULADO
          */         
-        function irIngresoCajaSimulado() {
-            window.location.href = "<?php echo base_url(""); ?>";
+        function irAltaGastoSimulado() {
+            window.location.href = "<?php echo base_url("AltaGastoSimulado"); ?>";
         }
-        function irGastoSimulado() {
-            window.location.href = "<?php echo base_url(""); ?>";
+        function irIngresoCajaSimulado() {
+            window.location.href = "<?php echo base_url("IngresoCajaSimulado"); ?>";
         }   
-        function irConsultarSimulado() {
+        function irModuloCajaSimulado() {
             window.location.href = "<?php echo base_url(""); ?>";
         }  
         function irReiniciarSimulado() {
@@ -262,13 +262,17 @@
                     </div>
                 </li>   
                 
+                <!--
                 <li class="nav-item dropdown px-3" id="menu_simulado">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Simulado</a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#" onclick="irAltaValores();">INGRESAR VALORES</a>
-                        <a class="dropdown-item" href="#" onclick="irConsultarEliminarValores();">CONSULTAR MODIFICAR ELIMINAR VALORES</a>
+                        <a class="dropdown-item" href="#" onclick="irAltaGastoSimulado();">INGRESO GASTO (SIMULADO)</a>
+                        <a class="dropdown-item" href="#" onclick="irIngresoCajaSimulado();">INGRESO CAJA (SIMULADO)</a>
+                        <a class="dropdown-item" href="#" onclick="irModuloCajaSimulado();">MODULO CAJA (SIMULADO)</a>
+                        <a class="dropdown-item" href="#" onclick="irReiniciarSimulado();">REINICIAR SIMULADO</a>
                     </div>
-                </li>                 
+                </li>
+                -->
                 <?php } ?>
                 
                 <?php if($this->perms->verificoPerfil(1)) { ?>
