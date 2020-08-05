@@ -12,11 +12,13 @@ class IngresoCaja_model extends CI_Model {
     }
     
     public function nextBdoNumber($id_aerolinea) {
-        $this->db->select_max('numero');
+        $this->db->select_max('CAST(numero AS SIGNED)', 'numero');
         $where['id_aerolinea'] = $id_aerolinea;
         $this->db->where($where);
         $query = $this->db->get('bdo');
-        $row = $query->row();   
+        if($query->num_rows() == 0) 
+            return null;
+        $row = $query->row();
         return $row->numero + 1;
     }
     

@@ -13,4 +13,5 @@
 <link href="<?php echo base_url("vendor/fortawesome/font-awesome/css/all.min.css"); ?>" rel="stylesheet" type="text/css" />
 
 <!--load personal functions js file-->
-<script src="<?php echo base_url('assets/js/functions.js'); ?>"></script>      
+<script src="<?php echo base_url('assets/js/functions.js'); ?>"></script>
+<link href="<?php echo base_url('assets/css/app.css'); ?>" rel="stylesheet" type="text/css" />

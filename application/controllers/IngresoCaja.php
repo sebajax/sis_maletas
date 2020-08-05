@@ -33,6 +33,10 @@ class IngresoCaja extends CI_Controller {
     public function ingresoCaja() {
         $id_aerolinea = 99;
         $numero_bdo   = $this->IngresoCaja_model->nextBdoNumber($id_aerolinea);
+        if(is_null($numero_bdo)) {
+            echo "ERROR";
+            return false;
+        }
         //Alta BDO
         $data = array(
             "numero"               => $numero_bdo,

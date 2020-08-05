@@ -172,7 +172,7 @@
                             <div class="input-group-prepend w-25">
                                 <span class="input-group-text bg-primary text-white w-100" id="dureccion_addon">Comentario</span>
                             </div>
-                            <textarea class="form-control noresize" rows="5" id="comentario" placeholder="comentario" aria-label="comentario" aria-describedby="comentario_addon"></textarea>
+                            <textarea class="form-control" rows="5" id="comentario" placeholder="comentario" aria-label="comentario" aria-describedby="comentario_addon"></textarea>
                         </div>
                         <span id='comentario_error' class="text-danger"></span>
                     </div>                      
